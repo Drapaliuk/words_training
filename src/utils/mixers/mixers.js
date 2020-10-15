@@ -1,3 +1,4 @@
+const a = 1;
 export const mixingElement = function(arr) {
     const copyArr = arr.slice()
     const permanentLength = copyArr.length + 1 
