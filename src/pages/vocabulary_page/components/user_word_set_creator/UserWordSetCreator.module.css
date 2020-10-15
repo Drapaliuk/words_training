@@ -1,0 +1,48 @@
+.form-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form {
+    
+}
+.input-block {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.cancel-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: red;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.input {
+    display: block;
+    padding: 7px;
+    width: 200px;
+    outline: none;
+    border: 2px solid #000;
+}
+
+
+.submit-button {
+    margin: auto;
+    display: block;
+    padding: 3px 25px 3px 25px;
+    width: 150px;
+    height: 45px;
+    border: 1px sandybrown;
+    background-color: green;
+    border-radius: 20px;
+    color: aliceblue;
+    font-size: 1.1rem;
+    cursor: pointer;
+    outline: none;
+}

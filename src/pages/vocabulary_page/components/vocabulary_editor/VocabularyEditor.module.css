@@ -1,0 +1,109 @@
+.word-block {
+    display: block;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.word-wrapper {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.circle {
+    border: 3px solid #000;
+    min-width: 25px;
+    min-height: 25px;
+    border-radius: 100%;
+    display: block;
+    cursor: pointer;
+
+}
+
+.word {
+    background-color: #ffc845;
+    cursor: pointer;
+    width: 100%;
+    min-width: 100px;
+    border: none;
+    padding: 7px 10px 7px 10px;
+    margin-left: 10px;
+}
+
+.training-mode-list {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+}
+
+
+.check-img {
+    cursor: pointer;
+    display: block;
+}
+
+.words-list {
+    padding: 50px;
+    /* outline: 4px solid yellow; */
+    position: relative;
+}
+
+.main-container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.load-more {
+    display: block;
+    margin: auto;
+    background-color: #caccd1;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 25px;
+
+}
+
+.load-more img {
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.wordset-inner-container {
+    position: relative;
+    
+}
+
+.all-selected-words-wrapper {
+    position: absolute;
+    right: 100px;
+    top: 30px;
+}
+
+.selected {
+    background-color: #537b35;
+}
+
+.vocabulary-add-button {
+    margin-left: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.training-button {
+    text-decoration: none;
+    padding: 10px;
+    color: #f2f6fa;
+    background-color: #537b35;
+    margin-left: 10px;
+    border-radius: 25px;
+}

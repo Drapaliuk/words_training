@@ -1,0 +1,18 @@
+.mainStyles {
+    outline: 1px solid #000;
+    /* width: 500px;
+    height: 400px;
+    padding: 10px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+}
+
+.container {
+    max-width: 500px;  
+    width: 100%;
+    margin: auto;
+    margin-top: 75px;
+}

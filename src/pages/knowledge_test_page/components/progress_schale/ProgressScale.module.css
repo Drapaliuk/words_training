@@ -1,0 +1,33 @@
+.schale {
+    width: 400px;
+    display: flex;
+    margin-top: 25px;
+    height: 4px;
+}
+
+.progress-item {
+    background-color: #caccd1;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    
+
+}
+
+
+
+.progress-item:hover {
+}
+
+.status-mistake {
+    background-color: #ff0000;
+}
+
+.status-success {
+    background-color: #34bf49;
+}
+.status-mistake:hover,
+.status-success:hover {
+    transform: scale(1.4);
+}

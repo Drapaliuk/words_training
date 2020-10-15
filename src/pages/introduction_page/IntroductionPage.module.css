@@ -1,0 +1,33 @@
+.main-container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.introduction-page__inner-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+} 
+
+.introduction-block {
+    /* outline: 1px solid black; */
+    padding: 20px;
+}
+
+.introduction-image {
+    margin-bottom: 25px;
+}
+
+.default-button {
+    padding: 20px;
+    background-color: #01cd74;
+    border-radius: 20px;
+    display: block;
+    border: none;
+    color: #f2f6fa;
+    margin: auto;
+    margin-bottom: 15px;
+    cursor: pointer;
+}

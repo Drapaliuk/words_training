@@ -1,0 +1,27 @@
+.wordsets-list-link {
+    text-decoration: none;
+    color: #f2f6fa;
+    width: 300px;
+    background-color: #56a0d3;
+    display: inline-block;
+    padding: 5px 25px 5px 25px;
+    transition: all .3s linear;
+    border: 3px solid transparent
+}
+
+.wordsets-list-link:hover {
+    border-color: #000;
+}
+
+.wordsets-list-item {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.wordsets-list {
+    padding-inline-start: 0;
+    list-style: none;
+    width: 300px;
+    margin: auto;
+    margin-top: 150px;
+}

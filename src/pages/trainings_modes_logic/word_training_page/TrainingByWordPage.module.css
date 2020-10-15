@@ -1,0 +1,84 @@
+.mainStyles {
+    width: 500px;
+    height: 400px;
+    padding: 10px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.trueAnswerField {
+    border: 2px solid #000;
+    height: 50px;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.variants-container {
+    height: 200px;
+    width: 400px;
+    list-style: none;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    outline: 4px solid yellow;
+    display: flex;
+
+}
+
+.questionWord {
+    text-align: center;
+    font-size: 25px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.skip-button,
+.next-task-button {
+    border: none;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    
+    outline: none;
+    cursor: pointer;
+    background-color: #e4002b;
+    opacity: .6;
+    margin-bottom: 15px;
+    transition: all .2s linear;
+}
+
+.next-task-button {
+    background-color: #537b35;
+    opacity: 1;
+}
+.skip-button:hover {
+    opacity: 1;
+}
+
+.help-button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+
+

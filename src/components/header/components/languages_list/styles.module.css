@@ -1,0 +1,11 @@
+.language-list {
+    position: absolute;
+    z-index: 9999;
+}
+
+.list-item {
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    width: 50px;
+}

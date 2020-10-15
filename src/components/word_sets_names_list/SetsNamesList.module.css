@@ -1,0 +1,16 @@
+.wordsets-list-link {
+    text-decoration: none;
+    color: #f2f6fa;
+}
+
+.wordsets-list-item {
+    margin-bottom: 2px;
+    background-color: #ecb731;
+    padding: 5px 25px 5px 25px;
+    text-align: center;
+}
+
+.wordsets-list {
+    padding-inline-start: 0;
+    list-style: none;
+}

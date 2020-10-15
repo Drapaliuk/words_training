@@ -1,0 +1,24 @@
+.review-task {
+}
+
+.task-list {
+    padding-inline-start: 0;
+    list-style: none;
+    margin: 5px 0;
+}
+
+.task-question-word {
+    font-weight: 700;
+    text-align: center;
+}
+
+.task-list-item {
+    cursor: pointer;
+}
+
+.letter {
+    padding: 5px;
+    border: 1px solid #000;
+    margin-right: 5px;
+    display: inline-block;
+}

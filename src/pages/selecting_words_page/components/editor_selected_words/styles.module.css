@@ -1,0 +1,34 @@
+.edit-selected-words-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.selected-words-wrapper {
+    /* outline: 1px solid yellow; */
+}
+
+.selected-words-list {
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.selected-words-item {
+    background-color: #e4002b;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 0 5px 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}

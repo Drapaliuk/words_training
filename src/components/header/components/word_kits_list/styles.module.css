@@ -1,0 +1,26 @@
+.list {
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.list-item {
+    margin-bottom: 2px;
+    background-color: #ecb731;
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+    color: #f2f6fa;
+    background-color: green;
+    display: inline-block;
+    width: 100px;
+    padding: 5px 20px 5px 20px;
+    transition: all .3s linear;
+    border-bottom: 3px solid transparent;
+    text-align: center;
+}
+
+.link:hover {
+    border-bottom-color: #000;
+}

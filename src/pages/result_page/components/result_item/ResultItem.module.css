@@ -1,0 +1,82 @@
+.main-info {
+    max-width: 300px;
+    width: 100%;
+    margin: auto;
+    background-color: gray;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: sans-serif;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    transition: all .2s linear ;
+
+}
+
+.full-info {
+    border: 1px solid #000;
+    max-width: 300px;
+    width: 100%;
+    margin: auto;
+    padding-left: 15px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.true-answer:hover {
+    color: green;
+    transform: translateX(5px);
+}
+
+.was-mistake:hover {
+    color: red;
+    transform: translateX(-5px);
+
+}
+
+.was-skipped:hover {
+    color: yellow;
+    /* transform: translateX(-10px); */
+
+}
+
+.more-button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    /* background-color: red; */
+    text-align: center;
+    box-sizing: border-box;
+
+    padding: 0;
+    padding-bottom: 12px;
+}
+
+.word {
+    display: inline-block;
+    margin: 0;
+}
+
+.mistake-details-button,
+.task-review-button {
+    background-color: gray;
+    padding: 4px 10px;
+    border: none;
+    color: #fff;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.task-review-button {
+    margin-top: 10px;
+}

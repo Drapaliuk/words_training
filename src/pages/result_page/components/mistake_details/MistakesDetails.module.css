@@ -1,0 +1,32 @@
+.one-letter-block {
+    /* margin-bottom: 15px; */
+    /* padding: 10px; */
+    /* border: 1px solid #000; */
+    
+}
+
+.main-styles {
+    margin-right: 10px;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+
+}
+
+.mistake-letter {
+    color: red;
+}
+
+.true-letter {
+    color: green;
+    font-weight: 700;
+}
+
+.mistake-details-list {
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.arrow-down {
+    color: #000;
+    display: block;
+}

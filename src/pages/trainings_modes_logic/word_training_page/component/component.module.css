@@ -1,0 +1,28 @@
+.variantItems {
+    margin-bottom: 10px;
+}
+
+.variantButton,
+.trueAnswer,
+.mistakeAnswer {
+    height: 40px;
+    border: none;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+    background-color: #f3f4f7;
+    width: 300px;
+    transition: all .3s linear ;
+    font-size: 1.3rem;
+}
+.variantButton:hover {
+    background-color: #caccd1;
+}
+
+.trueAnswer {
+    background-color: #0abf53;
+}
+
+.mistakeAnswer {
+    background-color: red;
+}

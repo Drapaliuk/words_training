@@ -1,0 +1,158 @@
+.mainStyles {
+    min-width: 500px;
+    height: 400px;
+    padding: 10px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.square {
+    width: 510px;
+    height: 50px;
+    border: 1px solid green;
+    margin-right: 7px;
+    margin-left: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+
+
+.error {
+    outline: 3px solid red;
+    width: 500px;
+    height: 400px;
+    padding: 10px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.emptySquares,
+.offerLetter {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.lettersButton {
+    
+}
+
+.help-button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.skip-button,
+.next-task-button {
+    border: none;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    
+    outline: none;
+    cursor: pointer;
+    background-color: #e4002b;
+    opacity: .6;
+    margin-bottom: 15px;
+    transition: all .2s linear;
+}
+
+.next-task-button {
+    background-color: #537b35;
+    opacity: 1;
+    text-decoration: none;
+    color: #fff;
+}
+.skip-button:hover {
+    opacity: 1;
+}
+
+.emptySquares {
+    margin-bottom: 30px;
+    /* border: 1px solid green; */
+    padding: 8px;
+    min-width: 70px;
+    height: 70px;
+}
+
+.deleteButton {
+    width: 100px;
+    height: 50px;
+    margin-bottom: 25px;
+
+}
+
+.translatedText {
+    font-size: 25px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.nextButton {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 8px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.forKeybordWriting,
+.forKeybordWriting:focus,
+.forKeybordWriting:active {
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    padding: 0;
+    width: 0;
+    height: 0;
+}
+
+
+.style {
+    width: 150px;
+    height: 50px;
+    border: 1px solid green;
+    margin-right: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    transition: all .1s linear;
+}
+
+.style:hover {
+    background-color: #00c16e;
+
+}
+
+.hintStyle {
+    width: 50px;
+    height: 50px;
+    border: 1px solid green;
+    background-color: #000;
+    color: #fff;
+    margin-right: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.main-container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    outline: 4px solid yellow;
+}
