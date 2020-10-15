@@ -5,7 +5,7 @@ import { userContentStoreReducer } from './user_content_store/user_content_store
 import { trainingResultsReducer } from './trainings_results/training_results';
 import { reducer as formReducer } from 'redux-form';
 import { authorizationReducer } from './authorization/authorization_reducer';
-import { aboutUserReducer } from './about_user/about_user_reducer';
+import { personalUserDataReducer } from './personal_user_data/personal_user_data';
 
 
 
@@ -15,7 +15,7 @@ export const combinedReducers = combineReducers({
     userContentStore: userContentStoreReducer,
     trainingResults: trainingResultsReducer,
     authorization: authorizationReducer,
-    aboutUser: aboutUserReducer,
+    personalUserData: personalUserDataReducer,
     form: formReducer,
 
 })

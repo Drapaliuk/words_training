@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import styles from './styles.module.css';
-import { selectingPageLanguage } from '../../../../redux/actions/about_user/about_user_actions';
+import { selectingPageLanguage } from '../../../../redux/actions/personal_user_data/personal_user_data_actions';
+
 
 
 

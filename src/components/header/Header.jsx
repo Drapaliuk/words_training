@@ -16,7 +16,7 @@ export const Header = function() {
     const [isVisibleUserCabinet, setVisibleUserCabinet] = React.useState(false);
     const [isVisibleTrainingsList, setVisibleTrainingsList] = React.useState(false);
     const isAuthorization = useSelector(state => authorizationSelectors.isAuthorization(state));
-    const selectedAppLanguage = useSelector(state => state.aboutUser.selectedLanguage)
+    const selectedAppLanguage = useSelector(state => state.personalUserData.selectedLanguage)
 
 
     const handlers = {
