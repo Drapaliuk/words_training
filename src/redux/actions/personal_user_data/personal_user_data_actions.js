@@ -11,7 +11,6 @@ export const selectingPageLanguage = selectedLanguage => {
 export const fetchingUserPersonalData = (userId) => (dispatch) => {
     getUserPersonalData(userId).then(({data, err}) => {
         if(err) throw err;
-        console.log('data', data)
         if(data.responseCode === 1) {
             dispatch({type: FETCHING_PERSONAL_DATA, serverPayload: data.personalData})
         }
