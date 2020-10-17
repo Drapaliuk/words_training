@@ -21,11 +21,12 @@ export const logOut = () => ({type: LOG_OUT})
 export const signIn = (authData) => {
     return (dispatch) => {
         authAPI.signIn(authData)
-               .then(({data}) => {
-                   if(data.responseCode === 1) {
+               .then((response) => {
+                   console.log(response)
+                   if(response.data.responseCode === 1) {
                        const isAuthorization = true
-                       console.log('data', data)
-                       dispatch({type: SIGN_IN, serverPayload: {userId: data.userId, isAuthorization: true}})
+                       console.log('response.data', response.data)
+                       dispatch({type: SIGN_IN, serverPayload: {userId: response.data.userId, isAuthorization: true}})
                        return
                    }
                })

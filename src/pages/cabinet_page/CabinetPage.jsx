@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Header } from '../../components/header/Header';
 import { fetchingUserPersonalData } from '../../redux/actions/personal_user_data/personal_user_data_actions';
 import { personalUserDataSelectors } from '../../redux/selectors/personal_user_data/personal_user_data_selector';
-import { ChangePersonalDataForm } from './componetnts/index';
+import { FormForChangePersonalData } from './componetnts/index';
 import { changePersonaUserData, saveNewPersonalUserData } from '../../redux/actions/personal_user_data/personal_user_data_actions';
-
-import { styles } from './CabinetPage.module.css'
+import { authorizationSelectors } from '../../redux/selectors/authorization_selectors';
+import { styles } from './CabinetPage.module.css' 
 
 export const CabinetPage = function() {
     const dispatch = useDispatch()
+    const userId = useSelector(state => authorizationSelectors.getUserId(state))
     React.useEffect(() => {
-         dispatch(fetchingUserPersonalData("5f82ee64f1cb7f345ce05193"))
+         dispatch(fetchingUserPersonalData(userId))
     }, [])
 
 
@@ -28,23 +29,19 @@ export const CabinetPage = function() {
     }
 
     const onSaveNewPersonalUserData = () => {
-        dispatch(saveNewPersonalUserData())
+        dispatch(saveNewPersonalUserData(userId, temporaryPersonalData))
     }
 
-    console.log(personalData)
     const [isVisibleChangeForm, setVisibleChangeForm] = React.useState(false);
     const [isVisiblePersonalData, setVisiblePersonalData] = React.useState(false);
 
     return ( 
-        <div>
+        <div className = {styles.wrapper}>
             <Header />
-
-            <div>
+            <div className = {styles['personal-data-wrapper']}>
                 <div>Особисті дані</div>
                 <button onClick = {() => setVisiblePersonalData(!isVisiblePersonalData)}>...</button>
-
                 {
-                
                     isVisiblePersonalData
                     ?
                     <div>
@@ -58,11 +55,9 @@ export const CabinetPage = function() {
                 }
             </div>
 
-            <ChangePersonalDataForm onSaveNewPersonalUserData = {onSaveNewPersonalUserData} temporaryPersonalData = {temporaryPersonalData} onChangePersonalUserData = {onChangePersonalUserData}/>
-
-           
-
-
+            <FormForChangePersonalData onSaveNewPersonalUserData = {onSaveNewPersonalUserData}
+                                    temporaryPersonalData = {temporaryPersonalData} 
+                                    onChangePersonalUserData = {onChangePersonalUserData}/>
         </div>
     )
 } 

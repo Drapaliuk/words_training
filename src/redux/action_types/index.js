@@ -23,7 +23,7 @@ export const FINISH_TRAINING_ID_001 = 'FINISH TRAINING ID 001';
 export const FINISH_TRAINING_ID_002 = 'FINISH TRAINING ID 002';
 export const LOGINING = 'LOGINING';
 export const SAVE_USER_PERSONAL_DATA = 'SAVE_USER_PERSONAL_DATA';
-
+export const CLEAR_USER_PERSONAL_DATA = 'CLEAR_USER_PERSONAL_DATA';
 export const HINT = 'HINT';  //!rename!!!
 export const FIFTY_FIFTY = 'FIFTY FIFTY'; //!rename!!!
 

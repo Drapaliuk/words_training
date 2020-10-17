@@ -1,1 +1,1 @@
-export { ChangePersonalDataForm } from './ChangedPersonalDataForm';
+export { FormForChangePersonalData } from './form_for_change_personal_data/FormForChangePersonalData';
