@@ -1,7 +1,15 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form';
 import styles from '../LoginPage.module.css';
+import { authorizationSelectors } from '../../../../redux/selectors/authorization_selectors';
+import { useSelector } from 'react-redux';
+import { NavLink, Redirect } from 'react-router-dom';
 function Form(props) {
+    const isAuthorization = useSelector(state => authorizationSelectors.isAuthorization(state))
+    if(isAuthorization) {
+       return <Redirect to = '/intro' />
+    }
+
     return (
         <div className = {styles['auth-form-wrapper']} >
             <form className = {styles['auth-form']} onSubmit = {props.handleSubmit}>

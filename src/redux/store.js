@@ -3,14 +3,14 @@ import thunkMiddlewere from 'redux-thunk';
 import { combinedReducers } from './reducers/combined_reducers';
 import { variantListCreator, initializationSplittedAnswerWord, createEducationPlan,
          mistakeCreator, collectingCommonStatistics, clearSelectedWordsCurrentWordset,
-         selectingFullKit, unSelectingFullWordsKit } from './middlewares/index';
+         selectingFullKit, unSelectingFullWordsKit, personalUserData } from './middlewares/index';
 
 
 const middlewares = [ 
                       thunkMiddlewere,  variantListCreator, mistakeCreator,
                       clearSelectedWordsCurrentWordset, unSelectingFullWordsKit,
                       collectingCommonStatistics, initializationSplittedAnswerWord,
-                      createEducationPlan, selectingFullKit
+                      createEducationPlan, selectingFullKit, personalUserData
                     ]
 
 

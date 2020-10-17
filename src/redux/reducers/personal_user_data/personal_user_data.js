@@ -1,4 +1,6 @@
-import { SELECTING_APPLICATION_LANGUAGE, FETCHING_PERSONAL_DATA } from '../../action_types/index'; 
+import { act } from 'react-dom/test-utils';
+import { SELECTING_APPLICATION_LANGUAGE, FETCHING_PERSONAL_DATA,
+         CHANGE_USER_PERSONAL_DATA, SAVE_USER_PERSONAL_DATA } from '../../action_types/index'; 
 
 const initialState = {
     selectedLanguage: 'ukr',
@@ -6,10 +8,9 @@ const initialState = {
     lastName: '',
     age: '',
     birthDay: '',
-    national: '',
     sex: '',
-    country: '',
-    town: '',
+    temporaryPersonalData: {}
+    
     
 }
 
@@ -22,9 +23,26 @@ export const personalUserDataReducer = (state = initialState, action) => {
             }
         
         case FETCHING_PERSONAL_DATA: 
+            
             return {
                 ...state,
-                ...action.serverPayload
+                ...action.serverPayload,
+                temporaryPersonalData: {...action.serverPayload},
+            }
+
+        case CHANGE_USER_PERSONAL_DATA:
+            return {
+                ...state,
+                temporaryPersonalData: {...state.temporaryPersonalData, ...action.payload},
+
+            }
+
+        case SAVE_USER_PERSONAL_DATA:
+            console.log(action)
+            return {
+                ...state,
+                ...action.middlewarePayload,
+                temporaryPersonalData: {...action.middlewarePayload}
             }
 
         default:

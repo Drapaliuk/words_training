@@ -5,6 +5,8 @@ import { logining } from '../../../redux/actions/authorization/authorization_act
 import { useDispatch, useSelector } from 'react-redux';
 
 export function LoginPage() {
+    
+
     const dispatch = useDispatch();
     const loginData = useSelector(state => {
         if(state.form.loginForm) {
@@ -15,6 +17,8 @@ export function LoginPage() {
     const onLogin = (loginData) => {
         dispatch(logining(loginData))
     }
+
+    
 
     return (
         <div>

@@ -6,3 +6,4 @@ export { initializationSplittedAnswerWord } from './spelling_trainings_middlewar
 export { createEducationPlan } from './common_data_training_middlewares/create_education_plans_middlewares';
 export { selectingFullKit } from './word_kits_middleware/selecting_full_words_kit';
 export { unSelectingFullWordsKit } from './word_kits_middleware/un_selecting_full_words_kit';
+export { personalUserData } from './personal_user_data/personal_user_data_middlewares';
