@@ -1,0 +1,1 @@
+export { ExitFromTrainingPopup } from './exit_from_training_popup/ExitFromTrainingPopup';

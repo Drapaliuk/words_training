@@ -1,8 +1,8 @@
 import { FETCHING_WORDS, SELECTING_WORD, FETCHING_WORD_SETS_NAMES, NEXT_TASK_COMMON, SKIP_TASK_COMMON,
          COLLECTING_COMMON_STATISTICS, SELECTING_FULL_KIT, CREATE_EDUCATION_PLANS, UNSELECTING_WORD,
-          CLEAR_SELECTED_WORDS_CURRENT_WORD_SET, FETCHING_KNOWLEDGE_TEST, SELECTING_TRAINING_MODE,
-          DELETE_SELECTED_WORD, CLEAR_SELECTED_WORDS, INITIALIZATION_CURRENT_TRAINING_MODE,
-          UNSELECTING_FULL_KIT } from '../../action_types/index';
+         CLEAR_SELECTED_WORDS_CURRENT_WORD_SET, FETCHING_KNOWLEDGE_TEST, SELECTING_TRAINING_MODE,
+         DELETE_SELECTED_WORD, CLEAR_SELECTED_WORDS, INITIALIZATION_CURRENT_TRAINING_MODE,
+         UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING } from '../../action_types/index';
 
 export let commonDataState = {
         allTrainingsIds: [{id: '001', url: '/byword', names: {ua: "Тренування запам'ятовування слів", eng: 'Words training'}}, //! it must fetch from server, but i should use 'Actuality language'
@@ -18,8 +18,9 @@ export let commonDataState = {
         isFinishedTraining: false,
         scheduleTaskCard: [], //testPlan //testEducationPlan
         selectedWords: [],
-        isLoaded: false,
+        isLoaded: false, //! what????
         selectedTrainingModeId: null,
+
 
 }
 
@@ -27,12 +28,25 @@ export const commonData = function(state, action) {
     switch(action.type) {
 
         case SELECTING_TRAINING_MODE: 
-            console.log('action', action)
             return {
                 ...state,
                 selectedTrainingModeId: action.payload
             }
 
+        case EXIT_FROM_TRAINING:
+            return {
+                ...state,
+                currentWordCounter: 0, 
+                currentTrainingModeId: '',
+                trainingStatistics: [], 
+                isLastTask: false,
+                isFinishedTraining: false,
+                scheduleTaskCard: [], 
+                selectedWords: [],
+                isLoaded: false,
+                selectedTrainingModeId: null,
+            } 
+        
 
         case CLEAR_SELECTED_WORDS_CURRENT_WORD_SET: //!-?
             return {
@@ -92,21 +106,6 @@ export const commonData = function(state, action) {
             }
 
         case SELECTING_WORD:
-            // const isRepeatedWord = Boolean(state.selectedWords.find(el => el._id === action.payload))
-            // if(isRepeatedWord) {
-            //     console.log('jjjjj')
-            //     const deleteRepeatedWord = state.selectedWords.filter(el => el._id !== action.payload)
-
-            //     return {
-            //         ...state,
-            //         selectedWords: deleteRepeatedWord
-            //     }
-            // }
-            
-            // const addSelectedWord = state.initialisedWords.filter((el) => {
-            //     return el._id === action.payload
-            // })
-
             return {
                 ...state,
                 selectedWords: [...state.selectedWords, action.payload]

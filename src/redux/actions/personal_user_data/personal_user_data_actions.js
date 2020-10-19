@@ -1,7 +1,8 @@
 import { SELECTING_APPLICATION_LANGUAGE } from '../../action_types/index';
 import { getUserPersonalData, postUserPersonalData } from '../../../DAL/userPersonalData';
 import { FETCHING_PERSONAL_DATA, CHANGE_USER_PERSONAL_DATA,
-         SAVE_USER_PERSONAL_DATA, CLEAR_USER_PERSONAL_DATA  } from '../../../redux/action_types/index';
+         SAVE_USER_PERSONAL_DATA, CLEAR_USER_PERSONAL_DATA,
+         CANCEL_EDIT_PERSONAL_DATA  } from '../../../redux/action_types/index';
 
 export const selectingPageLanguage = selectedLanguage => {
     return { type: SELECTING_APPLICATION_LANGUAGE, payload: selectedLanguage }
@@ -29,4 +30,5 @@ export const saveNewPersonalUserData = (userId, userData) => (dispatch) => {
     })
 }
 
-export const clearUserPersonalData = () => ({type: CLEAR_USER_PERSONAL_DATA})
+export const clearUserPersonalData = () => ({type: CLEAR_USER_PERSONAL_DATA});
+export const cancelEditPersonalData = () => ({type: CANCEL_EDIT_PERSONAL_DATA})

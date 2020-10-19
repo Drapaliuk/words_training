@@ -1,0 +1,49 @@
+.exit-button,
+.continue-training {
+    border: none;
+    outline: none;
+    background-color: #ff0000;
+    width: 150px;
+    padding: 7px 15px;
+    text-decoration: none;
+    color: #fff;
+    margin-right: 10px;
+    text-align: center;
+    cursor: pointer;
+    opacity: .7;
+    transition: .3s linear all;
+}
+
+
+.continue-training {
+    background-color: #0abf53;
+}
+
+.exit-button:hover,
+.continue-training:hover {
+    opacity: 1;
+}
+
+.wrapper {
+    border: 1px solid #000;
+    max-width: 400px;
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+    margin-top: 200px;
+
+}
+
+.asks-block {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.asks-block div {
+    margin-bottom: 15px;
+}
+
+.answer-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

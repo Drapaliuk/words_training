@@ -18,6 +18,7 @@ import {ProgressScale} from '../../../components/index';
 import styles from './TrainingPage.module.css';
 import { Header } from '../../../components/header/Header';
 import helpIcon from '../../../assets/img/help-icon.png';
+import { ExitFromTrainingPopup } from '../components';
 
 const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initialServiceWord, skipTask_TrainingId002,
@@ -28,6 +29,7 @@ const TrainingPageComponent = function(props) {
             serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard,
             questionLanguage, isLastLetter, isFinishTask, trainingId } = props;
     
+    const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
 
     React.useEffect(() => {
@@ -94,15 +96,15 @@ const TrainingPageComponent = function(props) {
 
     }
 
-    
-
-
-
-
 
     let onAddLetter = (event) => {
         selectingVariant(event.target.value);
     }
+    // const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useEffect(false);
+    if(isAttemptExitFromTraining) {
+        return <ExitFromTrainingPopup onContinueTraining = {setAttemptExitFromTraining}/>
+    }
+    
 
     const squaresArr = [...pressedKey].map((el, idx) => {
         return <SquareForLetter key = {idx} text = {el}/>
@@ -117,12 +119,12 @@ const TrainingPageComponent = function(props) {
         return <ButtonForLetter key = {idx} onClickHandler = {onAddLetter} letter = {el} />
     })
 
-    console.log('isFinishedTraining', isFinishedTraining)
 
 
     return (
         <div>
             <Header />
+            <button onClick = {() => setAttemptExitFromTraining(true)}>exit</button>
             <div className = {styles['main-container']}>
             <div className = {isMistake  ? styles.error : styles.mainStyles}>
                 {

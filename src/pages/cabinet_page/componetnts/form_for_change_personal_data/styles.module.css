@@ -1,20 +1,27 @@
 .form {
-    outline: 1px solid red;
     display: inline-block;
 }
 
 .form input {
     display: block;
-
+    background-color: transparent;
     margin-bottom: 5px;
     padding: 3px 7px;
-    border: 2px solid #000;
+    border: 1px solid #000;
 }
 
-.save-button {
+.save-button,
+.cancel-button {
     border-radius: 5px;
     border: none;
     padding: 5px 15px;
     width: 150px;
     margin: auto;
+    background-color: #8ec06c;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #ee4f4f;
+    margin-left: 10px;
 }

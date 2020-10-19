@@ -35,6 +35,12 @@ export const commonDataSelectors = {
         const currentWord = state.trainingCommonData.scheduleTaskCard[state.trainingCommonData.currentWordCounter]
         if(currentWord) return currentWord.trainingId
         return null
+    },
+    getTaskRest: state => {
+        const selectedWordsAmount = state.trainingCommonData.selectedWords.length;
+        const completedTasksAmount = state.trainingCommonData.currentWordCounter;
+        const restTaskAmount = selectedWordsAmount - completedTasksAmount;
+        return restTaskAmount
     }
 }
 

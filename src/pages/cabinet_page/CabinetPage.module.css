@@ -1,3 +1,46 @@
-.wrapper {
+.common-wrapper {
+        max-width: 500px;
+        width: 100%;
+        margin: auto;
+        margin-top: 150px;
+        padding: 10px;
+}
+
+.section-wrapper {
+    background-color: #f3f4f7;
+
+}
+
+.section-title {
+    background-color: #caccd1;
+
+    cursor: pointer;
+    padding: 7px;
+    padding-right: 15px;
+    border-bottom: 1px solid #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-content {
+    padding: 7px;
+}
+
+.open-section-button {
+
+}
+
+.edit-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.items-wrapper {
+    
+}
+
+.items {
     
 }
