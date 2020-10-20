@@ -4,7 +4,8 @@ import {NavLink} from 'react-router-dom';
 import styles from './TrainingByWordPage.module.css';
 import {wordTestSelectors, commonDataSelectors} from '../../../redux/selectors/index'; //! ?
 import {fetchingWordsForMixing, selectingVariant, nextTaskTrainingId001,
-        createVariantList, hinting, skipTaskTrainingId001, initializationTaskStaticsObject_TrainingId001} from '../../../redux/actions/word_test_actions';
+        createVariantList, hinting, skipTaskTrainingId001,
+        initializationTaskStaticsObject_TrainingId001, fetchingTaskCards} from '../../../redux/actions/word_test_actions';
 
 
 import { collectingCommonStatistics, skipTaskCommon, nextTaskCommon,
@@ -20,15 +21,21 @@ import {VariantList} from './component/VariantList'; //! чомуьсь не п�
 
 const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
-         isLastTask, trainingStatistcs, questionLang, answerWord, isLoaded,
+         selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoaded,
           answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing } = props;
 
-    const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan,
+    const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
          skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
           createVariantList, hinting, collectingCommonStatistics, initializationTaskStaticsObject_TrainingId001 } = props;
     
     let hintWordCounter = 0; //зробити юз рефом
     
+    React.useEffect(() => {
+        console.log('((((((((((((((((((( ', )
+        fetchingTaskCards(selectedWordsIds)
+    }, [])
+
+
     React.useEffect(() => {
         if(wordsForMixing.length === 0) {
             fetchingWordsForMixing()
@@ -202,7 +209,7 @@ let mapStateToProps = function(state) {
         isFinishedTraining: commonDataSelectors.isFinishedTraining(state),
         selectedWords: commonDataSelectors.getSelectedWords(state),
         isLoaded: state.trainingCommonData.isLoaded,
-
+        selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
 
         answerWord: wordTestSelectors.getAnswerWord(state),
         questionWord: wordTestSelectors.getQuestionWord(state),
@@ -221,6 +228,7 @@ let mapStateToProps = function(state) {
 
 const mapDispatchToProps = { fetchingWordsForMixing, nextTaskCommon, skipTaskCommon, initializationCurrentTrainingModeId,
                              skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, createEducationPlan,
-                             createVariantList, hinting, collectingCommonStatistics, initializationTaskStaticsObject_TrainingId001 };
+                             createVariantList, hinting, collectingCommonStatistics,
+                             initializationTaskStaticsObject_TrainingId001, fetchingTaskCards };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrainingByWordPage);

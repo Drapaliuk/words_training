@@ -10,6 +10,7 @@ import { fetchingWordsForMixing } from '../../../redux/actions/word_test_actions
 export function MixedTestPage(props) {
     const dispatch = useDispatch();
     const selectedWords = useSelector(state => commonDataSelectors.getSelectedWords(state));
+    const selectedWordsIds = useSelector(state => commonDataSelectors.getSelectedWordsIds(state))
     const isLoaded = useSelector(state => commonDataSelectors.isLoaded(state));
 
     React.useEffect(() => { //?!
@@ -20,7 +21,7 @@ export function MixedTestPage(props) {
     }, []);
 
     React.useEffect(() => {
-        dispatch(fetchingWordsForMixing())
+        dispatch(fetchingWordsForMixing(selectedWordsIds))
     }, [])
     
     const trainingId = useSelector(state =>  commonDataSelectors.getScheduleTaskTrainingId(state));

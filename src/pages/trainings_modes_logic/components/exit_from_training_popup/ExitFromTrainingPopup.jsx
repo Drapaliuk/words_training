@@ -25,7 +25,15 @@ export function ExitFromTrainingPopup(props) {
         <div className = {styles['wrapper']}>
             <div className = {styles['asks-block']}>
                 <div>Ви дійсно бажаєте закінчити тренування</div>
-                <div>Залишилось {restTask} завдань</div>
+                {
+                    restTask > 1
+                    ?
+                    <div>Залишилось {restTask} завдань</div>
+                    :
+                    <div>Це останнє завдання</div>
+
+                }
+
             </div>
             
             <div className = {styles['answer-block']}>

@@ -23,7 +23,7 @@ export function ListItem(props) {
                             [styles.selected]: isSelected,
                         })}
                         onClick = {isSelected ? onUnSelectingWord(wordObject._id) : onSelectingWord(wordObject)} //!
-                        >{wordObject.ua}
+                        >{wordObject.ukr}
                 </button>
             </div>
             <button

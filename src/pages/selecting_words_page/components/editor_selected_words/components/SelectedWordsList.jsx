@@ -9,7 +9,7 @@ export function SelectedWordsList({selectedWords, onDeleteSelectedWord}) {
             { selectedWords.map(el => {
                 return (
                             <li className = {styles['selected-words-item']}>
-                                {el.ua}
+                                {el.ukr}
                                 <button className = {styles['delete-button']}
                                         onClick = {() => onDeleteSelectedWord(el._id)} 
                                 >

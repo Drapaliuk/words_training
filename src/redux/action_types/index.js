@@ -60,3 +60,5 @@ export const SKIP_TASK_TRAINING_ID_002 = 'SKIP TASK TRAINING ID 002';
 export const LOGIN = 'LOGIN';
 export const SIGN_IN = 'SIGN_IN';
 export const LOG_OUT = 'LOG_OUT';
+
+export const FETCHING_TASK_CARDS = 'FETCHING_TASK_CARDS';

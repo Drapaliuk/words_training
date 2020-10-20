@@ -39,7 +39,8 @@ const WordSelector = function({words}) {
                                 [styles.word]: true
                             })}
                             onClick = {() => onSelectingForTraining(el._id)}
-                            value = {el._id}>{el.ua}
+                            value = {el._id}>
+                                {el.ukr}
                     </button>
                 </div>
                 <button

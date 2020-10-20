@@ -66,7 +66,7 @@ export const VocabularyEditor = function({words, showWordSetCreator}) {
                             [styles.word]: true
                         })}
                         onClick = {isChecked ? onUnSelectingForTraining(el._id) : onSelectingForTraining(el) }
-                        >{el.ua}
+                        >{el.ukr}
                     </button>
                 </div>
                 <button

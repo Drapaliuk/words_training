@@ -37,10 +37,15 @@ export const commonDataSelectors = {
         return null
     },
     getTaskRest: state => {
-        const selectedWordsAmount = state.trainingCommonData.selectedWords.length;
+        const selectedWordsAmount = state.trainingCommonData.scheduleTaskCard.length
         const completedTasksAmount = state.trainingCommonData.currentWordCounter;
         const restTaskAmount = selectedWordsAmount - completedTasksAmount;
         return restTaskAmount
+    },
+    getSelectedWordsIds: state => {
+        const selectedWords = state.trainingCommonData.selectedWords
+        const ids = selectedWords.map(word => word._id)
+        return ids
     }
 }
 

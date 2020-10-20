@@ -11,15 +11,23 @@ export const wordSetsAPI = {
             return Axios.get(url);
         },
         
-        getWordsForMixing: (selectedset, wordsAmmount) => {
-            let url = `http://localhost:8888/mixWords?selectedset=city&wordsAmmount=2`;
-            return Axios.get(url)
+        getWordsForMixing: (selectedWordsIds) => {
+            // let url = `http://localhost:8888/mixWords?selectedset=city&wordsAmmount=2`;
+            let url = 'http://localhost:8888/mixWords';
+            return Axios.post(url, selectedWordsIds)
+            // return Axios.get(url)
         },
 
         createEducationPlan: (selectedWords, trainingId) => { //потрібно відправляти тільки ід але зараз бекенд до цього не готовий
             let url = `http://localhost:8888/educationPlan`
             return Axios.post(url, selectedWords, trainingId)
         },
+
+        getTaskCards: (selectedWordsIds) => { //це до тренування слів
+            console.log('selectedWordsIds', selectedWordsIds)
+            let url = 'http://localhost:8888/taskCards';
+            return Axios.post(url, selectedWordsIds)
+        }
 
         
 }

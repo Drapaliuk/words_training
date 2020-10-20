@@ -23,11 +23,11 @@ export const WordKitsList = function ({onVisibleComponent}) {
         <ul className = {styles['list']}
             onClick = { onSelectingKitName }
             >
-            { wordKitNames.map(name => {
+            { wordKitNames.map(kit => {
                 return (
                     <li className = {styles['list-item']}>
-                        <NavLink className = {styles['link']} to = {`/wordset/${name}`}>
-                            {name}
+                        <NavLink className = {styles['link']} to = {`/wordset/${kit.serviceInfo.name}`}>
+                            {kit.serviceInfo.name}
                         </NavLink>
                     </li>
                 )
