@@ -21,8 +21,8 @@ import {VariantList} from './component/VariantList'; //! чомуьсь не п�
 
 const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
-         selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoaded,
-          answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing } = props;
+         selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCard, isLoadedVariantList,
+          answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask } = props;
 
     const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
          skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
@@ -31,40 +31,21 @@ const TrainingByWordPage = function(props) {
     let hintWordCounter = 0; //зробити юз рефом
     
     React.useEffect(() => {
-        console.log('((((((((((((((((((( ', )
         fetchingTaskCards(selectedWordsIds)
     }, [])
-
-
-    React.useEffect(() => {
-        if(wordsForMixing.length === 0) {
-            fetchingWordsForMixing()
-        }
-    }, []) 
-
-    React.useEffect(() => {
-        if(!isLoaded) {
-            createEducationPlan(selectedWords)
-        }
-    }, [])
-
-    React.useEffect(() => {
-        if(isLoaded) {
-            createVariantList()
-        }
-    }, [scheduleTaskCard]) // review this logic
-
- 
-    React.useEffect(() => {
-        initializationTaskStaticsObject_TrainingId001()
-    }, [scheduleTaskCard]) // тому що фетч scheduleTaskCard це асинхронна операція, 
-                            //  і якщо зробити одноразовий виклик, то в перше слово не прийде актуальна інфа
 
     React.useEffect(() => {
         initializationCurrentTrainingModeId(trainingId)
     }, [])
+ 
+    React.useEffect(() => {
+        initializationTaskStaticsObject_TrainingId001()
+    }, [isLoadedScheduleTaskCard, isLoadedVariantList]) // тому що фетч scheduleTaskCard це асинхронна операція, 
+                                                //і якщо зробити одноразовий виклик, то в перше слово не прийде актуальна інфа
 
-    if(!isLoaded) {
+
+
+    if(!isLoadedScheduleTaskCard && !isLoadedVariantList) {
         return 'good luck'
     }
 
@@ -78,30 +59,23 @@ const TrainingByWordPage = function(props) {
         }
     }
 
-    const onNextTask = () => { 
-        return () => {
-            collectingCommonStatistics('001') //винести логіку постановки айдішніка
+    const onNextTask = () => () => { 
+            collectingCommonStatistics('001');
             nextTaskTrainingId001();
             nextTaskCommon();
-            createVariantList(); //в мідлвар!
             initializationTaskStaticsObject_TrainingId001()
-            hintWordCounter = 0; //Їбучий костиль
-        }
+            hintWordCounter = 0;
     }
 
-    const onFinishTraining = () =>  {
-        //можна написати логіку занулення стейту тренування
-    }
 
     const onSkipTask = () => {
         skipTaskCommon();
         skipTaskTrainingId001();
-        createVariantList(); //в мідлвар!
         initializationTaskStaticsObject_TrainingId001()
-        hintWordCounter = 0; //Їбучий костиль
+        hintWordCounter = 0;
     }
    
-    const TaskVariants = variantList.map((el, idx) => {
+    const Task = currentTask.map((el, idx) => {
         const isRightWord = el._id === currentWord._id; //чому тут 2 однакові змінні isTrueAnswer isRightWord
 
         if(isRightWord) {
@@ -152,7 +126,7 @@ const TrainingByWordPage = function(props) {
                                     {currentWord[currentWord.questionLang]}
                                 </div>
                                 <ul className = {styles['variants-container']}>
-                                    {TaskVariants}
+                                    {Task}
                                 </ul>
                             </div>
                             :
@@ -208,7 +182,7 @@ let mapStateToProps = function(state) {
         scheduleTaskCard: commonDataSelectors.getScheduleTaskCard(state),
         isFinishedTraining: commonDataSelectors.isFinishedTraining(state),
         selectedWords: commonDataSelectors.getSelectedWords(state),
-        isLoaded: state.trainingCommonData.isLoaded,
+        isLoadedScheduleTaskCard: state.trainingCommonData.isLoaded,
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
 
         answerWord: wordTestSelectors.getAnswerWord(state),
@@ -217,14 +191,18 @@ let mapStateToProps = function(state) {
         answerLang: wordTestSelectors.getAnswerLang(state),
         trainingId: wordTestSelectors.getTrainingId(state),
         wordsForMixing: state.trainingCommonData.wordTestState.wordsForMixing,
+        isLoadedVariantList: state.trainingCommonData.wordTestState.isLoaded,
 
         isTrueAnswer: wordTestSelectors.isTrueAnswer(state),
         variantList: wordTestSelectors.getVariantList(state), 
         needHint: wordTestSelectors.needHint(state),
+        currentTask: wordTestSelectors.getCurrentTask(state)
 
 
     }
 };
+
+
 
 const mapDispatchToProps = { fetchingWordsForMixing, nextTaskCommon, skipTaskCommon, initializationCurrentTrainingModeId,
                              skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, createEducationPlan,
@@ -232,3 +210,36 @@ const mapDispatchToProps = { fetchingWordsForMixing, nextTaskCommon, skipTaskCom
                              initializationTaskStaticsObject_TrainingId001, fetchingTaskCards };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrainingByWordPage);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // React.useEffect(() => {
+    //     if(wordsForMixing.length === 0) {
+    //         fetchingWordsForMixing()
+    //     }
+    // }, []) 
+
+    // React.useEffect(() => {
+    //     if(!isLoaded) {
+    //         createEducationPlan(selectedWords)
+    //     }
+    // }, [])
+
+    // React.useEffect(() => {
+    //     if(isLoaded) {
+    //         createVariantList()
+    //     }
+    // }, [scheduleTaskCard]) // review this logic

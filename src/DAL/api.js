@@ -24,23 +24,27 @@ export const wordSetsAPI = {
         },
 
         getTaskCards: (selectedWordsIds) => { //це до тренування слів
-            console.log('selectedWordsIds', selectedWordsIds)
             let url = 'http://localhost:8888/taskCards';
-            return Axios.post(url, selectedWordsIds)
+            return Axios.post(url, selectedWordsIds);
+
         }
 
         
 }
 
 export const userVocabularyAPI = {
-    fetchUserVocabulary: () => {
-        let url = 'http://localhost:8888/userVocabulary';
+    fetchUserVocabulary: (userid) => {
+        let url = `http://localhost:8888/userVocabulary?userid=${userid}`;
         return Axios.get(url)
     },
 
-    savedWordToUserVocabulary: (savedWord) => {
+    savedWordToUserVocabulary: (wordId, userId) => {
         let url = 'http://localhost:8888/userVocabulary';
-        return Axios.post(url, savedWord)
+        const requestObject = {
+            wordId,
+            userId
+        }
+        return Axios.post(url, requestObject)
     },
 
     deleteWordFromUserVocabular: (word) => {

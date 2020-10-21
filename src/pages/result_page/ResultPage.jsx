@@ -19,6 +19,12 @@ export const ResultPage = function(props) {
             dispatch(fetchingTrainingResults(trainingStatistics))
         }, [])
 
+        if(trainingResults.length === 0) {
+            return 'zero'
+        }
+
+
+console.log('TRAINING RESULT', trainingResults)
         return (
             <div>
                 <Header />

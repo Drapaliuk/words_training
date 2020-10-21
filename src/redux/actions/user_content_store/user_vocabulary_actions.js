@@ -11,21 +11,23 @@ export const selectingWordsFromUserVocabulary = (payload) => {
     return {type: SELECTING_WORD_FROM_USER_VOCABULARY, payload }
 }
 
-export const fetchingUserVocabulary = () => {
+export const fetchingUserVocabulary = (userId) => {
     return (dispatch) => {
-        userVocabularyAPI.fetchUserVocabulary()
+        userVocabularyAPI.fetchUserVocabulary(userId)
                          .then(({data}) => {
                              dispatch({type: FETCHING_USER_VOCABULARY, serverPayload: data})
                         })
     }
 }
 
-export const addWordToVocabulary = (payload) => {
+export const addWordToVocabulary = (wordId, userId) => {
+    console.log('WORD ID', wordId, userId)
     return (dispatch) => {
-        userVocabularyAPI.savedWordToUserVocabulary()
+        userVocabularyAPI.savedWordToUserVocabulary(wordId, userId)
                          .then(({data}) => {
+                             console.log('data', data)
                              if(data.responseCode === 1) {
-                                    dispatch({type: ADD_WORD_TO_VOCABULARY, payload})
+                                    dispatch({type: ADD_WORD_TO_VOCABULARY, wordId})
                              }
                          })
     } 

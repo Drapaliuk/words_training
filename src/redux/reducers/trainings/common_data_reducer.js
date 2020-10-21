@@ -2,7 +2,7 @@ import { FETCHING_WORDS, SELECTING_WORD, FETCHING_WORD_SETS_NAMES, NEXT_TASK_COM
          COLLECTING_COMMON_STATISTICS, SELECTING_FULL_KIT, CREATE_EDUCATION_PLANS, UNSELECTING_WORD,
          CLEAR_SELECTED_WORDS_CURRENT_WORD_SET, FETCHING_KNOWLEDGE_TEST, SELECTING_TRAINING_MODE,
          DELETE_SELECTED_WORD, CLEAR_SELECTED_WORDS, INITIALIZATION_CURRENT_TRAINING_MODE,
-         UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING } from '../../action_types/index';
+         UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING, FETCHING_TASK_CARDS } from '../../action_types/index';
 
 export let commonDataState = {
         allTrainingsIds: [{id: '001', url: '/byword', names: {ua: "Тренування запам'ятовування слів", eng: 'Words training'}}, //! it must fetch from server, but i should use 'Actuality language'
@@ -26,7 +26,13 @@ export let commonDataState = {
 
 export const commonData = function(state, action) {
     switch(action.type) {
-
+        case FETCHING_TASK_CARDS:
+            return {
+                ...state,
+                scheduleTaskCard: [...action.serverPayload.scheduleTaskCard],
+                isLoaded: true
+            }
+        
         case SELECTING_TRAINING_MODE: 
             return {
                 ...state,

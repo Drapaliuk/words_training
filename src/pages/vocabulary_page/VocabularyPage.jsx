@@ -9,8 +9,11 @@ import styles from './VocabularyPage.module.css';
 
 export function VocabularyPage() {
     const dispatch = useDispatch()
+
+    const userId = useSelector(state => state.authorization.userId)
+
     React.useEffect(() => {
-        dispatch(fetchingUserVocabulary())
+        dispatch(fetchingUserVocabulary(userId))
     }, [])
 
     React.useEffect(() => {

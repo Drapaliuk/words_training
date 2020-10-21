@@ -7,7 +7,7 @@ import bookmark from '../../../../../assets/img/bookmark.png';
 
 export function ListItem(props) {
 
-    const {wordObject, isSelected, onSelectingWord, onUnSelectingWord, onAddWordToVocabulary} = props;
+    const {wordObject, isSelected, onSelectingWord, onUnSelectingWord, onAddWordToUserVocabulary, userId} = props;
 
     return (
         <div className = {styles['word-block']}>
@@ -28,7 +28,7 @@ export function ListItem(props) {
             </div>
             <button
                 className = {styles['vocabulary-add-button']}
-                onClick = {onAddWordToVocabulary}
+                onClick = {onAddWordToUserVocabulary(wordObject._id, userId)}
             >
                     <img src = {bookmark} alt="bookmark"/>
             </button>

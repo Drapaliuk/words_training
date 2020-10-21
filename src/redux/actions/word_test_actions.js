@@ -15,6 +15,7 @@ export const fetchingWordsForMixing = (selectedWordsIds) => (dispatch) => {
 export const fetchingTaskCards = (selectedWordsIds) => (dispatch) => {
     console.log('!!!!!!!!!!!!!!!!!')
     wordSetsAPI.getTaskCards(selectedWordsIds).then((resp) => {
+        console.log('resp', resp)
         dispatch({type: FETCHING_TASK_CARDS, serverPayload: resp.data})
     })
 }

@@ -27,7 +27,5 @@ export const initializationSplittedAnswerWord = function(store) {
             const mixedWord = mixingElement([...currentWord]);
             return next({...action, middlewarePayload: mixedWord})
         }
-
-
     }
-}
+};

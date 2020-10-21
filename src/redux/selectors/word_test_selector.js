@@ -31,5 +31,10 @@ export const wordTestSelectors = {
     isLastTask: state => state.trainingCommonData.wordTestState.isLastTask,
     isTrueAnswer: state => state.trainingCommonData.wordTestState.isTrueAnswer,
     isMixedWords: state => state.trainingCommonData.wordTestState.isMixedWords,
-    needHint: state => state.trainingCommonData.wordTestState.needHint, 
+    needHint: state => state.trainingCommonData.wordTestState.needHint,
+    getCurrentTask: state => {
+        const currentTaskCounter = state.trainingCommonData.currentWordCounter;
+        console.log(currentTaskCounter)
+        return state.trainingCommonData.wordTestState.variantList[currentTaskCounter]
+    }
 }

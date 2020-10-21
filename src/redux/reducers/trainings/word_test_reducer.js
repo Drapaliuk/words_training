@@ -7,13 +7,14 @@ const statisticObjectCreator = function({selfState, state, action, currentWord},
     const questionLanguage =  state.scheduleTaskCard[state.currentWordCounter].questionLang
     const isCorrectVariant = state.scheduleTaskCard[state.currentWordCounter][questionLanguage] === action.selectedVariant[questionLanguage]
     const needHint = selfState.needHint;
-
+    console.log('selfState.trainingId', selfState)
+    console.log('state', state)
     const newStatisticsObject = { 
         word: currentWord,
-        trainingId: selfState.trainingId,
+        trainingId: state.currentTrainingModeId,
         taskStart: true,
         taskEnd: isCorrectVariant,
-        task: selfState.variantList,
+        task: selfState.variantList[state.currentWordCounter],
         isSkipped: false,
         isMistakeInTheTask: selfState.currentTaskStatistics.isMistakeInTheTask,
         answerDetails: [
@@ -22,6 +23,7 @@ const statisticObjectCreator = function({selfState, state, action, currentWord},
                             ? 'hint' 
                             : action.selectedVariant,
         ],
+        
         needHint: selfState.currentTaskStatistics.needHint,
         timestamps: {start: selfState.currentTaskStatistics.timestamps.start,
                      end: isCorrectVariant ? Date.now(new Date()) : null,
@@ -44,7 +46,8 @@ export const wordTestState = { // why did i exported this object?
     isTrueAnswer: false,
     variantList: [], //rename to task
     wordsForMixing: [],
-    justDoIt: []
+    justDoIt: [],
+    isLoaded: false,
 }
 
 
@@ -54,13 +57,16 @@ export const wordTestReducer = function (state, action) { // why did i write so?
     const currentWordCounter = state.currentWordCounter;
     const currentWord = state.scheduleTaskCard[state.currentWordCounter];
     const mainParametersForCreatorStatisticObject = {selfState, state, action, currentWord}
-
+    console.log('SELF STATE 001: ', selfState) //! ?
+    console.log('STATE 001', state) //! ?
     switch(action.type) {
 
         case FETCHING_TASK_CARDS:
             return {
                 ...state,
-                justDoIt: action.serverPayload
+                variantList: action.serverPayload.variantList,
+                isLoaded: true
+                
             }
 
         case CREATE_STATISTICS_OBJECT_TRAINING_ID_001: 
@@ -68,11 +74,11 @@ export const wordTestReducer = function (state, action) { // why did i write so?
                 ...selfState,
                 currentTaskStatistics: {
                     word: currentWord,
-                    trainingId: selfState.trainingId,
+                    trainingId: state.currentTrainingModeId,
                     taskStart: false,
                     taskEnd: false,
                     isSkipped: false,
-                    task: selfState.variantList,
+                    task: selfState.variantList[state.currentWordCounter],
                     isMistakeInTheTask: false,
                     answerDetails: [],
                     needHint: false, 
@@ -113,7 +119,7 @@ export const wordTestReducer = function (state, action) { // why did i write so?
                 currentTaskStatistics: {...selfState.currentTaskStatistics, needHint: true}
         }
 
-        case CREATE_VARIANT_LIST: // maybe you should create it in the middleware
+        case CREATE_VARIANT_LIST: // maybe you should create it in the middleware or on the serverside?)))
             return {
                 ...selfState,
                 variantList: [...action.payload],
@@ -125,8 +131,7 @@ export const wordTestReducer = function (state, action) { // why did i write so?
                 ...selfState,
                 isTrueAnswer: false,
                 // currentTaskStatistics: {},
-
-                variantList: [],
+                // variantList: [],
                 needHint: false,
                 isLastTask: currentWordCounter === (state.selectedWords.length - 2)
         }
@@ -136,7 +141,7 @@ export const wordTestReducer = function (state, action) { // why did i write so?
                 ...selfState,
                 isTrueAnswer: false,
                 currentTaskStatistics: {},
-                variantList: [],
+                // variantList: [],
                 needHint: false,
                 isLastTask: currentWordCounter === (state.selectedWords.length - 2)
 

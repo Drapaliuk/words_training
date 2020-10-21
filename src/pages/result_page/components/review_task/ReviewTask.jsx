@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './ReviewTask.module.css';
 
 function ReviewTask({task, trueWord, trainingId}) {
+    console.log('ID', trainingId)
     if(trainingId === '001') {
         return (
             <div className = {styles['review-task']}>
@@ -23,6 +24,8 @@ function ReviewTask({task, trueWord, trainingId}) {
         )
     }
 
+    console.log('TASK', task)
+
     if(trainingId === '002') {
         return (
             <div className = {styles['review-task']}>
@@ -43,6 +46,7 @@ function ReviewTask({task, trueWord, trainingId}) {
             </div>
         )
     }
+    return <h1>Nothing</h1>
 }
 
 export default ReviewTask

@@ -12,7 +12,7 @@ let initialState = {
 const trainingCommonDataReducer = function(state = initialState, action) {
     return { 
             ...commonData(state, action),                                   //! порядок важливий
-            spellingState: {...spelling(state, action)},
+            spellingState: {...spelling(state, action)},                    //! розібратися з логікою
             wordTestState: {...wordTestReducer(state, action)},
            }                                                                
 }

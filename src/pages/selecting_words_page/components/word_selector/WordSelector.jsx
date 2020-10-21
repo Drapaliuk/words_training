@@ -1,12 +1,11 @@
 import React from 'react';
 import { selectingAllWords, selectingWord, unSelectingWord, unSelectingFullWordsKit } from '../../../../redux/actions/common_data_actions';
-import { commonDataSelectors, wordKitSelectors } from '../../../../redux/selectors/index';
+import { commonDataSelectors, wordKitSelectors, authorizationSelectors } from '../../../../redux/selectors/index';
 import styles from './styles.module.css';
 import { EditorSelectedWords } from '../index';
 import { addWordToVocabulary } from '../../../../redux/actions/user_content_store/user_vocabulary_actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { ListItem } from './components/index';
-
 
 
 const ternFunc = function(condition = true, conditionTrue = null, conditionFalse = null) {
@@ -25,14 +24,15 @@ export const WordSelector = function() {
     const isCheckedWordFromCurrentKit = useSelector(state => wordKitSelectors.isCheckedSomeWordFromCurrentKit(state));
     const isCheckedFullCurrentWordsKit = useSelector(state => wordKitSelectors.isCheckedFullCurrentWordsKit(state));
     const selectedWords = useSelector(state => commonDataSelectors.getSelectedWords(state));
-    const words = useSelector(state => commonDataSelectors.getInitialisedWords(state))
+    const words = useSelector(state => commonDataSelectors.getInitialisedWords(state));
+    const userId = useSelector(state => authorizationSelectors.getUserId(state));
 
     let onSelectingWord = wordId => () =>  dispatch(selectingWord(wordId));
     let onUnSelectingWord = wordId => () => dispatch(unSelectingWord(wordId));
 
     let onSelectingFullWordsKit = () => dispatch(selectingAllWords());
     let onUnSelectingFullWordsKit = () => dispatch(unSelectingFullWordsKit());
-    let onAddWordToVocabulary = (word) => () => dispatch(addWordToVocabulary(word))
+    let onAddWordToUserVocabulary = (wordId, userId) => () => dispatch(addWordToVocabulary(wordId, userId)); //! userId mustbt be here
     
     
 
@@ -40,13 +40,17 @@ export const WordSelector = function() {
     let wordList = words.map(el => {
         const isSelected = selectedWords.find(word => word._id === el._id)
         return (
-            <ListItem 
-                wordObject = {el}
-                isSelected = {isSelected}
-                onUnSelectingWord = {onUnSelectingWord}
-                onSelectingWord = {onSelectingWord}
-                onAddWordToVocabulary = {onAddWordToVocabulary}
-            />
+            <div>
+                <ListItem 
+                    userId = {userId}
+                    wordObject = {el}
+                    isSelected = {isSelected}
+                    onUnSelectingWord = {onUnSelectingWord}
+                    onSelectingWord = {onSelectingWord}
+                    onAddWordToUserVocabulary = {onAddWordToUserVocabulary}
+                />
+            </div>
+            
         )
     })
     

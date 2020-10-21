@@ -4,11 +4,13 @@ import { SELECTING_TASK_VARIANT_TRAINING_ID_002, DELETE_LETTER, NEXT_TASK_TRAINI
          INITIALIZATION_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002, HINT, SKIP_TASK_TRAINING_ID_002 } from '../../action_types/index'
 
 
-const statisticObjectCreator = function({selfState, action, currentWord}, needHint = false) { 
+const statisticObjectCreator = function({selfState, action, currentWord}, needHint = false, skipped = false) { 
     const letterCounter = selfState.letterCounter
     const correctVariant = currentWord[currentWord.answerLang][selfState.letterCounter]
     const isInitializadeTaskVariants = Boolean(selfState.currentTaskStatistics.answerDetails[letterCounter]) //rename
     const isCorrectVariant = action.selectedVariant === correctVariant;
+    console.log('selfState.currentTaskStatistics.task', selfState.currentTaskStatistics.task)
+
     const taskVariantsItemTemplate = {
         correctVariant: '',
         choosenVariants: [],
@@ -21,7 +23,6 @@ const statisticObjectCreator = function({selfState, action, currentWord}, needHi
         taskEnd: selfState.isLastLetter,
         trainingId: selfState.trainingId,
         isSkipped: false,
-        task: selfState.splittedAnswerWord,
         needHint: selfState.currentTaskStatistics.needHint,
         isMistakeInTheTask: selfState.currentTaskStatistics.isMistakeInTheTask,
         answerDetails: [
@@ -40,6 +41,7 @@ const statisticObjectCreator = function({selfState, action, currentWord}, needHi
     if(!selfState.currentTaskStatistics.isMistakeInTheTask && !isCorrectVariant) {
         newStatisticsObject.isMistakeInTheTask = true
     }
+
     
     newStatisticsObject.answerDetails[letterCounter] = taskVariantsItemTemplate;
     newStatisticsObject.answerDetails[letterCounter].correctVariant = correctVariant;
@@ -110,7 +112,7 @@ export const spelling = function(state, action) {
                     isSkipped: false, 
                     isMistakeInTheTask: false,
                     needHint: false,
-                    task: [],
+                    // task: null,
                     answerDetails: [
                         {
                             correctVariant: '',
@@ -137,7 +139,7 @@ export const spelling = function(state, action) {
                 splittedAnswerWord: mixedCurrentWord,
                 pressedKey: '',
                 letterCounter: 0,
-                currentTaskStatistics: {},
+                currentTaskStatistics: {task: mixedCurrentWord},
                 hintLetter: !state.isLastTask ? state.scheduleTaskCard[state.currentWordCounter + 1][currentWord.answerLang][0] : '',
                 needHint: false,
                 isLastLetter: false,
@@ -149,7 +151,7 @@ export const spelling = function(state, action) {
                 ...selfState,
                 hintLetter: currentWord[currentWord.answerLang][selfState.letterCounter],
                 needHint: true,
-                currentTaskStatistics: statisticObjectCreator(mainParametersForCreatorStatisticObject, true),
+                currentTaskStatistics: {...selfState.currentTaskStatistics, ...statisticObjectCreator(mainParametersForCreatorStatisticObject, true)} ,
             }
             
         case SKIP_TASK_TRAINING_ID_002:
@@ -162,7 +164,7 @@ export const spelling = function(state, action) {
                 splittedAnswerWord: mixedCurrentWord2,
                 pressedKey: '',
                 letterCounter: 0,
-                currentTaskStatistics: statisticObjectCreator(mainParametersForCreatorStatisticObject),
+                currentTaskStatistics: {...statisticObjectCreator(mainParametersForCreatorStatisticObject, false, true), task: mixedCurrentWord2},
                 hintLetter: !state.isLastTask ? state.scheduleTaskCard[state.currentWordCounter + 1][currentWord.answerLang][0] : '',
                 needHint: false,
                 isLastLetter: false,
@@ -170,12 +172,12 @@ export const spelling = function(state, action) {
             }
 
         case INITIALIZATION_TRAINING_ID_002:  //rename to INITIALIZATION_TRAINING_ID_002
-            console.log('1111', Array.isArray(action.middlewarePayload) )
             return {
                 ...selfState,
                 splittedAnswerWord: action.middlewarePayload,
                 // hintLetter: action.middlewarePayload[0]
-                hintLetter: action.middlewarePayload[0]
+                hintLetter: action.middlewarePayload[0],
+                currentTaskStatistics: {...selfState.currentTaskStatistics, task: action.middlewarePayload,}
 
 
             }
@@ -192,7 +194,7 @@ export const spelling = function(state, action) {
                     ...selfState,
                     isMistake: true,
 
-                    currentTaskStatistics: statisticObjectCreator(mainParametersForCreatorStatisticObject),
+                    currentTaskStatistics:  {...selfState.currentTaskStatistics, ...statisticObjectCreator(mainParametersForCreatorStatisticObject)},
 
                     hintLetter: currentWord[currentWord.answerLang][selfState.letterCounter],
                 }
@@ -204,7 +206,11 @@ export const spelling = function(state, action) {
                 splittedAnswerWord: wordCopy.join(''),
                 letterCounter: selfState.letterCounter + 1,
                 isMistake: false,
-                currentTaskStatistics: statisticObjectCreator(mainParametersForCreatorStatisticObject),
+                // currentTaskStatistics:  {...selfState.currentTaskStatistics, }statisticObjectCreator(mainParametersForCreatorStatisticObject),
+                currentTaskStatistics: {...selfState.currentTaskStatistics, ...statisticObjectCreator(mainParametersForCreatorStatisticObject)},
+
+
+
                 hintLetter: currentWord[currentWord.answerLang][selfState.letterCounter + 1],
                 needHint: false,
                 isLastLetter: selfState.splittedAnswerWord.length <= 2, //постійно стараюсь перегнати реакс, що з цим робити??
