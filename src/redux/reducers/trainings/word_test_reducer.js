@@ -7,8 +7,7 @@ const statisticObjectCreator = function({selfState, state, action, currentWord},
     const questionLanguage =  state.scheduleTaskCard[state.currentWordCounter].questionLang
     const isCorrectVariant = state.scheduleTaskCard[state.currentWordCounter][questionLanguage] === action.selectedVariant[questionLanguage]
     const needHint = selfState.needHint;
-    console.log('selfState.trainingId', selfState)
-    console.log('state', state)
+    
     const newStatisticsObject = { 
         word: currentWord,
         trainingId: state.currentTrainingModeId,

@@ -2,8 +2,10 @@ import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, finishTraining,
-         initialServiceWord, createTaskStatisticsObject_TrainingId002, skipTask_TrainingId002,  } from '../../../redux/actions/spelling_test_actions'; //! 
+import { selectingVariant, deleteLetter, nextTaskTrainingId002, hint,
+         finishTraining,
+         initialServiceWord, createTaskStatisticsObject_TrainingId002,
+         skipTask_TrainingId002, getTasks  } from '../../../redux/actions/spelling_test_actions'; //! 
 import { collectingCommonStatistics, nextTaskCommon, skipTaskCommon,
          initializationCurrentTrainingModeId, createEducationPlan } from '../../../redux/actions/common_data_actions'; //!
 import { spellingSelectors, commonDataSelectors } from '../../../redux/selectors/index'         
@@ -11,7 +13,7 @@ import SquareForLetter from './components/square_for_letter/SquareForLetter';
 import ButtonForLetter from './components/buttonForLetter/ButtonForLetter';
 
 import {ProgressScale} from '../../../components/index';
-
+import { wordSetsAPI } from '../../../DAL/api';
 
 
 
@@ -23,30 +25,24 @@ import { ExitFromTrainingPopup } from '../components';
 const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initialServiceWord, skipTask_TrainingId002,
             collectingCommonStatistics, createTaskStatisticsObject_TrainingId002, createEducationPlan,
-            finishTraining, nextTaskCommon, skipTaskCommon, initializationCurrentTrainingModeId } = props;
+            finishTraining, nextTaskCommon, skipTaskCommon,
+            initializationCurrentTrainingModeId, getTasks } = props;
             
-    const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoaded,
+    const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoaded, isLoadedTasks,
             serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard,
-            questionLanguage, isLastLetter, isFinishTask, trainingId } = props;
+            questionLanguage, isLastLetter, isFinishTask, trainingId, selectedWordsIds } = props;
     
     const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
 
     React.useEffect(() => {
-        if(!isLoaded) {
-            createEducationPlan(selectedWords)
-        }
-    }, []);
-
-    React.useEffect(() => {
-        if(isLoaded) {
-            initialServiceWord()
-        }
+        getTasks(selectedWordsIds)
     }, [])
 
-    React.useEffect(() => {
+
+    React.useEffect(() => { //! 
         createTaskStatisticsObject_TrainingId002()
-    }, [])
+    }, [isLoadedTasks])
 
     React.useEffect(() => {
         function keyPressHandler(event) {
@@ -78,9 +74,9 @@ const TrainingPageComponent = function(props) {
 
     const onNextTask = () => { 
         return () => {
-            collectingCommonStatistics('002')
-            nextTaskTrainingId002();
+            collectingCommonStatistics('002');
             nextTaskCommon();
+            nextTaskTrainingId002();
             createTaskStatisticsObject_TrainingId002();
         }
     }
@@ -90,8 +86,8 @@ const TrainingPageComponent = function(props) {
     }
 
     const onSkipTask = () => {
-        skipTask_TrainingId002()
-        skipTaskCommon()
+        skipTaskCommon();
+        skipTask_TrainingId002();
         createTaskStatisticsObject_TrainingId002()
 
     }
@@ -198,6 +194,7 @@ const mapStateToProps = function(state) {
         isFinishedTraining: commonDataSelectors.isFinishedTraining(state),
         selectedWords: commonDataSelectors.getSelectedWords(state),
         scheduleTaskCard: commonDataSelectors.getScheduleTaskCard(state),
+        selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
 
         serviceWord:  spellingSelectors.getSplittedAnswerWord(state),
         pressedKey:  spellingSelectors.getPressedKey(state),
@@ -208,13 +205,14 @@ const mapStateToProps = function(state) {
         isFinishTask: spellingSelectors.isFinishTask(state),
         trainingId: spellingSelectors.getTrainingId(state),
         isLoaded: state.trainingCommonData.isLoaded,
-        
+        isLoadedTasks: state.trainingCommonData.spellingState.isLoadedTasks
     }
 }
 
 const mapDispatchToProps = { selectingVariant, deleteLetter, nextTaskTrainingId002, skipTask_TrainingId002, createEducationPlan,
                              skipTaskCommon, nextTaskCommon, hint, initialServiceWord, collectingCommonStatistics,
-                             createTaskStatisticsObject_TrainingId002, finishTraining, initializationCurrentTrainingModeId }
+                             createTaskStatisticsObject_TrainingId002, finishTraining,
+                             initializationCurrentTrainingModeId, getTasks }
 
 const WithRouterTrainingPage = withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingPageComponent));
 

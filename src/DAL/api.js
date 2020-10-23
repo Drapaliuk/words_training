@@ -1,6 +1,12 @@
 import Axios from "axios";
 
 export const wordSetsAPI = {
+
+        getTaskLetter: (selectedWordsIds) => {
+            let url = 'http://localhost:8888/taskLatter';
+            return Axios.post(url, selectedWordsIds);
+        },
+
         getWordSets: (setname) => {
             let url = `http://localhost:8888/words?setname=${setname}`;
             return Axios.get(url);
@@ -12,10 +18,8 @@ export const wordSetsAPI = {
         },
         
         getWordsForMixing: (selectedWordsIds) => {
-            // let url = `http://localhost:8888/mixWords?selectedset=city&wordsAmmount=2`;
             let url = 'http://localhost:8888/mixWords';
             return Axios.post(url, selectedWordsIds)
-            // return Axios.get(url)
         },
 
         createEducationPlan: (selectedWords, trainingId) => { //потрібно відправляти тільки ід але зараз бекенд до цього не готовий

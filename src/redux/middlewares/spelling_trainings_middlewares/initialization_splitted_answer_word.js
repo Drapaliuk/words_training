@@ -4,13 +4,13 @@ import { mixingElement } from '../../../utils/mixers/mixers';
 export const initializationSplittedAnswerWord = function(store) {
     return (next) => (action) => {
         const isLoaded = store.getState().trainingCommonData.isLoaded
-        if(action.type === CREATE_EDUCATION_PLANS && !isLoaded) {
-            firstInitialization()
-        }
+        // if(action.type === CREATE_EDUCATION_PLANS && !isLoaded) {
+        //     firstInitialization()
+        // }
 
-        if(action.type === INITIALIZATION_TRAINING_ID_002 && isLoaded) {
-            return reInitialization()
-        }
+        // if(action.type === INITIALIZATION_TRAINING_ID_002 && isLoaded) {
+        //     return reInitialization()
+        // }
 
         return next(action)
         

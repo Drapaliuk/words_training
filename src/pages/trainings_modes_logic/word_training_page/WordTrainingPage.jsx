@@ -41,7 +41,7 @@ const TrainingByWordPage = function(props) {
     React.useEffect(() => {
         initializationTaskStaticsObject_TrainingId001()
     }, [isLoadedScheduleTaskCard, isLoadedVariantList]) // тому що фетч scheduleTaskCard це асинхронна операція, 
-                                                //і якщо зробити одноразовий виклик, то в перше слово не прийде актуальна інфа
+                                                        // і якщо зробити одноразовий виклик, то в перше слово не прийде актуальна інфа
 
 
 

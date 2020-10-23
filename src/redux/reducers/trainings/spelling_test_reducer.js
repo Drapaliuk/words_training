@@ -1,7 +1,8 @@
 import { mixingElement } from '../../../utils/mixers/mixers';
 
 import { SELECTING_TASK_VARIANT_TRAINING_ID_002, DELETE_LETTER, NEXT_TASK_TRAINING_ID_002, FINISH_TRAINING_ID_002,
-         INITIALIZATION_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002, HINT, SKIP_TASK_TRAINING_ID_002 } from '../../action_types/index'
+         INITIALIZATION_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002,
+         HINT, SKIP_TASK_TRAINING_ID_002, GET_TASKS } from '../../action_types/index'
 
 
 const statisticObjectCreator = function({selfState, action, currentWord}, needHint = false, skipped = false) { 
@@ -9,7 +10,6 @@ const statisticObjectCreator = function({selfState, action, currentWord}, needHi
     const correctVariant = currentWord[currentWord.answerLang][selfState.letterCounter]
     const isInitializadeTaskVariants = Boolean(selfState.currentTaskStatistics.answerDetails[letterCounter]) //rename
     const isCorrectVariant = action.selectedVariant === correctVariant;
-    console.log('selfState.currentTaskStatistics.task', selfState.currentTaskStatistics.task)
 
     const taskVariantsItemTemplate = {
         correctVariant: '',
@@ -75,17 +75,25 @@ export let spellingState = {
         letterCounter: 0, //currentLetter
         needHint: false,
         pressedKey: '',
-        splittedAnswerWord: [],
+        splittedAnswerWord: [], //rename to task
+        tasks: [],
+        isLoadedTasks: false,
 }
 
 
 export const spelling = function(state, action) {
     const selfState = state.spellingState;
     const currentWord = state.scheduleTaskCard[state.currentWordCounter];
-    
     const mainParametersForCreatorStatisticObject = {selfState, action, currentWord};
 
     switch(action.type) {
+        case GET_TASKS:
+            return {
+                ...selfState,
+                tasks: [...action.serverPayload.tasks],
+                splittedAnswerWord: [...action.serverPayload.tasks[0]],
+                isLoadedTasks: true,
+            }
         
         case FINISH_TRAINING_ID_002:
             return {
@@ -112,7 +120,7 @@ export const spelling = function(state, action) {
                     isSkipped: false, 
                     isMistakeInTheTask: false,
                     needHint: false,
-                    // task: null,
+                    task: selfState.isLoadedTasks ? selfState.tasks[state.currentWordCounter] : [],
                     answerDetails: [
                         {
                             correctVariant: '',
@@ -130,17 +138,13 @@ export const spelling = function(state, action) {
             }
 
         case NEXT_TASK_TRAINING_ID_002:
-            const mixedCurrentWord = !state.isLastTask 
-                                                ? mixingElement([...state.scheduleTaskCard[state.currentWordCounter + 1][state.scheduleTaskCard[state.currentWordCounter + 1].answerLang]])
-                                                : mixingElement([...state.scheduleTaskCard[state.currentWordCounter][state.scheduleTaskCard[state.currentWordCounter].answerLang]])
-            
             return {
                 ...selfState,
-                splittedAnswerWord: mixedCurrentWord,
+                splittedAnswerWord: selfState.tasks[state.currentWordCounter],
                 pressedKey: '',
                 letterCounter: 0,
-                currentTaskStatistics: {task: mixedCurrentWord},
-                hintLetter: !state.isLastTask ? state.scheduleTaskCard[state.currentWordCounter + 1][currentWord.answerLang][0] : '',
+                currentTaskStatistics: {task: selfState.tasks[state.currentWordCounter]},
+                hintLetter: !state.isLastTask ? state.scheduleTaskCard[state.currentWordCounter][currentWord.answerLang][0] : '',
                 needHint: false,
                 isLastLetter: false,
                 isFinishTask: false,
@@ -155,17 +159,13 @@ export const spelling = function(state, action) {
             }
             
         case SKIP_TASK_TRAINING_ID_002:
-            const mixedCurrentWord2 = !state.isLastTask 
-                                                ? mixingElement([...state.scheduleTaskCard[state.currentWordCounter + 1][state.scheduleTaskCard[state.currentWordCounter + 1].answerLang]])
-                                                : mixingElement([...state.scheduleTaskCard[state.currentWordCounter][state.scheduleTaskCard[state.currentWordCounter].answerLang]])
-            
             return {
                 ...selfState,
-                splittedAnswerWord: mixedCurrentWord2,
+                splittedAnswerWord: selfState.tasks[state.currentWordCounter],
                 pressedKey: '',
                 letterCounter: 0,
-                currentTaskStatistics: {...statisticObjectCreator(mainParametersForCreatorStatisticObject, false, true), task: mixedCurrentWord2},
-                hintLetter: !state.isLastTask ? state.scheduleTaskCard[state.currentWordCounter + 1][currentWord.answerLang][0] : '',
+                currentTaskStatistics: {...statisticObjectCreator(mainParametersForCreatorStatisticObject, false, true), task: selfState.tasks[state.currentWordCounter]},
+                hintLetter: !state.isLastTask ? state.scheduleTaskCard[state.currentWordCounter][currentWord.answerLang][0] : '',
                 needHint: false,
                 isLastLetter: false,
                 isFinishTask: false //! для чого це?
@@ -174,12 +174,7 @@ export const spelling = function(state, action) {
         case INITIALIZATION_TRAINING_ID_002:  //rename to INITIALIZATION_TRAINING_ID_002
             return {
                 ...selfState,
-                splittedAnswerWord: action.middlewarePayload,
-                // hintLetter: action.middlewarePayload[0]
-                hintLetter: action.middlewarePayload[0],
-                currentTaskStatistics: {...selfState.currentTaskStatistics, task: action.middlewarePayload,}
-
-
+                splittedAnswerWord: selfState.tasks[state.currentWordCounter],
             }
         
         case SELECTING_TASK_VARIANT_TRAINING_ID_002: //middleware

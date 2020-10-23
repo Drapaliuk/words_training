@@ -62,3 +62,4 @@ export const SIGN_IN = 'SIGN_IN';
 export const LOG_OUT = 'LOG_OUT';
 
 export const FETCHING_TASK_CARDS = 'FETCHING_TASK_CARDS';
+export const GET_TASKS = 'GET_TASKS';
