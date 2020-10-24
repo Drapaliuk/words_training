@@ -1,8 +1,8 @@
 import { mixingElement } from '../../../utils/mixers/mixers';
 
 import { SELECTING_TASK_VARIANT_TRAINING_ID_002, DELETE_LETTER, NEXT_TASK_TRAINING_ID_002, FINISH_TRAINING_ID_002,
-         INITIALIZATION_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002,
-         HINT, SKIP_TASK_TRAINING_ID_002, GET_TASKS } from '../../action_types/index'
+         INITIALIZATION_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002, CLEAR_SPLITTED_ANSWER_WORD,
+         HINT, SKIP_TASK_TRAINING_ID_002, GET_TASKS, FETCHING_MIXED_TASKS } from '../../action_types/index'
 
 
 const statisticObjectCreator = function({selfState, action, currentWord}, needHint = false, skipped = false) { 
@@ -87,11 +87,27 @@ export const spelling = function(state, action) {
     const mainParametersForCreatorStatisticObject = {selfState, action, currentWord};
 
     switch(action.type) {
+        case CLEAR_SPLITTED_ANSWER_WORD:
+            return {
+                ...selfState,
+                splittedAnswerWord: [],
+            }
+
+        case FETCHING_MIXED_TASKS: 
+            return {
+                ...selfState,
+                tasks: [...action.serverPayload.tasks],
+                // splittedAnswerWord: [...action.serverPayload.tasks[0]], //transfer to indvidual dispatch
+                isLoadedTasks: true,
+
+            }
+        
+
         case GET_TASKS:
             return {
                 ...selfState,
                 tasks: [...action.serverPayload.tasks],
-                splittedAnswerWord: [...action.serverPayload.tasks[0]],
+                splittedAnswerWord: [...action.serverPayload.tasks[0]], //transfer to indvidual dispatch
                 isLoadedTasks: true,
             }
         

@@ -46,7 +46,7 @@ export const commonDataSelectors = {
         const selectedWords = state.trainingCommonData.selectedWords
         const ids = selectedWords.map(word => word._id)
         return ids
-    }
+    },
 }
 
 

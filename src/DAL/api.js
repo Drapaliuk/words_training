@@ -1,6 +1,10 @@
 import Axios from "axios";
 
 export const wordSetsAPI = {
+        getMixedTasks: (selectedWordsIds) => {
+            let url = 'http://localhost:8888/mixTasks';
+            return Axios.post(url, selectedWordsIds)
+        },
 
         getTaskLetter: (selectedWordsIds) => {
             let url = 'http://localhost:8888/taskLatter';

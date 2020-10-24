@@ -1,7 +1,8 @@
 import { SELECTING_TASK_VARIANT_TRAINING_ID_001, NEXT_TASK_TRAINING_ID_001,
          CREATE_VARIANT_LIST, SKIP_TASK_TRAINING_ID_001,
          FIFTY_FIFTY, FETCH_WORDS_FOR_MIXING, FINISH_TRAINING_ID_001,
-         CREATE_STATISTICS_OBJECT_TRAINING_ID_001, FETCHING_TASK_CARDS } from '../../action_types/index';
+         CREATE_STATISTICS_OBJECT_TRAINING_ID_001, FETCHING_TASK_CARDS,
+         FETCHING_MIXED_TASKS } from '../../action_types/index';
 
 const statisticObjectCreator = function({selfState, state, action, currentWord}, ) { //skip зробити тут а не в мідлварі
     const questionLanguage =  state.scheduleTaskCard[state.currentWordCounter].questionLang
@@ -46,7 +47,7 @@ export const wordTestState = { // why did i exported this object?
     variantList: [], //rename to task
     wordsForMixing: [],
     justDoIt: [],
-    isLoaded: false,
+    isLoadedTasks: false,
 }
 
 
@@ -56,15 +57,20 @@ export const wordTestReducer = function (state, action) { // why did i write so?
     const currentWordCounter = state.currentWordCounter;
     const currentWord = state.scheduleTaskCard[state.currentWordCounter];
     const mainParametersForCreatorStatisticObject = {selfState, state, action, currentWord}
-    console.log('SELF STATE 001: ', selfState) //! ?
-    console.log('STATE 001', state) //! ?
     switch(action.type) {
+
+        case FETCHING_MIXED_TASKS: 
+        return {
+            ...selfState,
+            variantList: [...action.serverPayload.tasks],
+            isLoadedTasks: true
+        }
 
         case FETCHING_TASK_CARDS:
             return {
                 ...state,
                 variantList: action.serverPayload.variantList,
-                isLoaded: true
+                isLoadedTasks: true
                 
             }
 

@@ -21,7 +21,7 @@ import {VariantList} from './component/VariantList'; //! чомуьсь не п�
 
 const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
-         selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCard, isLoadedVariantList,
+         selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
           answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask } = props;
 
     const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
@@ -31,6 +31,7 @@ const TrainingByWordPage = function(props) {
     let hintWordCounter = 0; //зробити юз рефом
     
     React.useEffect(() => {
+        if(!isLoadedScheduleTaskCards || !isLoadedTasks)
         fetchingTaskCards(selectedWordsIds)
     }, [])
 
@@ -40,12 +41,12 @@ const TrainingByWordPage = function(props) {
  
     React.useEffect(() => {
         initializationTaskStaticsObject_TrainingId001()
-    }, [isLoadedScheduleTaskCard, isLoadedVariantList]) // тому що фетч scheduleTaskCard це асинхронна операція, 
+    }, [isLoadedScheduleTaskCards, isLoadedTasks]) // тому що фетч scheduleTaskCard це асинхронна операція, 
                                                         // і якщо зробити одноразовий виклик, то в перше слово не прийде актуальна інфа
 
 
 
-    if(!isLoadedScheduleTaskCard && !isLoadedVariantList) {
+    if(!isLoadedScheduleTaskCards && !isLoadedTasks) {
         return 'good luck'
     }
 
@@ -182,7 +183,7 @@ let mapStateToProps = function(state) {
         scheduleTaskCard: commonDataSelectors.getScheduleTaskCard(state),
         isFinishedTraining: commonDataSelectors.isFinishedTraining(state),
         selectedWords: commonDataSelectors.getSelectedWords(state),
-        isLoadedScheduleTaskCard: state.trainingCommonData.isLoaded,
+        isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
 
         answerWord: wordTestSelectors.getAnswerWord(state),
@@ -191,7 +192,8 @@ let mapStateToProps = function(state) {
         answerLang: wordTestSelectors.getAnswerLang(state),
         trainingId: wordTestSelectors.getTrainingId(state),
         wordsForMixing: state.trainingCommonData.wordTestState.wordsForMixing,
-        isLoadedVariantList: state.trainingCommonData.wordTestState.isLoaded,
+        isLoadedTasks: state.trainingCommonData.wordTestState.isLoadedTasks,
+
 
         isTrueAnswer: wordTestSelectors.isTrueAnswer(state),
         variantList: wordTestSelectors.getVariantList(state), 

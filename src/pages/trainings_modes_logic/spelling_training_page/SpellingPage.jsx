@@ -4,10 +4,13 @@ import { connect } from 'react-redux';
 
 import { selectingVariant, deleteLetter, nextTaskTrainingId002, hint,
          finishTraining,
-         initialServiceWord, createTaskStatisticsObject_TrainingId002,
-         skipTask_TrainingId002, getTasks  } from '../../../redux/actions/spelling_test_actions'; //! 
+         initializationTrainingID002, createTaskStatisticsObject_TrainingId002,
+         skipTask_TrainingId002, getTasks, clearSplittedAnswerWord  } from '../../../redux/actions/spelling_test_actions'; //! 
+
 import { collectingCommonStatistics, nextTaskCommon, skipTaskCommon,
          initializationCurrentTrainingModeId, createEducationPlan } from '../../../redux/actions/common_data_actions'; //!
+
+
 import { spellingSelectors, commonDataSelectors } from '../../../redux/selectors/index'         
 import SquareForLetter from './components/square_for_letter/SquareForLetter';
 import ButtonForLetter from './components/buttonForLetter/ButtonForLetter';
@@ -23,20 +26,28 @@ import helpIcon from '../../../assets/img/help-icon.png';
 import { ExitFromTrainingPopup } from '../components';
 
 const TrainingPageComponent = function(props) {
-    const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initialServiceWord, skipTask_TrainingId002,
+    const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
             collectingCommonStatistics, createTaskStatisticsObject_TrainingId002, createEducationPlan,
-            finishTraining, nextTaskCommon, skipTaskCommon,
+            finishTraining, nextTaskCommon, skipTaskCommon,selectedTrainingModeId, clearSplittedAnswerWord,
             initializationCurrentTrainingModeId, getTasks } = props;
             
-    const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoaded, isLoadedTasks,
+    const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoadedScheduleTaskCards, isLoadedTasks,
             serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard,
-            questionLanguage, isLastLetter, isFinishTask, trainingId, selectedWordsIds } = props;
+            questionLanguage, isLastLetter, isFinishTask, trainingId, selectedWordsIds,
+            } = props;
     
     const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
 
     React.useEffect(() => {
+        if(!isLoadedScheduleTaskCards || !isLoadedTasks)
         getTasks(selectedWordsIds)
+    }, [])
+
+    React.useEffect(() => {
+        if(serviceWord.length === 0) {
+            initializationTrainingID002()
+        }
     }, [])
 
 
@@ -68,7 +79,11 @@ const TrainingPageComponent = function(props) {
         initializationCurrentTrainingModeId(trainingId)
     }, [])
 
-    if(!isLoaded) {
+    React.useEffect(() => {
+        initializationTrainingID002()
+    }, [])
+
+    if(!isLoadedScheduleTaskCards) {
         return 'good liuck'
     }
 
@@ -78,6 +93,10 @@ const TrainingPageComponent = function(props) {
             nextTaskCommon();
             nextTaskTrainingId002();
             createTaskStatisticsObject_TrainingId002();
+            if(selectedTrainingModeId === '003') {
+                console.log('selectedTrainingModeId === 003')
+                clearSplittedAnswerWord()
+            }
         }
     }
 
@@ -89,7 +108,10 @@ const TrainingPageComponent = function(props) {
         skipTaskCommon();
         skipTask_TrainingId002();
         createTaskStatisticsObject_TrainingId002()
-
+        if(selectedTrainingModeId === '003') {
+            console.log('selectedTrainingModeId === 003')
+            clearSplittedAnswerWord()
+        }
     }
 
 
@@ -195,6 +217,7 @@ const mapStateToProps = function(state) {
         selectedWords: commonDataSelectors.getSelectedWords(state),
         scheduleTaskCard: commonDataSelectors.getScheduleTaskCard(state),
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
+        selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
 
         serviceWord:  spellingSelectors.getSplittedAnswerWord(state),
         pressedKey:  spellingSelectors.getPressedKey(state),
@@ -204,15 +227,15 @@ const mapStateToProps = function(state) {
         isLastLetter:  spellingSelectors.isLastLetter(state),
         isFinishTask: spellingSelectors.isFinishTask(state),
         trainingId: spellingSelectors.getTrainingId(state),
-        isLoaded: state.trainingCommonData.isLoaded,
+        isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         isLoadedTasks: state.trainingCommonData.spellingState.isLoadedTasks
     }
 }
 
 const mapDispatchToProps = { selectingVariant, deleteLetter, nextTaskTrainingId002, skipTask_TrainingId002, createEducationPlan,
-                             skipTaskCommon, nextTaskCommon, hint, initialServiceWord, collectingCommonStatistics,
+                             skipTaskCommon, nextTaskCommon, hint, initializationTrainingID002, collectingCommonStatistics,
                              createTaskStatisticsObject_TrainingId002, finishTraining,
-                             initializationCurrentTrainingModeId, getTasks }
+                             initializationCurrentTrainingModeId, getTasks, clearSplittedAnswerWord }
 
 const WithRouterTrainingPage = withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingPageComponent));
 
