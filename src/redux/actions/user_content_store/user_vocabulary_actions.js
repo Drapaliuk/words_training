@@ -33,12 +33,13 @@ export const addWordToVocabulary = (wordId, userId) => {
     } 
 }
 
-export const deleteWordFromVocabulary = (payload) => {
+export const deleteWordFromVocabulary = (wordId, userId) => {
+    console.log('wordId', wordId, userId)
     return (dispatch) => {
-        userVocabularyAPI.deleteWordFromUserVocabular()
+        userVocabularyAPI.deleteWordFromUserVocabular(wordId, userId)
                          .then(({data}) => {
                             if(data.responseCode === 1) {
-                                dispatch({type: DELETE_WORD_FROM_VOCABULARY, payload});
+                                dispatch({type: DELETE_WORD_FROM_VOCABULARY, serverPayload: data.deletedWordId});
                             }
                          })
         }

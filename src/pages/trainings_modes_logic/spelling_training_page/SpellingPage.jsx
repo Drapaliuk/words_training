@@ -8,7 +8,7 @@ import { selectingVariant, deleteLetter, nextTaskTrainingId002, hint,
          skipTask_TrainingId002, getTasks, clearSplittedAnswerWord  } from '../../../redux/actions/spelling_test_actions'; //! 
 
 import { collectingCommonStatistics, nextTaskCommon, skipTaskCommon,
-         initializationCurrentTrainingModeId, createEducationPlan } from '../../../redux/actions/common_data_actions'; //!
+         initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode } from '../../../redux/actions/common_data_actions'; //!
 
 
 import { spellingSelectors, commonDataSelectors } from '../../../redux/selectors/index'         
@@ -24,6 +24,7 @@ import styles from './TrainingPage.module.css';
 import { Header } from '../../../components/header/Header';
 import helpIcon from '../../../assets/img/help-icon.png';
 import { ExitFromTrainingPopup } from '../components';
+import { getInfoForPause } from '../../../redux/selectors/trainings/training_pause_selectors';
 
 const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
@@ -32,12 +33,16 @@ const TrainingPageComponent = function(props) {
             initializationCurrentTrainingModeId, getTasks } = props;
             
     const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoadedScheduleTaskCards, isLoadedTasks,
-            serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard,
+            serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard, currentWordCounter,
             questionLanguage, isLastLetter, isFinishTask, trainingId, selectedWordsIds,
-            } = props;
+            pauseTrainingData, selectingTrainingMode } = props;
     
     const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
+
+    React.useEffect(() => {
+        selectingTrainingMode('002') //!rename this actiion!!!
+    }, [])
 
     React.useEffect(() => {
         if(!isLoadedScheduleTaskCards || !isLoadedTasks)
@@ -45,11 +50,9 @@ const TrainingPageComponent = function(props) {
     }, [])
 
     React.useEffect(() => {
-        if(serviceWord.length === 0) {
             initializationTrainingID002()
-        }
     }, [])
-
+    
 
     React.useEffect(() => { //! 
         createTaskStatisticsObject_TrainingId002()
@@ -81,7 +84,7 @@ const TrainingPageComponent = function(props) {
 
     React.useEffect(() => {
         initializationTrainingID002()
-    }, [])
+    }, [currentWordCounter])
 
     if(!isLoadedScheduleTaskCards) {
         return 'good liuck'
@@ -94,8 +97,7 @@ const TrainingPageComponent = function(props) {
             nextTaskTrainingId002();
             createTaskStatisticsObject_TrainingId002();
             if(selectedTrainingModeId === '003') {
-                console.log('selectedTrainingModeId === 003')
-                clearSplittedAnswerWord()
+                clearSplittedAnswerWord();
             }
         }
     }
@@ -109,14 +111,13 @@ const TrainingPageComponent = function(props) {
         skipTask_TrainingId002();
         createTaskStatisticsObject_TrainingId002()
         if(selectedTrainingModeId === '003') {
-            console.log('selectedTrainingModeId === 003')
-            clearSplittedAnswerWord()
+            clearSplittedAnswerWord();
         }
     }
 
 
     let onAddLetter = (event) => {
-        selectingVariant(event.target.value);
+        selectingVariant(event.target.value); 
     }
     // const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useEffect(false);
     if(isAttemptExitFromTraining) {
@@ -138,10 +139,12 @@ const TrainingPageComponent = function(props) {
     })
 
 
+    const g = () => console.log(pauseTrainingData)
 
     return (
         <div>
             <Header />
+            <button onClick = {() => g()}>!!!!!!!!!</button>
             <button onClick = {() => setAttemptExitFromTraining(true)}>exit</button>
             <div className = {styles['main-container']}>
             <div className = {isMistake  ? styles.error : styles.mainStyles}>
@@ -218,6 +221,8 @@ const mapStateToProps = function(state) {
         scheduleTaskCard: commonDataSelectors.getScheduleTaskCard(state),
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
         selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
+        currentWordCounter: commonDataSelectors.getCurrentWordCounter(state),
+        pauseTrainingData: getInfoForPause(state),
 
         serviceWord:  spellingSelectors.getSplittedAnswerWord(state),
         pressedKey:  spellingSelectors.getPressedKey(state),
@@ -234,7 +239,7 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = { selectingVariant, deleteLetter, nextTaskTrainingId002, skipTask_TrainingId002, createEducationPlan,
                              skipTaskCommon, nextTaskCommon, hint, initializationTrainingID002, collectingCommonStatistics,
-                             createTaskStatisticsObject_TrainingId002, finishTraining,
+                             createTaskStatisticsObject_TrainingId002, finishTraining,selectingTrainingMode,
                              initializationCurrentTrainingModeId, getTasks, clearSplittedAnswerWord }
 
 const WithRouterTrainingPage = withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingPageComponent));

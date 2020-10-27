@@ -9,26 +9,34 @@ import {fetchingWordsForMixing, selectingVariant, nextTaskTrainingId001,
 
 
 import { collectingCommonStatistics, skipTaskCommon, nextTaskCommon,
-        initializationCurrentTrainingModeId, createEducationPlan } from '../../../redux/actions/common_data_actions'; //!
+        initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode } from '../../../redux/actions/common_data_actions'; //!
 import {VariantListItem} from './component/VariantListItem'
 import {ProgressScale} from '../../../components/index';
 import {Header} from '../../../components/index';
 import helpIcon from '../../../assets/img/help-icon.png';
 import {VariantList} from './component/VariantList'; //! чомуьсь не працює
+import { getInfoForPause } from '../../../redux/selectors/trainings/training_pause_selectors';
 
 
 //! Перебрати всю логіку, логіка дуже уйобішна, ніхуя не ясно
 
 const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
-         selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
-          answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask } = props;
+            selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
+            answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask,
+            pauseTrainingData } = props;
 
     const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
-         skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
-          createVariantList, hinting, collectingCommonStatistics, initializationTaskStaticsObject_TrainingId001 } = props;
+            skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
+            createVariantList, hinting, collectingCommonStatistics, initializationTaskStaticsObject_TrainingId001,
+            selectingTrainingMode 
+          } = props;
     
     let hintWordCounter = 0; //зробити юз рефом
+
+    React.useEffect(() => {
+        selectingTrainingMode('001')
+    }, [])
     
     React.useEffect(() => {
         if(!isLoadedScheduleTaskCards || !isLoadedTasks)
@@ -107,10 +115,12 @@ const TrainingByWordPage = function(props) {
     })
 
     //зробити всы ці кнопки як загальний компонент і перевикористовувавти + дати можливість давати в нього колбек з власною логікою
+    const g = () => console.log(pauseTrainingData)
 
     return (
         <div>
             <Header />
+                <button onClick = {() => g()}>!!!!!</button>
                 <div className = {styles.mainStyles}>
                     <div className="">
                         {
@@ -193,6 +203,7 @@ let mapStateToProps = function(state) {
         trainingId: wordTestSelectors.getTrainingId(state),
         wordsForMixing: state.trainingCommonData.wordTestState.wordsForMixing,
         isLoadedTasks: state.trainingCommonData.wordTestState.isLoadedTasks,
+        pauseTrainingData: getInfoForPause(state),
 
 
         isTrueAnswer: wordTestSelectors.isTrueAnswer(state),
@@ -208,7 +219,7 @@ let mapStateToProps = function(state) {
 
 const mapDispatchToProps = { fetchingWordsForMixing, nextTaskCommon, skipTaskCommon, initializationCurrentTrainingModeId,
                              skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, createEducationPlan,
-                             createVariantList, hinting, collectingCommonStatistics,
+                             createVariantList, hinting, collectingCommonStatistics, selectingTrainingMode,
                              initializationTaskStaticsObject_TrainingId001, fetchingTaskCards };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrainingByWordPage);

@@ -5,11 +5,7 @@ import styles from './styles.module.css';
 import { commonDataSelectors } from '../../../../redux/selectors/common_data_selectors';
 import { fetchingWordSetsNames, fetchingWords } from '../../../../redux/actions/common_data_actions'; //! все в одному редюсері
 
-
-
-
 //! ВИБІР НАБОРУ СЛІВ МАЄ ВІДБУВАТИСЯ НЕ ПО ЙОГО БЕЗПОСРЕДНІЙ НАЗВІ, А ПО ID ШНИКУ
-
 
 export const WordKitsList = function ({extraHandlers}) {
     const dispatch = useDispatch()
@@ -17,21 +13,23 @@ export const WordKitsList = function ({extraHandlers}) {
             dispatch(fetchingWordSetsNames()) 
     }, []);
 
-    const wordSetsNames = useSelector((state) => commonDataSelectors.getAllSetsNames(state));
+    const wordKits = useSelector((state) => commonDataSelectors.getAllSetsNames(state));
     const onSelectingSetsName = (setName) => {
         dispatch(fetchingWords(setName))
     }
-   
+    
+
+
     return (
         <ul className = {styles['wordsets-list']}>
-            {wordSetsNames.map(name => {
+            {wordKits.map(wordKit => {
                 return (
                     <li className = {styles['wordsets-list-item']}>
                         <NavLink className = {styles['wordsets-list-link']} 
-                                to = {`/wordset/${name}`}
-                                onClick = {() => onSelectingSetsName(name)}
+                                to = {`/wordset/${wordKit.serviceInfo.name}`}
+                                onClick = {() => onSelectingSetsName(wordKit.serviceInfo.name)}
                         >
-                                    {name}
+                                    {wordKit.serviceInfo.name}
                         </NavLink>
                     </li>
                 )

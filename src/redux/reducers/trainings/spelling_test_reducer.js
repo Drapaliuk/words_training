@@ -2,7 +2,7 @@ import { mixingElement } from '../../../utils/mixers/mixers';
 
 import { SELECTING_TASK_VARIANT_TRAINING_ID_002, DELETE_LETTER, NEXT_TASK_TRAINING_ID_002, FINISH_TRAINING_ID_002,
          INITIALIZATION_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002, CLEAR_SPLITTED_ANSWER_WORD,
-         HINT, SKIP_TASK_TRAINING_ID_002, GET_TASKS, FETCHING_MIXED_TASKS } from '../../action_types/index'
+         HINT, SKIP_TASK_TRAINING_ID_002, GET_TASKS, FETCHING_MIXED_TASKS, PAUSE_TRAINING, CONTINUE_TRAINING } from '../../action_types/index'
 
 
 const statisticObjectCreator = function({selfState, action, currentWord}, needHint = false, skipped = false) { 
@@ -87,6 +87,33 @@ export const spelling = function(state, action) {
     const mainParametersForCreatorStatisticObject = {selfState, action, currentWord};
 
     switch(action.type) {
+        case PAUSE_TRAINING: 
+            return {
+                ...selfState,
+                currentTaskStatistics: {},
+                hintLetter: null,
+                isFinishTask: false,
+                isLastLetter: false,
+                isMistake: false,
+                letterCounter: 0, //currentLetter
+                needHint: false,
+                pressedKey: '',
+                splittedAnswerWord: [], //rename to task
+                tasks: [],
+                isLoadedTasks: false,
+            }
+        
+        case CONTINUE_TRAINING: 
+            const {tasks, task, currentTaskStatistics, currentLetter} = action.serverPayload;
+            return {
+                ...selfState,
+                tasks,
+                splittedAnswerWord: task,
+                isLoadedTasks: true,
+                currentTaskStatistics,
+                letterCounter: currentLetter
+            }
+
         case CLEAR_SPLITTED_ANSWER_WORD:
             return {
                 ...selfState,
@@ -187,7 +214,7 @@ export const spelling = function(state, action) {
                 isFinishTask: false //! для чого це?
             }
 
-        case INITIALIZATION_TRAINING_ID_002:  //rename to INITIALIZATION_TRAINING_ID_002
+        case INITIALIZATION_TRAINING_ID_002:
             return {
                 ...selfState,
                 splittedAnswerWord: selfState.tasks[state.currentWordCounter],

@@ -55,9 +55,15 @@ export const userVocabularyAPI = {
         return Axios.post(url, requestObject)
     },
 
-    deleteWordFromUserVocabular: (word) => {
+    deleteWordFromUserVocabular: (wordId, userId) => {
         let url = 'http://localhost:8888/userVocabulary';
-        return Axios.delete(url, word)
+        let requestSendObject = {
+            userId,
+            wordId
+        }
+        return Axios.delete(url, {data: requestSendObject})
+
+        
     },
 
 }

@@ -5,11 +5,13 @@ import { userContentStoreSelectors } from '../../../../redux/selectors/index';
 import styles from './VocabularyEditor.module.css';
 import { deleteWordFromVocabulary, selectingWordsFromUserVocabulary, unSelectingWordsFromUserVocabulary } from '../../../../redux/actions/user_content_store/user_vocabulary_actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { authorizationSelectors } from '../../../../redux/selectors/authorization_selectors';
 import check from '../../../../assets/img/check.png'
 
 
 export const VocabularyEditor = function({words, showWordSetCreator}) { 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const userId = useSelector(state => authorizationSelectors.getUserId(state))
 
     let onSelectingForTraining = (word) => {
         return () => {
@@ -28,11 +30,9 @@ export const VocabularyEditor = function({words, showWordSetCreator}) {
     })
 
 
-    const deleteWord = (el) => {
-        return () => {
-            dispatch(deleteWordFromVocabulary(el))
+    const deleteWord = (el) => () => {
+            dispatch(deleteWordFromVocabulary(el._id, userId))
             dispatch(unSelectingWordsFromUserVocabulary(el._id))
-        }
     }
     
     let setList = words.map(el => { // перенест в окремий компонент  і зробити це локальним стейтом
@@ -43,9 +43,9 @@ export const VocabularyEditor = function({words, showWordSetCreator}) {
                     {
                         isChecked ? 
                                         <img onClick = {isChecked ? onUnSelectingForTraining(el._id) : onSelectingForTraining(el) }
-                                            className = {styles['check-img']} 
-                                            src = {check} 
-                                            alt=""
+                                             className = {styles['check-img']} 
+                                             src = {check} 
+                                             alt=""
                                         /> 
                          : null
                                     

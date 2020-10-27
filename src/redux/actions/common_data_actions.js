@@ -1,8 +1,11 @@
 import { wordSetsAPI } from '../../DAL/api';
-import {  DELETE_SELECTED_WORD, CREATE_EDUCATION_PLANS, FETCHING_WORDS, CLEAR_SELECTED_WORDS, SELECTING_TRAINING_MODE,
+import {  
+          DELETE_SELECTED_WORD, CREATE_EDUCATION_PLANS, FETCHING_WORDS, CLEAR_SELECTED_WORDS, SELECTING_TRAINING_MODE,
           SELECTING_WORD,  FETCHING_WORD_SETS_NAMES, COLLECTING_COMMON_STATISTICS, CLEAR_SELECTED_WORDS_CURRENT_WORD_SET,
           SELECTING_FULL_KIT, NEXT_TASK_COMMON, SKIP_TASK_COMMON, INITIALIZATION_CURRENT_TRAINING_MODE,
-          UNSELECTING_WORD, CREATE_VARIANT_LIST, UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING } from '../action_types/index';
+          UNSELECTING_WORD, CREATE_VARIANT_LIST, UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING,
+          PAUSE_TRAINING, CONTINUE_TRAINING 
+        } from '../action_types/index';
 
 
 export const selectingTrainingMode = function(selectedTrainingModeId) {
@@ -26,7 +29,6 @@ export const createEducationPlan = function(selectedWords) {
         wordSetsAPI.createEducationPlan(selectedWords)
                    .then(({data}) => {
                        dispatch({type: CREATE_EDUCATION_PLANS, serverPayload: data})
-                    //    dispatch({ type: CREATE_VARIANT_LIST })
                    })
     }
 }
@@ -77,4 +79,8 @@ export const nextTaskCommon = () => {
 
 export const skipTaskCommon = () => ({ type: SKIP_TASK_COMMON }); 
 export const initializationCurrentTrainingModeId = trainingId => ({type: INITIALIZATION_CURRENT_TRAINING_MODE, trainingId});
-export const exitFromTraining = (trainingId => ({type: EXIT_FROM_TRAINING, trainingId}))
+export const exitFromTraining = (trainingId => ({type: EXIT_FROM_TRAINING, trainingId}));
+
+
+export const pauseTraining = () => ({PAUSE_TRAINING})
+export const continueTraining = () => ({CONTINUE_TRAINING})

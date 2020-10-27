@@ -34,15 +34,16 @@ export const userContentStoreReducer = function(state = initialState, action) {
             }
 
         case ADD_WORD_TO_VOCABULARY:
+            console.log('action.payload', action.payload)
             return {
                 ...state,
-                vocabulary: [...state.vocabulary, action.payload]
+                // vocabulary: [...state.vocabulary, action.payload]
             }
             
         case DELETE_WORD_FROM_VOCABULARY:
             return {
                 ...state,
-                vocabulary: [...state.vocabulary.filter(el => el !== action.payload)]
+                vocabulary: [...state.vocabulary.filter(el => el._id !== action.serverPayload)]
             }
         
         case CREATE_WORD_SET:
