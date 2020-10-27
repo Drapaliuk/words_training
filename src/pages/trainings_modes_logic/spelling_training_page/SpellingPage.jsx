@@ -41,7 +41,9 @@ const TrainingPageComponent = function(props) {
     let onceLetter = false; // костиль
 
     React.useEffect(() => {
-        selectingTrainingMode('002') //!rename this actiion!!!
+        if(!selectedTrainingModeId) {
+            selectingTrainingMode('002') //!rename this actiion!!!
+        }
     }, [])
 
     React.useEffect(() => {

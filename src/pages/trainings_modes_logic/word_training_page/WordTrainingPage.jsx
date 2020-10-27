@@ -24,7 +24,7 @@ const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
             selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
             answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask,
-            pauseTrainingData } = props;
+            pauseTrainingData, selectedTrainingModeId } = props;
 
     const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
             skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
@@ -35,7 +35,9 @@ const TrainingByWordPage = function(props) {
     let hintWordCounter = 0; //зробити юз рефом
 
     React.useEffect(() => {
-        selectingTrainingMode('001')
+        if(!selectedTrainingModeId) {
+            selectingTrainingMode('001')
+        }
     }, [])
     
     React.useEffect(() => {
@@ -195,7 +197,7 @@ let mapStateToProps = function(state) {
         selectedWords: commonDataSelectors.getSelectedWords(state),
         isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
-
+        selectedTrainingModeId :commonDataSelectors.getSelectedTrainingModeId(state),
         answerWord: wordTestSelectors.getAnswerWord(state),
         questionWord: wordTestSelectors.getQuestionWord(state),
         questionLang: wordTestSelectors.getQuestionLang(state),
