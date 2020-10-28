@@ -7,7 +7,6 @@ import {fetchingWordsForMixing, selectingVariant, nextTaskTrainingId001,
         createVariantList, hinting, skipTaskTrainingId001,
         initializationTaskStaticsObject_TrainingId001, fetchingTaskCards} from '../../../redux/actions/word_test_actions';
 
-
 import { collectingCommonStatistics, skipTaskCommon, nextTaskCommon,
         initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode } from '../../../redux/actions/common_data_actions'; //!
 import {VariantListItem} from './component/VariantListItem'
