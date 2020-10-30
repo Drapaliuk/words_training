@@ -82,6 +82,9 @@ export const Header = function() {
                         }
                     </div>
                 </div>
+
+
+                <NavLink to = '/pausedTrainings'>Призупинені тренування</NavLink>
                 
                 <div className = {styles['header-service-block']}>
                     {
