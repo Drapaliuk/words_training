@@ -1,34 +1,36 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import styles from './TrainingByWordPage.module.css';
-import {wordTestSelectors, commonDataSelectors} from '../../../redux/selectors/index'; //! ?
-import {fetchingWordsForMixing, selectingVariant, nextTaskTrainingId001,
+import { wordTestSelectors, commonDataSelectors } from '../../../redux/selectors/index'; //! ?
+import { fetchingWordsForMixing, selectingVariant, nextTaskTrainingId001,
         createVariantList, hinting, skipTaskTrainingId001,
-        initializationTaskStaticsObject_TrainingId001, fetchingTaskCards} from '../../../redux/actions/word_test_actions';
+        initializationTaskStaticsObject_TrainingId001, fetchingTaskCards } from '../../../redux/actions/word_test_actions';
 
 import { collectingCommonStatistics, skipTaskCommon, nextTaskCommon,
-        initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode } from '../../../redux/actions/common_data_actions'; //!
+         initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode } from '../../../redux/actions/common_data_actions'; //!
 import {VariantListItem} from './component/VariantListItem'
 import {ProgressScale} from '../../../components/index';
 import {Header} from '../../../components/index';
 import helpIcon from '../../../assets/img/help-icon.png';
-import {VariantList} from './component/VariantList'; //! чомуьсь не працює
-import { getInfoForPause } from '../../../redux/selectors/trainings/training_pause_selectors';
+import { VariantList } from './component/VariantList'; //! чомуьсь не працює
+import { getInfoForPause, pausedTrainingSelectors,  } from '../../../redux/selectors/trainings/training_pause_selectors';
+import { ExitFromTrainingPopup, PauseTrainingButton } from '../components';
+import { openExitWindow } from '../../../redux/actions/trainings/paused_training/paused_training_actions';
+import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
 
-//! Перебрати всю логіку, логіка дуже уйобішна, ніхуя не ясно
 
 const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
             selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
             answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask,
-            pauseTrainingData, selectedTrainingModeId } = props;
+            pauseTrainingData, selectedTrainingModeId, openExitWindow } = props;
 
     const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
             skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
             createVariantList, hinting, collectingCommonStatistics, initializationTaskStaticsObject_TrainingId001,
-            selectingTrainingMode 
+            selectingTrainingMode, isOpenExitWindow
           } = props;
     
     let hintWordCounter = 0; //зробити юз рефом
@@ -84,7 +86,7 @@ const TrainingByWordPage = function(props) {
         initializationTaskStaticsObject_TrainingId001()
         hintWordCounter = 0;
     }
-   
+
     const Task = currentTask.map((el, idx) => {
         const isRightWord = el._id === currentWord._id; //чому тут 2 однакові змінні isTrueAnswer isRightWord
 
@@ -115,13 +117,17 @@ const TrainingByWordPage = function(props) {
                                 />
     })
 
-    //зробити всы ці кнопки як загальний компонент і перевикористовувавти + дати можливість давати в нього колбек з власною логікою
-    const g = () => console.log(pauseTrainingData)
 
+
+    if(isOpenExitWindow) { //! rename
+        return <ExitFromTrainingPopup /> //!rename
+    }
+    
     return (
         <div>
             <Header />
-                <button onClick = {() => g()}>!!!!!</button>
+                <PauseTrainingButton />
+                <ExitFromTrainingButton />
                 <div className = {styles.mainStyles}>
                     <div className="">
                         {
@@ -196,7 +202,10 @@ let mapStateToProps = function(state) {
         selectedWords: commonDataSelectors.getSelectedWords(state),
         isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
-        selectedTrainingModeId :commonDataSelectors.getSelectedTrainingModeId(state),
+        selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
+
+        isOpenExitWindow: pausedTrainingSelectors.isOpenExitWindow(state),
+
         answerWord: wordTestSelectors.getAnswerWord(state),
         questionWord: wordTestSelectors.getQuestionWord(state),
         questionLang: wordTestSelectors.getQuestionLang(state),
@@ -221,39 +230,6 @@ let mapStateToProps = function(state) {
 const mapDispatchToProps = { fetchingWordsForMixing, nextTaskCommon, skipTaskCommon, initializationCurrentTrainingModeId,
                              skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, createEducationPlan,
                              createVariantList, hinting, collectingCommonStatistics, selectingTrainingMode,
-                             initializationTaskStaticsObject_TrainingId001, fetchingTaskCards };
+                             initializationTaskStaticsObject_TrainingId001, fetchingTaskCards, openExitWindow };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrainingByWordPage);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // React.useEffect(() => {
-    //     if(wordsForMixing.length === 0) {
-    //         fetchingWordsForMixing()
-    //     }
-    // }, []) 
-
-    // React.useEffect(() => {
-    //     if(!isLoaded) {
-    //         createEducationPlan(selectedWords)
-    //     }
-    // }, [])
-
-    // React.useEffect(() => {
-    //     if(isLoaded) {
-    //         createVariantList()
-    //     }
-    // }, [scheduleTaskCard]) // review this logic

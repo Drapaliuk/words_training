@@ -8,6 +8,10 @@ export const getInfoForPause = state => {
     }
 
     const selectedTrainingModeId = trainingStatePart.selectedTrainingModeId;
+    const serviceInfo = {
+        timestamp: Date.now(new Date()),
+        comment: state.pausedTrainings.comment
+    }
 
     if(selectedTrainingModeId === '001') {
         const wordTestStatePart = {
@@ -15,7 +19,8 @@ export const getInfoForPause = state => {
             currentTaskStatistics: trainingStatePart.wordTestState.currentTaskStatistics
         }
 
-        return { trainingCommonData, wordTestStatePart }
+
+        return { trainingCommonData, wordTestStatePart, serviceInfo }
     }
 
     if(selectedTrainingModeId === '002') {
@@ -26,7 +31,7 @@ export const getInfoForPause = state => {
             currentTaskStatistics: trainingStatePart.spellingState.currentTaskStatistics
         }
 
-        return {trainingCommonData, spellingTraining }
+        return {trainingCommonData, spellingTraining, serviceInfo }
     }
     if(selectedTrainingModeId === '003') {
         const wordTestState = {
@@ -43,7 +48,8 @@ export const getInfoForPause = state => {
         const mixedTraining = {
             trainingCommonData,
             spellingTraining,
-            wordTestState
+            wordTestState,
+            serviceInfo
         }
 
         return mixedTraining
@@ -51,5 +57,10 @@ export const getInfoForPause = state => {
 }
 
 export const getPausedTrainingsList = state => state.pausedTrainings.pausedTrainingList
+export const getPausedTrainingComment = state => state.pausedTrainings.comment
+export const pausedTrainingSelectors = {
+    isOpenCommentField: state => state.pausedTrainings.isOpenCommentField,
+    isOpenExitWindow: state => state.pausedTrainings.isOpenExitWindow
+}
 
                 

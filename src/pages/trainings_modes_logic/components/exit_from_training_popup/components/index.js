@@ -1,0 +1,1 @@
+export { ExitFromTrainingButton } from './exit_from_training_button/ExitFromTrainingButton';

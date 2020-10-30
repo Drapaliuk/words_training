@@ -156,3 +156,20 @@
     margin: 0 auto;
     outline: 4px solid yellow;
 }
+
+
+.exit-button {
+    display: block;
+    margin-left: 50px;
+    cursor: pointer;
+    border: none;
+    background-color: #74d2e7;
+    padding: 4px 9px;
+    opacity: .7;
+    transition: all .2s linear;
+    /* margin-top: 7px; */
+}
+
+.exit-button:hover {
+    opacity: 1;
+}

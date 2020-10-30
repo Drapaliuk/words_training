@@ -15,10 +15,11 @@ import { spellingSelectors, commonDataSelectors, authorizationSelectors } from '
 import SquareForLetter from './components/square_for_letter/SquareForLetter';
 import ButtonForLetter from './components/buttonForLetter/ButtonForLetter';
 
-import {ProgressScale} from '../../../components/index';
+import { ProgressScale} from '../../../components/index';
+import { PauseTrainingButton } from '../components/index';
 import { wordSetsAPI } from '../../../DAL/api';
 
-import {makePausedTraining} from '../../../redux/actions/trainings/paused_training/paused_training_actions';
+import {makePausedTraining, openExitWindow} from '../../../redux/actions/trainings/paused_training/paused_training_actions';
 
 
 
@@ -26,18 +27,19 @@ import styles from './TrainingPage.module.css';
 import { Header } from '../../../components/header/Header';
 import helpIcon from '../../../assets/img/help-icon.png';
 import { ExitFromTrainingPopup } from '../components';
-import { getInfoForPause } from '../../../redux/selectors/trainings/training_pause_selectors';
+import { getInfoForPause, pausedTrainingSelectors } from '../../../redux/selectors/trainings/training_pause_selectors';
+import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
 const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
             collectingCommonStatistics, createTaskStatisticsObject_TrainingId002, createEducationPlan,
             finishTraining, nextTaskCommon, skipTaskCommon,selectedTrainingModeId, clearSplittedAnswerWord,
-            initializationCurrentTrainingModeId, userId  } = props;
+            initializationCurrentTrainingModeId, userId, isOpenCommentField, isOpenExitWindow  } = props;
             
     const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoadedScheduleTaskCards, isLoadedTasks,
             serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard, currentWordCounter,
             questionLanguage, isLastLetter, isFinishTask, trainingId, selectedWordsIds,
-            pauseTrainingData, selectingTrainingMode, makePausedTraining, getTasks } = props;
+            pauseTrainingData, selectingTrainingMode, makePausedTraining, getTasks, openExitWindow } = props;
     
     const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
@@ -65,7 +67,6 @@ const TrainingPageComponent = function(props) {
     React.useEffect(() => {
         function keyPressHandler(event) {
             const key = event.key
-            
             if(key === 'Enter' && !isLastTask) {
                 onNextTask(false)()
             } else if(key === ' ') {
@@ -77,10 +78,12 @@ const TrainingPageComponent = function(props) {
             }
         }
 
-        document.addEventListener('keydown', keyPressHandler)
+        if(isOpenCommentField) return
 
+        document.addEventListener('keydown', keyPressHandler)
         return () => {document.removeEventListener('keydown', keyPressHandler)}
-    }, [])
+    
+    }, [isOpenCommentField])
 
     React.useEffect(() => {
         initializationCurrentTrainingModeId(trainingId)
@@ -95,20 +98,16 @@ const TrainingPageComponent = function(props) {
     }
 
     const onNextTask = () => { 
-        return () => {
             collectingCommonStatistics('002');
             nextTaskCommon();
             nextTaskTrainingId002();
             createTaskStatisticsObject_TrainingId002();
             if(selectedTrainingModeId === '003') {
                 clearSplittedAnswerWord();
-            }
         }
-    }
+}
 
-    const onFinishTraining = () => {
-        finishTraining()
-    }
+    const onFinishTraining = () => finishTraining()
 
     const onSkipTask = () => {
         skipTaskCommon();
@@ -120,12 +119,7 @@ const TrainingPageComponent = function(props) {
     }
 
 
-    let onAddLetter = (event) => {
-        selectingVariant(event.target.value); 
-    }
-    if(isAttemptExitFromTraining) {
-        return <ExitFromTrainingPopup onContinueTraining = {setAttemptExitFromTraining}/>
-    }
+    const onAddLetter = event => selectingVariant(event.target.value);
     
 
     const squaresArr = [...pressedKey].map((el, idx) => {
@@ -141,15 +135,17 @@ const TrainingPageComponent = function(props) {
         return <ButtonForLetter key = {idx} onClickHandler = {onAddLetter} letter = {el} />
     })
 
-    const onPausedTraining = (userId, pausedTrainingData) => () => {
-          makePausedTraining( userId, pausedTrainingData )
+       if(isOpenExitWindow) {
+        return <ExitFromTrainingPopup onContinueTraining = {setAttemptExitFromTraining}/>
     }
+
 
     return (
         <div>
             <Header />
-            <button onClick = {onPausedTraining(userId, pauseTrainingData)}>Paused</button>
-            <button onClick = {() => setAttemptExitFromTraining(true)}>exit</button>
+            ПОСТАВИТИ НА КНОПКУ ЗАКІНЧЕННЯ ТРЕНУВАННЯ ЗАЧИСТКУ НА СТЕЙТ ЩОБ МОЖНА БУЛО ВИБИРАТИ ВІДРАЗУ НОВУ ТРЕНУВАННЯ
+            <PauseTrainingButton />
+            <ExitFromTrainingButton />
             <div className = {styles['main-container']}>
             <div className = {isMistake  ? styles.error : styles.mainStyles}>
                 {
@@ -186,7 +182,7 @@ const TrainingPageComponent = function(props) {
                 {
                     isFinishTask 
                                     ? <button className = {styles['next-task-button']} 
-                                              onClick = {onNextTask(false)}
+                                              onClick = {onNextTask}
                                             >
                                                 next word
                                             </button>
@@ -226,7 +222,10 @@ const mapStateToProps = function(state) {
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
         selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
         currentWordCounter: commonDataSelectors.getCurrentWordCounter(state),
+        
         pauseTrainingData: getInfoForPause(state),
+        isOpenCommentField: pausedTrainingSelectors.isOpenCommentField(state),
+        isOpenExitWindow: pausedTrainingSelectors.isOpenExitWindow(state),
 
         serviceWord:  spellingSelectors.getSplittedAnswerWord(state),
         pressedKey:  spellingSelectors.getPressedKey(state),
@@ -244,7 +243,7 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = { selectingVariant, deleteLetter, nextTaskTrainingId002, skipTask_TrainingId002, createEducationPlan,
                              skipTaskCommon, nextTaskCommon, hint, initializationTrainingID002, collectingCommonStatistics,
-                             createTaskStatisticsObject_TrainingId002, finishTraining,selectingTrainingMode,
+                             createTaskStatisticsObject_TrainingId002, finishTraining,selectingTrainingMode,openExitWindow,
                              initializationCurrentTrainingModeId, getTasks, clearSplittedAnswerWord, makePausedTraining }
 
 const WithRouterTrainingPage = withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingPageComponent));

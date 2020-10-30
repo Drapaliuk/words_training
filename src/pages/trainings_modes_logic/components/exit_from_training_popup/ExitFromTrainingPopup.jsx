@@ -7,18 +7,20 @@ import { NavLink } from 'react-router-dom';
 
 
 import { commonDataSelectors } from '../../../../redux/selectors';
+import { closeExitWindow } from '../../../../redux/actions/trainings/paused_training/paused_training_actions';
 
 export function ExitFromTrainingPopup(props) {
     const dispatch = useDispatch()
     const restTask = useSelector(state => commonDataSelectors.getTaskRest(state));
     const currentTrainingModeId = useSelector(state => commonDataSelectors.getCurrentTrainingModeId(state));
-
+    
+    
     const onExitFromTraining = () => {
         dispatch(exitFromTraining(currentTrainingModeId))
     }
 
     const onContinueTraining = () => {
-        props.onContinueTraining(false)
+        dispatch(closeExitWindow())
     }
 
     return (
