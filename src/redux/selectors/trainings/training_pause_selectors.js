@@ -50,4 +50,6 @@ export const getInfoForPause = state => {
     }
 }
 
+export const getPausedTrainingsList = state => state.pausedTrainings.pausedTrainingList
+
                 

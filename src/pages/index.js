@@ -12,3 +12,4 @@ export { SelectingWordsKitPage } from './selecting_words_kit_page/SelectingWords
 export { LoginPage } from './authorization_pages/login_page/LoginPage';
 export { SignInPage } from './authorization_pages/signin_page/SignInPage';
 export { CabinetPage } from './cabinet_page/CabinetPage';
+export { PausedTrainingsPage } from './paused_trainings_page/PausedTrainingsPage';

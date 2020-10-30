@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 
 import  { SpellingPage, TestWordPage, SelectingWordsPage, ResultPage,
-          IntroductionPage, MixedTestPage, SelectingWordsKitPage,
+          IntroductionPage, MixedTestPage, SelectingWordsKitPage,PausedTrainingsPage,
           KnowledgeTestPage, VocabularyPage, LoginPage, SignInPage, CabinetPage } from './pages/index'
 
 
@@ -13,6 +13,7 @@ function App() {
   return (
         <AuthContext.Provider value = {false}>
           <BrowserRouter>
+            <Route path = {'/pausedTrainings'} component = {PausedTrainingsPage} />
             <Route path = {'/selectWordSet'} component = {SelectingWordsKitPage} />
             <Route path = {'/vocabularyTest'} component = {KnowledgeTestPage} />
             <Route path = {'/userVocabulary'} component = {VocabularyPage} />

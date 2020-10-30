@@ -6,7 +6,7 @@ import { trainingResultsReducer } from './trainings_results/training_results';
 import { reducer as formReducer } from 'redux-form';
 import { authorizationReducer } from './authorization/authorization_reducer';
 import { personalUserDataReducer } from './personal_user_data/personal_user_data';
-
+import { pauseTrainingReducer } from './pause_training/pause_training_reducer';
 
 
 export const combinedReducers = combineReducers({
@@ -16,6 +16,7 @@ export const combinedReducers = combineReducers({
     trainingResults: trainingResultsReducer,
     authorization: authorizationReducer,
     personalUserData: personalUserDataReducer,
+    pausedTrainings: pauseTrainingReducer,
     form: formReducer,
 
 })

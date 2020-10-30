@@ -22,6 +22,6 @@ export const trainingPauseAPI = {
 
     getAllPausedTraining: (userId) => {
         let url = `http://localhost:8888/trainingpause/all?userId=${userId}`;
-        return Axios.get(url, userId)
+        return Axios.get(url)
     }
 }
