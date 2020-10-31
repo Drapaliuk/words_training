@@ -2,7 +2,7 @@ import { mixingElement } from '../../../utils/mixers/mixers';
 
 import { SELECTING_TASK_VARIANT_TRAINING_ID_002, DELETE_LETTER, NEXT_TASK_TRAINING_ID_002, FINISH_TRAINING_ID_002,
          INITIALIZATION_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002, CLEAR_SPLITTED_ANSWER_WORD,
-         HINT, SKIP_TASK_TRAINING_ID_002, GET_TASKS, FETCHING_MIXED_TASKS, PAUSE_TRAINING, CONTINUE_TRAINING } from '../../action_types/index'
+         HINT, SKIP_TASK_TRAINING_ID_002, GET_TASKS, FETCHING_MIXED_TASKS, PAUSE_TRAINING, CONTINUE_TRAINING_ID002 } from '../../action_types/index'
 
 
 const statisticObjectCreator = function({selfState, action, currentWord}, needHint = false, skipped = false) { 
@@ -103,8 +103,9 @@ export const spelling = function(state, action) {
                 isLoadedTasks: false,
             }
         
-        case CONTINUE_TRAINING: 
-            const {tasks, task, currentTaskStatistics, currentLetter} = action.serverPayload;
+        case CONTINUE_TRAINING_ID002: 
+            const {tasks, task, currentTaskStatistics, currentLetter} = action.middlewarePayload;
+            console.log('yepp')
             return {
                 ...selfState,
                 tasks,

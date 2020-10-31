@@ -3,7 +3,8 @@ import { PAUSE_TRAINING, OPEN_PAUSED_TRAINING_COMMENT_FIELD,
          FETCHED_PAUSED_TRAININGS_LIST, WRITE_COMMENT,
          OPEN_EXIT_TRAINING_WINDOW, 
          CLOSE_EXIT_TRAINING_WINDOW,
-         CLOSE_PAUSED_TRAINING_COMMENT_FIELD} from '../../../action_types/index';
+         CLOSE_PAUSED_TRAINING_COMMENT_FIELD,
+         CONTINUE_TRAINING} from '../../../action_types/index';
 
 
 export const makePausedTraining = (userId, pausedTrainingData) => (dispatch) => {
@@ -27,6 +28,8 @@ export const fetchPausedTrainings = (userId) => (dispatch) => {
                         }
                     }) 
 }
+
+export const continuePausedTraining = pausedTrainingId => ({type: CONTINUE_TRAINING, pausedTrainingId})
 
 export const writeComment = text => ({type: WRITE_COMMENT, text});
 export const openCommentField = () => ({type: OPEN_PAUSED_TRAINING_COMMENT_FIELD});

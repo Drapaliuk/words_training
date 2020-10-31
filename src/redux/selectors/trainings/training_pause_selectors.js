@@ -10,7 +10,8 @@ export const getInfoForPause = state => {
     const selectedTrainingModeId = trainingStatePart.selectedTrainingModeId;
     const serviceInfo = {
         timestamp: Date.now(new Date()),
-        comment: state.pausedTrainings.comment
+        comment: state.pausedTrainings.comment,
+        selectedTrainingModeId: state.trainingCommonData.selectedTrainingModeId
     }
 
     if(selectedTrainingModeId === '001') {
@@ -60,7 +61,8 @@ export const getPausedTrainingsList = state => state.pausedTrainings.pausedTrain
 export const getPausedTrainingComment = state => state.pausedTrainings.comment
 export const pausedTrainingSelectors = {
     isOpenCommentField: state => state.pausedTrainings.isOpenCommentField,
-    isOpenExitWindow: state => state.pausedTrainings.isOpenExitWindow
+    isOpenExitWindow: state => state.pausedTrainings.isOpenExitWindow,
+    // getSelectedTrainingForСontinue: state => state.pausedTrainingList
 }
 
                 

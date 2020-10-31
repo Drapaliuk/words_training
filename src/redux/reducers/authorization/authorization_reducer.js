@@ -1,8 +1,8 @@
 import { LOGIN, SIGN_IN, LOG_OUT } from '../../action_types/index'; 
 
 const initialState = {
-    isAuthorization: false,
-    userId: '',
+    isAuthorization: true,
+    userId: '5f9c9e867388ec2cf491cd06',
 }
 
 export const authorizationReducer = (state = initialState, action) => {

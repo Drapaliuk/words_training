@@ -68,12 +68,12 @@ export const wordTestReducer = function (state, action) { // why did i write so?
                 isLoadedTasks: false,
             }
         case CONTINUE_TRAINING: 
-            const {currentTaskStatistics, task} = action.serverPayload;
+            // const {currentTaskStatistics, task} = action.serverPayload;
             return {
                 ...selfState,
-                isLoadedTasks: true,
-                variantList: task,
-                currentTaskStatistics
+                // isLoadedTasks: true,
+                // variantList: task,
+                // currentTaskStatistics
             }
 
         case FETCHING_MIXED_TASKS: 

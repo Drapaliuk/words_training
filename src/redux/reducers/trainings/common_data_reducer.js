@@ -44,12 +44,12 @@ export const commonData = function(state, action) {
             }
 
         case CONTINUE_TRAINING: 
-            const {scheduleTaskCards, currentTaskCounter, trainingStatistics} = action.serverPayload;
+            // const {scheduleTaskCards, currentTaskCounter, trainingStatistics} = action.serverPayload;
             return {
                 ...state,
-                scheduleTaskCard: scheduleTaskCards,
-                trainingStatistics,
-                currentWordCounter: currentTaskCounter
+                // scheduleTaskCard: scheduleTaskCards,
+                // trainingStatistics,
+                // currentWordCounter: currentTaskCounter
             }
 
         case FETCHING_MIXED_TASKS:
