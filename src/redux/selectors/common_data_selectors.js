@@ -47,6 +47,7 @@ export const commonDataSelectors = {
         const ids = selectedWords.map(word => word._id)
         return ids
     },
+    isLoadingPausedTraining: state => state.trainingCommonData.isLoadingPausedTraining
 }
 
 

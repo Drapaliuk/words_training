@@ -34,7 +34,7 @@ const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
             collectingCommonStatistics, createTaskStatisticsObject_TrainingId002, createEducationPlan,
             finishTraining, nextTaskCommon, skipTaskCommon,selectedTrainingModeId, clearSplittedAnswerWord,
-            initializationCurrentTrainingModeId, userId, isOpenCommentField, isOpenExitWindow  } = props;
+            initializationCurrentTrainingModeId, userId, isOpenCommentField, isOpenExitWindow, isLoadingPausedTraining  } = props;
             
     const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoadedScheduleTaskCards, isLoadedTasks,
             serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard, currentWordCounter,
@@ -44,23 +44,22 @@ const TrainingPageComponent = function(props) {
     const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
 
+
     React.useEffect(() => {
         if(!selectedTrainingModeId) {
-            selectingTrainingMode('002') //!rename this actiion!!!
+            selectingTrainingMode('002') //! rename this actiion!!!!!!!!!!!!!
         }
     }, [])
 
     React.useEffect(() => {
-        if(!isLoadedScheduleTaskCards || !isLoadedTasks)
-        getTasks(selectedWordsIds)
+        if(isLoadingPausedTraining) return
+        if(!isLoadedScheduleTaskCards || !isLoadedTasks) {
+            getTasks(selectedWordsIds)
+        }
     }, [])
 
-    React.useEffect(() => {
-            initializationTrainingID002()
-    }, [])
-    
-
-    React.useEffect(() => { //! 
+    React.useEffect(() => { //!
+        if(isLoadingPausedTraining) return
         createTaskStatisticsObject_TrainingId002()
     }, [isLoadedTasks])
 
@@ -86,15 +85,21 @@ const TrainingPageComponent = function(props) {
     }, [isOpenCommentField])
 
     React.useEffect(() => {
+        if(isLoadingPausedTraining) return
         initializationCurrentTrainingModeId(trainingId)
     }, [])
 
     React.useEffect(() => {
-        initializationTrainingID002()
+        if(isLoadingPausedTraining) return
+        if(selectedTrainingModeId === '003') {
+            initializationTrainingID002() //! rename because it is only for mixing mode
+        }
     }, [currentWordCounter])
 
+    // if(true) return '!!!!!!!!'
+    
     if(!isLoadedScheduleTaskCards) {
-        return 'good liuck'
+        return 'Заванатаження, зачекайте!'
     }
 
     const onNextTask = () => { 
@@ -158,7 +163,8 @@ const TrainingPageComponent = function(props) {
                         <div className = {styles.offerLetter}>
                             {buttonArr}
                         </div>
-                        <div className = {styles.translatedText}>
+                        {/* <div className = {styles.translatedText}> */}
+                        <div>
                             {currentWord[questionLanguage]}
                         </div>
                     </div>
@@ -222,7 +228,8 @@ const mapStateToProps = function(state) {
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
         selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
         currentWordCounter: commonDataSelectors.getCurrentWordCounter(state),
-        
+        isLoadingPausedTraining: commonDataSelectors.isLoadingPausedTraining(state),
+
         pauseTrainingData: getInfoForPause(state),
         isOpenCommentField: pausedTrainingSelectors.isOpenCommentField(state),
         isOpenExitWindow: pausedTrainingSelectors.isOpenExitWindow(state),

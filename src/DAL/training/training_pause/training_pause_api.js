@@ -9,15 +9,15 @@ export const trainingPauseAPI = {
     },
 
     getPausedTraining: (userId, pausedTrainingId) => {
-        let url = `http://localhost:8888/trainingpause?userId=${userId}:pausedTrainingId=${pausedTrainingId}`;
+        let url = `http://localhost:8888/trainingpause?userId=${userId}&pausedTrainingId=${pausedTrainingId}`;
         return Axios.get(url)
     },
 
     deletePausedTraining: (userId, pausedTrainingId) => {
         let url = 'http://localhost:8888/trainingpause';
-        const requestObject = {userId, pausedTrainingId}
-
-        return Axios.post(userId, {data: requestObject})
+        const requestObject = {userId, pausedTrainingId};
+        
+        return Axios.delete(url, {data: requestObject})
     },
 
     getAllPausedTraining: (userId) => {

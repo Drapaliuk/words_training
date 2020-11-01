@@ -5,6 +5,7 @@ export const getInfoForPause = state => {
         currentTaskCounter: trainingStatePart.currentWordCounter,
         scheduleTaskCards: trainingStatePart.scheduleTaskCard,
         trainingStatistics: trainingStatePart.trainingStatistics,
+        currentTrainingModeId: trainingStatePart.currentTrainingModeId
     }
 
     const selectedTrainingModeId = trainingStatePart.selectedTrainingModeId;
@@ -15,13 +16,19 @@ export const getInfoForPause = state => {
     }
 
     if(selectedTrainingModeId === '001') {
-        const wordTestStatePart = {
+        const wordTestState = {
             task: trainingStatePart.wordTestState.variantList,
             currentTaskStatistics: trainingStatePart.wordTestState.currentTaskStatistics
         }
 
+        const objectForPost = {
+            data: {trainingCommonData, wordTestState},
+            serviceInfo
+        }
 
-        return { trainingCommonData, wordTestStatePart, serviceInfo }
+
+        // return { trainingCommonData, wordTestState, serviceInfo }
+        return objectForPost
     }
 
     if(selectedTrainingModeId === '002') {
@@ -32,7 +39,13 @@ export const getInfoForPause = state => {
             currentTaskStatistics: trainingStatePart.spellingState.currentTaskStatistics
         }
 
-        return {trainingCommonData, spellingTraining, serviceInfo }
+        const objectForPost = {
+            data: {trainingCommonData, spellingTraining},
+            serviceInfo
+        }
+
+        // return {trainingCommonData, spellingTraining, serviceInfo }
+        return objectForPost
     }
     if(selectedTrainingModeId === '003') {
         const wordTestState = {
@@ -50,10 +63,18 @@ export const getInfoForPause = state => {
             trainingCommonData,
             spellingTraining,
             wordTestState,
+            // serviceInfo
+        }
+
+        const objectForPost = {
+            data: mixedTraining,
             serviceInfo
         }
 
-        return mixedTraining
+
+
+        // return mixedTraining
+        return objectForPost
     }
 }
 

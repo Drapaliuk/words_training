@@ -8,7 +8,7 @@ import { fetchingWordsForMixing, selectingVariant, nextTaskTrainingId001,
         initializationTaskStaticsObject_TrainingId001, fetchingTaskCards } from '../../../redux/actions/word_test_actions';
 
 import { collectingCommonStatistics, skipTaskCommon, nextTaskCommon,
-         initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode } from '../../../redux/actions/common_data_actions'; //!
+         initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode, loadingPausedTraining } from '../../../redux/actions/common_data_actions'; //!
 import {VariantListItem} from './component/VariantListItem'
 import {ProgressScale} from '../../../components/index';
 import {Header} from '../../../components/index';
@@ -25,7 +25,7 @@ const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
             selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
             answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask,
-            pauseTrainingData, selectedTrainingModeId, openExitWindow } = props;
+            pauseTrainingData, selectedTrainingModeId, openExitWindow, isLoadingPausedTraining } = props;
 
     const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
             skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
@@ -42,8 +42,10 @@ const TrainingByWordPage = function(props) {
     }, [])
     
     React.useEffect(() => {
-        if(!isLoadedScheduleTaskCards || !isLoadedTasks)
-        fetchingTaskCards(selectedWordsIds)
+        if(isLoadingPausedTraining) return
+        if(!isLoadedScheduleTaskCards || !isLoadedTasks) {
+            fetchingTaskCards(selectedWordsIds)
+        }
     }, [])
 
     React.useEffect(() => {
@@ -86,6 +88,8 @@ const TrainingByWordPage = function(props) {
         initializationTaskStaticsObject_TrainingId001()
         hintWordCounter = 0;
     }
+
+    if(isLoadingPausedTraining) return '!'
 
     const Task = currentTask.map((el, idx) => {
         const isRightWord = el._id === currentWord._id; //чому тут 2 однакові змінні isTrueAnswer isRightWord
@@ -203,6 +207,8 @@ let mapStateToProps = function(state) {
         isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
         selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
+        isLoadingPausedTraining: commonDataSelectors.isLoadingPausedTraining(state),
+
 
         isOpenExitWindow: pausedTrainingSelectors.isOpenExitWindow(state),
 

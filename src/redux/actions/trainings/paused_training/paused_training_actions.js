@@ -2,9 +2,11 @@ import { trainingPauseAPI } from '../../../../DAL/training/training_pause/traini
 import { PAUSE_TRAINING, OPEN_PAUSED_TRAINING_COMMENT_FIELD,
          FETCHED_PAUSED_TRAININGS_LIST, WRITE_COMMENT,
          OPEN_EXIT_TRAINING_WINDOW, 
-         CLOSE_EXIT_TRAINING_WINDOW,
+         CLOSE_EXIT_TRAINING_WINDOW, LOADING_PAUSED_TRAINING,
          CLOSE_PAUSED_TRAINING_COMMENT_FIELD,
-         CONTINUE_TRAINING} from '../../../action_types/index';
+         CONTINUE_TRAINING,
+         DELETE_PAUSED_TRAINING} from '../../../action_types/index';
+import { loadingPausedTraining } from '../../common_data_actions';
 
 
 export const makePausedTraining = (userId, pausedTrainingData) => (dispatch) => {
@@ -29,7 +31,26 @@ export const fetchPausedTrainings = (userId) => (dispatch) => {
                     }) 
 }
 
-export const continuePausedTraining = pausedTrainingId => ({type: CONTINUE_TRAINING, pausedTrainingId})
+// export const continuePausedTraining = pausedTrainingId => ({type: CONTINUE_TRAINING, pausedTrainingId})
+
+export const continuePausedTraining = (userId, pausedTrainingId) => (dispatch) => {
+    dispatch({type:LOADING_PAUSED_TRAINING, isLoadingPausedTraining: true})
+    trainingPauseAPI.getPausedTraining(userId, pausedTrainingId)
+                    .then(({data}) => {
+                        dispatch({type: CONTINUE_TRAINING, serverPayload: data})
+                        dispatch({type:LOADING_PAUSED_TRAINING, isLoadingPausedTraining: false})
+                    })
+}
+
+export const deletePausedTraining = (userId, pausedTrainingId) => (dispatch) => {
+    trainingPauseAPI.deletePausedTraining(userId, pausedTrainingId)
+                    .then(({data}) => {
+                        const { responseCode, deletedPausedTrainingId } = data;
+                        if(responseCode === 1) {
+                            dispatch({type: DELETE_PAUSED_TRAINING, deletedPausedTrainingId})
+                        }
+                    })
+}
 
 export const writeComment = text => ({type: WRITE_COMMENT, text});
 export const openCommentField = () => ({type: OPEN_PAUSED_TRAINING_COMMENT_FIELD});

@@ -3,7 +3,7 @@ import { FETCHING_WORDS, SELECTING_WORD, FETCHING_WORD_SETS_NAMES, NEXT_TASK_COM
          CLEAR_SELECTED_WORDS_CURRENT_WORD_SET, FETCHING_KNOWLEDGE_TEST, SELECTING_TRAINING_MODE,
          DELETE_SELECTED_WORD, CLEAR_SELECTED_WORDS, INITIALIZATION_CURRENT_TRAINING_MODE,
          UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING, FETCHING_TASK_CARDS, GET_TASKS, FETCHING_MIXED_TASKS,
-         PAUSE_TRAINING, CONTINUE_TRAINING } from '../../action_types/index';
+         PAUSE_TRAINING, CONTINUE_TRAINING, LOADING_PAUSED_TRAINING } from '../../action_types/index';
 
 export let commonDataState = {
         allTrainingsIds: [{id: '001', url: '/byword', names: {ua: "Тренування запам'ятовування слів", eng: 'Words training'}}, //! it must fetch from server, but i should use 'Actuality language'
@@ -21,12 +21,22 @@ export let commonDataState = {
         selectedWords: [],
         isLoaded: false, //! what????
         selectedTrainingModeId: null,
+        isLoadingPausedTraining: false
 
 
 }
 
+
+
+
 export const commonData = function(state, action) {
     switch(action.type) {
+        case LOADING_PAUSED_TRAINING:
+            return {
+                ...state,
+                isLoadingPausedTraining: action.isLoadingPausedTraining
+            }
+        
         case PAUSE_TRAINING: 
             return {
                 ...state,
@@ -44,12 +54,16 @@ export const commonData = function(state, action) {
             }
 
         case CONTINUE_TRAINING: 
-            // const {scheduleTaskCards, currentTaskCounter, trainingStatistics} = action.serverPayload;
+            const {scheduleTaskCards, currentTaskCounter, trainingStatistics, currentTrainingModeId} = action.middlewarePayload;
+
+            console.log(CONTINUE_TRAINING, action.middlewarePayload)
             return {
                 ...state,
-                // scheduleTaskCard: scheduleTaskCards,
-                // trainingStatistics,
-                // currentWordCounter: currentTaskCounter
+                scheduleTaskCard: scheduleTaskCards,
+                trainingStatistics,
+                currentWordCounter: currentTaskCounter,
+                isLoaded: true,
+                currentTrainingModeId
             }
 
         case FETCHING_MIXED_TASKS:

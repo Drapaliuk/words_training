@@ -1,18 +1,18 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom';
-import { Header } from '../../components';
-import { continuePausedTraining, deletePausedTraining, fetchPausedTrainings } from '../../redux/actions/trainings/paused_training/paused_training_actions';
-import { authorizationSelectors, commonDataSelectors } from '../../redux/selectors';
-import { getPausedTrainingsList, pausedTrainingSelectors } from '../../redux/selectors/trainings/training_pause_selectors';
-import { dataTransformer } from '../../utils/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { Header } from '../../../../components';
+import { continuePausedTraining, fetchPausedTrainings } from '../../../../redux/actions/trainings/paused_training/paused_training_actions';
+import { authorizationSelectors, commonDataSelectors } from '../../../../redux/selectors';
+import { getPausedTrainingsList } from '../../../../redux/selectors/trainings/training_pause_selectors';
 import styles from './styles.module.css'
 
-export function PausedTrainingsPage() {
+
+export function PausedTrainingItem() {
     const dispatch = useDispatch();
     const userId = useSelector(state => authorizationSelectors.getUserId(state));
     const pausedTrainingsList = useSelector(state => getPausedTrainingsList(state));
     const allTrainingsIds = useSelector(state => commonDataSelectors.getTrainingModesInfo(state))
+    
 
     React.useEffect(() => {
         dispatch(fetchPausedTrainings(userId))
@@ -24,8 +24,6 @@ export function PausedTrainingsPage() {
     
     const onContinueTraining = (pausedTrainingId) => () => dispatch(continuePausedTraining(userId, pausedTrainingId))
     
-    const onDeletePausedTraining = (pausedTrainingId) => () => dispatch(deletePausedTraining(userId, pausedTrainingId))
-
     return (
         <div>
             <Header />
@@ -36,17 +34,13 @@ export function PausedTrainingsPage() {
 
                     const { url } = allTrainingsIds.find((trainingMode) => trainingMode.id === el.serviceInfo.selectedTrainingModeId)
                     console.log(url)
-                    return <div className = {styles['item']}>
-                                <NavLink className = {styles['link']} 
+                    return <NavLink className = {styles['link']} 
                                     onClick = {onContinueTraining(el._id)} 
                                     to = {url}>
                                 {timestamp}
-                                </NavLink>
-                                <button onClick = {onDeletePausedTraining(el._id)} className = {styles['delete-button']}>X</button>
-                           </div>
+                           </NavLink>
                 })
             }
         </div>
     )
 }
-

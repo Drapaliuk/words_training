@@ -1,0 +1,10 @@
+.link {
+    text-decoration: none;
+    display: block;
+    color: #000;
+    margin-left: 50px;
+    margin-top: 20px;
+    outline: 1px solid brown;
+    width: 150px;
+    padding: 5px 15px;
+}
