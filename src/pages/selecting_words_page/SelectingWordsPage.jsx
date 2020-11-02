@@ -36,11 +36,11 @@ export const SelectingWordsPage = function(props) {
                     {
                         trainingModesInfo.map(el => {
                             if(selectedTrainingMode && el.id === selectedTrainingMode) {
-                                return <LinkToTraining url = {el.url} text = 'Почати' />
+                                return <LinkToTraining key = {el.id} url = {el.url} text = 'Почати' />
                             }
 
                             if(!selectedTrainingMode) {
-                                return <LinkToTraining url = {el.url} text = {el.names.ua} />
+                                return <LinkToTraining key = {el.id} url = {el.url} text = {el.names.ua} />
                             }
 
                             return null

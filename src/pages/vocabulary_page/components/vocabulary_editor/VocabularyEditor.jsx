@@ -35,10 +35,10 @@ export const VocabularyEditor = function({words, showWordSetCreator}) {
             dispatch(unSelectingWordsFromUserVocabulary(el._id))
     }
     
-    let setList = words.map(el => { // перенест в окремий компонент  і зробити це локальним стейтом
+    let setList = words.map(el => {
         const isChecked = selectedWords.find(word => word._id === el._id)
         return (
-            <div className = {styles['word-block']}>
+            <div key = {el._id} className = {styles['word-block']}>
                 <div className = {styles['word-wrapper']} >
                     {
                         isChecked ? 

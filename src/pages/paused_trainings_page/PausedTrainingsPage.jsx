@@ -6,6 +6,8 @@ import { continuePausedTraining, deletePausedTraining, fetchPausedTrainings } fr
 import { authorizationSelectors, commonDataSelectors } from '../../redux/selectors';
 import { getPausedTrainingsList, pausedTrainingSelectors } from '../../redux/selectors/trainings/training_pause_selectors';
 import { dataTransformer } from '../../utils/index';
+// import { PausedTrainingsList } from './components/index/'
+
 import styles from './styles.module.css'
 
 export function PausedTrainingsPage() {
@@ -30,17 +32,23 @@ export function PausedTrainingsPage() {
         <div>
             <Header />
             {
-                pausedTrainingsList.map(el => {
+                pausedTrainingsList.map((el, idx) => {
                     const transformedDate = dataTransformer(el.serviceInfo.timestamp)
                     const timestamp = `${transformedDate.year}.${transformedDate.month}.${transformedDate.date} -- ${transformedDate.hours}: ${transformedDate.minutes}`
-
+                    const comment = el.serviceInfo.comment
                     const { url } = allTrainingsIds.find((trainingMode) => trainingMode.id === el.serviceInfo.selectedTrainingModeId)
-                    console.log(url)
+                    console.log('comment', el.serviceInfo)
+                    
+                    const linkText = comment ? comment : timestamp
+                    
+                    
                     return <div className = {styles['item']}>
                                 <NavLink className = {styles['link']} 
                                     onClick = {onContinueTraining(el._id)} 
                                     to = {url}>
-                                {timestamp}
+                                        
+                                        {linkText}
+                                
                                 </NavLink>
                                 <button onClick = {onDeletePausedTraining(el._id)} className = {styles['delete-button']}>X</button>
                            </div>

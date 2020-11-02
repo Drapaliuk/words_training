@@ -1,20 +1,32 @@
 .link {
     text-decoration: none;
     color: #000;
-    outline: 1px solid brown;
-    width: 150px;
+    display: inline-block;
+    width: 250px;
+    height: 50px;
     padding: 5px 15px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    background-color: gray;
+    transition: all .3s linear;
+}
+
+.link:hover {
+    background-color: rgb(168, 167, 167);
 }
 
 .item {
+    display: flex;
     margin-left: 50px;
     margin-top: 20px;
+    max-width: 400px;
 }
 
 .delete-button {
     color: #000;
-    /* width: 150px; */
-    padding: 5px 15px;
+    padding: 5px 10px;
     cursor: pointer;
+    transition: all .3s linear;
+    outline: none;
+    border: none;
+    color: red;
 }

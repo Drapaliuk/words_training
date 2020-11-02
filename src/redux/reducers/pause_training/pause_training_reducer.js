@@ -1,11 +1,13 @@
 import { FETCHED_PAUSED_TRAININGS_LIST, WRITE_COMMENT,
          OPEN_PAUSED_TRAINING_COMMENT_FIELD, EXIT_FROM_TRAINING,
          OPEN_EXIT_TRAINING_WINDOW,
-         CLOSE_EXIT_TRAINING_WINDOW,
+         CLOSE_EXIT_TRAINING_WINDOW, DELETE_PAUSED_TRAINING,
          CLOSE_PAUSED_TRAINING_COMMENT_FIELD} from '../../action_types/index';
 
 const initialState = {
-    pausedTrainingsList: [],
+    // pausedTrainingsList: [],
+    pausedTrainingList: [],
+
     comment: '',
     isOpenCommentField: false,
     isOpenExitWindow: false
@@ -13,6 +15,12 @@ const initialState = {
 
 export const pauseTrainingReducer = function(prevState = initialState, action) {
     switch(action.type) {
+
+        case DELETE_PAUSED_TRAINING:
+            return {
+                ...prevState,
+                pausedTrainingList: prevState.pausedTrainingList.filter(el => el._id !== action.deletedPausedTrainingId)
+            }
 
         case OPEN_EXIT_TRAINING_WINDOW:
             return {

@@ -4,7 +4,7 @@ import {
           SELECTING_WORD,  FETCHING_WORD_SETS_NAMES, COLLECTING_COMMON_STATISTICS, CLEAR_SELECTED_WORDS_CURRENT_WORD_SET,
           SELECTING_FULL_KIT, NEXT_TASK_COMMON, SKIP_TASK_COMMON, INITIALIZATION_CURRENT_TRAINING_MODE,
           UNSELECTING_WORD, CREATE_VARIANT_LIST, UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING,
-          PAUSE_TRAINING, CONTINUE_TRAINING, LOADING_PAUSED_TRAINING 
+          PAUSE_TRAINING, CONTINUE_TRAINING, LOADING_PAUSED_TRAINING, REVIEW_PREVIOUS_TASKS 
         } from '../action_types/index';
 
 
@@ -84,4 +84,5 @@ export const exitFromTraining = (trainingId => ({type: EXIT_FROM_TRAINING, train
 
 export const pauseTraining = () => ({PAUSE_TRAINING})
 export const continueTraining = () => ({CONTINUE_TRAINING})
-export const loadingPausedTraining = (isLoading) => ({LOADING_PAUSED_TRAINING, isLoading})
+export const loadingPausedTraining = (isLoading) => ({LOADING_PAUSED_TRAINING, isLoading});
+export const reviewPreviousTasks = (taskNumber) => ({type: REVIEW_PREVIOUS_TASKS, taskNumber})

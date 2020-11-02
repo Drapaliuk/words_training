@@ -5,8 +5,8 @@ export const dataTransformer = function(unixTime, language = 'ukr') {
         year: date.getFullYear(),
         month: date.getMonth(),
         day: date.getDay(),
-        date: date.getDate(),
-        hours: date.getHours(),
+        date: date.getDate()  < 10 ? '0' + date.getDate() : date.getDate(),
+        hours: date.getHours() < 10 ? '0' + date.getHours() : date.getHours(),
         minutes: date.getMinutes(),
         seconds: date.getSeconds(),
         milliseconds: date.getMilliseconds()

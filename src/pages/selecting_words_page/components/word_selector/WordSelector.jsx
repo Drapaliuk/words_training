@@ -40,7 +40,7 @@ export const WordSelector = function() {
     let wordList = words.map(el => {
         const isSelected = selectedWords.find(word => word._id === el._id)
         return (
-            <div>
+            <div key = {el._id}>
                 <ListItem 
                     userId = {userId}
                     wordObject = {el}

@@ -25,7 +25,7 @@ export const WordKitsList = function ({onVisibleComponent}) {
             >
             { wordKitNames.map(kit => {
                 return (
-                    <li className = {styles['list-item']}>
+                    <li key = {kit._id} className = {styles['list-item']}>
                         <NavLink className = {styles['link']} to = {`/wordset/${kit.serviceInfo.name}`}>
                             {kit.serviceInfo.name}
                         </NavLink>

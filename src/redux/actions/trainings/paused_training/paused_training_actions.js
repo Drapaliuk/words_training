@@ -46,6 +46,8 @@ export const deletePausedTraining = (userId, pausedTrainingId) => (dispatch) => 
     trainingPauseAPI.deletePausedTraining(userId, pausedTrainingId)
                     .then(({data}) => {
                         const { responseCode, deletedPausedTrainingId } = data;
+                        console.log(data)
+
                         if(responseCode === 1) {
                             dispatch({type: DELETE_PAUSED_TRAINING, deletedPausedTrainingId})
                         }

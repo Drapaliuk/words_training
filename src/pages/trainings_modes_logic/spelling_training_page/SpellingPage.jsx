@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { selectingVariant, deleteLetter, nextTaskTrainingId002, hint,
          finishTraining,
          initializationTrainingID002, createTaskStatisticsObject_TrainingId002,
-         skipTask_TrainingId002, getTasks, clearSplittedAnswerWord  } from '../../../redux/actions/spelling_test_actions'; //! 
+         skipTask_TrainingId002, getTasks, clearSplittedAnswerWord  } from '../../../redux/actions/spelling_test_actions';
 
 import { collectingCommonStatistics, nextTaskCommon, skipTaskCommon,
-         initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode } from '../../../redux/actions/common_data_actions'; //!
+         initializationCurrentTrainingModeId, selectingTrainingMode } from '../../../redux/actions/common_data_actions';
 
 
 import { spellingSelectors, commonDataSelectors, authorizationSelectors } from '../../../redux/selectors/index'         
@@ -17,29 +17,24 @@ import ButtonForLetter from './components/buttonForLetter/ButtonForLetter';
 
 import { ProgressScale} from '../../../components/index';
 import { PauseTrainingButton } from '../components/index';
-import { wordSetsAPI } from '../../../DAL/api';
-
-import {makePausedTraining, openExitWindow} from '../../../redux/actions/trainings/paused_training/paused_training_actions';
-
-
 
 import styles from './TrainingPage.module.css';
 import { Header } from '../../../components/header/Header';
 import helpIcon from '../../../assets/img/help-icon.png';
 import { ExitFromTrainingPopup } from '../components';
-import { getInfoForPause, pausedTrainingSelectors } from '../../../redux/selectors/trainings/training_pause_selectors';
+import { pausedTrainingSelectors } from '../../../redux/selectors/trainings/training_pause_selectors';
 import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
 const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
-            collectingCommonStatistics, createTaskStatisticsObject_TrainingId002, createEducationPlan,
+            collectingCommonStatistics, createTaskStatisticsObject_TrainingId002,
             finishTraining, nextTaskCommon, skipTaskCommon,selectedTrainingModeId, clearSplittedAnswerWord,
-            initializationCurrentTrainingModeId, userId, isOpenCommentField, isOpenExitWindow, isLoadingPausedTraining  } = props;
+            initializationCurrentTrainingModeId, isOpenCommentField, isOpenExitWindow, isLoadingPausedTraining  } = props;
             
     const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoadedScheduleTaskCards, isLoadedTasks,
-            serviceWord, pressedKey, isMistake, needHint, selectedWords, scheduleTaskCard, currentWordCounter,
+            serviceWord, pressedKey, isMistake, needHint, currentWordCounter,
             questionLanguage, isLastLetter, isFinishTask, trainingId, selectedWordsIds,
-            pauseTrainingData, selectingTrainingMode, makePausedTraining, getTasks, openExitWindow } = props;
+            selectingTrainingMode, getTasks } = props;
     
     const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
@@ -96,8 +91,6 @@ const TrainingPageComponent = function(props) {
         }
     }, [currentWordCounter])
 
-    // if(true) return '!!!!!!!!'
-    
     if(!isLoadedScheduleTaskCards) {
         return 'Заванатаження, зачекайте!'
     }
@@ -223,14 +216,11 @@ const mapStateToProps = function(state) {
         isLastTask:  commonDataSelectors.isLastTask(state),
         questionLanguage: commonDataSelectors.getQuestionLanguage(state),
         isFinishedTraining: commonDataSelectors.isFinishedTraining(state),
-        selectedWords: commonDataSelectors.getSelectedWords(state),
-        scheduleTaskCard: commonDataSelectors.getScheduleTaskCard(state),
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
         selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
         currentWordCounter: commonDataSelectors.getCurrentWordCounter(state),
         isLoadingPausedTraining: commonDataSelectors.isLoadingPausedTraining(state),
 
-        pauseTrainingData: getInfoForPause(state),
         isOpenCommentField: pausedTrainingSelectors.isOpenCommentField(state),
         isOpenExitWindow: pausedTrainingSelectors.isOpenExitWindow(state),
 
@@ -244,14 +234,14 @@ const mapStateToProps = function(state) {
         trainingId: spellingSelectors.getTrainingId(state),
         isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         isLoadedTasks: state.trainingCommonData.spellingState.isLoadedTasks,
-        userId: authorizationSelectors.getUserId(state),
+        // userId: authorizationSelectors.getUserId(state),
     }
 }
 
-const mapDispatchToProps = { selectingVariant, deleteLetter, nextTaskTrainingId002, skipTask_TrainingId002, createEducationPlan,
+const mapDispatchToProps = { selectingVariant, deleteLetter, nextTaskTrainingId002, skipTask_TrainingId002,
                              skipTaskCommon, nextTaskCommon, hint, initializationTrainingID002, collectingCommonStatistics,
-                             createTaskStatisticsObject_TrainingId002, finishTraining,selectingTrainingMode,openExitWindow,
-                             initializationCurrentTrainingModeId, getTasks, clearSplittedAnswerWord, makePausedTraining }
+                             createTaskStatisticsObject_TrainingId002, finishTraining,selectingTrainingMode,
+                             initializationCurrentTrainingModeId, getTasks, clearSplittedAnswerWord }
 
 const WithRouterTrainingPage = withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingPageComponent));
 

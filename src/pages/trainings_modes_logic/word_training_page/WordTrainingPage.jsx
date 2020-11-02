@@ -3,33 +3,33 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styles from './TrainingByWordPage.module.css';
 import { wordTestSelectors, commonDataSelectors } from '../../../redux/selectors/index'; //! ?
-import { fetchingWordsForMixing, selectingVariant, nextTaskTrainingId001,
-        createVariantList, hinting, skipTaskTrainingId001,
+import { selectingVariant, nextTaskTrainingId001,
+        hinting, skipTaskTrainingId001,
         initializationTaskStaticsObject_TrainingId001, fetchingTaskCards } from '../../../redux/actions/word_test_actions';
 
 import { collectingCommonStatistics, skipTaskCommon, nextTaskCommon,
-         initializationCurrentTrainingModeId, createEducationPlan, selectingTrainingMode, loadingPausedTraining } from '../../../redux/actions/common_data_actions'; //!
+         initializationCurrentTrainingModeId,  selectingTrainingMode, loadingPausedTraining } from '../../../redux/actions/common_data_actions'; //!
 import {VariantListItem} from './component/VariantListItem'
 import {ProgressScale} from '../../../components/index';
 import {Header} from '../../../components/index';
 import helpIcon from '../../../assets/img/help-icon.png';
-import { VariantList } from './component/VariantList'; //! чомуьсь не працює
-import { getInfoForPause, pausedTrainingSelectors,  } from '../../../redux/selectors/trainings/training_pause_selectors';
+// import { VariantList } from './component/VariantList'; //! чомуьсь не працює
+import { pausedTrainingSelectors,  } from '../../../redux/selectors/trainings/training_pause_selectors';
 import { ExitFromTrainingPopup, PauseTrainingButton } from '../components';
-import { openExitWindow } from '../../../redux/actions/trainings/paused_training/paused_training_actions';
+// import { openExitWindow } from '../../../redux/actions/trainings/paused_training/paused_training_actions';
 import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
 
 
 const TrainingByWordPage = function(props) {
-    const { currentWord, isTrueAnswer, variantList, needHint, selectedWords,
+    const { currentWord, isTrueAnswer, needHint,
             selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
-            answerLang, trainingId, scheduleTaskCard, isFinishedTraining, wordsForMixing, currentTask,
-            pauseTrainingData, selectedTrainingModeId, openExitWindow, isLoadingPausedTraining } = props;
+            answerLang, trainingId, scheduleTaskCard, isFinishedTraining, currentTask,
+            selectedTrainingModeId, isLoadingPausedTraining } = props;
 
-    const { fetchingWordsForMixing, skipTaskCommon, nextTaskCommon, createEducationPlan, fetchingTaskCards,
+    const { skipTaskCommon, nextTaskCommon,  fetchingTaskCards,
             skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
-            createVariantList, hinting, collectingCommonStatistics, initializationTaskStaticsObject_TrainingId001,
+            hinting, collectingCommonStatistics, initializationTaskStaticsObject_TrainingId001,
             selectingTrainingMode, isOpenExitWindow
           } = props;
     
@@ -203,7 +203,6 @@ let mapStateToProps = function(state) {
         trainingStatistcs: commonDataSelectors.getTrainingStatistics(state),
         scheduleTaskCard: commonDataSelectors.getScheduleTaskCard(state),
         isFinishedTraining: commonDataSelectors.isFinishedTraining(state),
-        selectedWords: commonDataSelectors.getSelectedWords(state),
         isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         selectedWordsIds: commonDataSelectors.getSelectedWordsIds(state),
         selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
@@ -217,13 +216,9 @@ let mapStateToProps = function(state) {
         questionLang: wordTestSelectors.getQuestionLang(state),
         answerLang: wordTestSelectors.getAnswerLang(state),
         trainingId: wordTestSelectors.getTrainingId(state),
-        wordsForMixing: state.trainingCommonData.wordTestState.wordsForMixing,
         isLoadedTasks: state.trainingCommonData.wordTestState.isLoadedTasks,
-        pauseTrainingData: getInfoForPause(state),
-
 
         isTrueAnswer: wordTestSelectors.isTrueAnswer(state),
-        variantList: wordTestSelectors.getVariantList(state), 
         needHint: wordTestSelectors.needHint(state),
         currentTask: wordTestSelectors.getCurrentTask(state)
 
@@ -233,9 +228,9 @@ let mapStateToProps = function(state) {
 
 
 
-const mapDispatchToProps = { fetchingWordsForMixing, nextTaskCommon, skipTaskCommon, initializationCurrentTrainingModeId,
-                             skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, createEducationPlan,
-                             createVariantList, hinting, collectingCommonStatistics, selectingTrainingMode,
-                             initializationTaskStaticsObject_TrainingId001, fetchingTaskCards, openExitWindow };
+const mapDispatchToProps = { nextTaskCommon, skipTaskCommon, initializationCurrentTrainingModeId,
+                             skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, 
+                             hinting, collectingCommonStatistics, selectingTrainingMode,
+                             initializationTaskStaticsObject_TrainingId001, fetchingTaskCards };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrainingByWordPage);

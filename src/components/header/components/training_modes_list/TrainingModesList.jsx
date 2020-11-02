@@ -20,7 +20,7 @@ export const TrainingModesList = function ({ onVisibleComponent }) {
                 {
                     trainingIds.map( mode => {
                         return (
-                            <li className = {styles['list-item']}>
+                            <li key = {mode.id} className = {styles['list-item']}>
                                <NavLink className = {styles['link']}
                                         onClick = {() => onSelectingTrainingMode(mode.id)} 
                                         to = {'/selectWordSet'}

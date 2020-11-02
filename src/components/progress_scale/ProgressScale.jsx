@@ -1,13 +1,17 @@
 import React from 'react';
 import styles from './ProgressScale.module.css';
 import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { commonDataSelectors } from '../../redux/selectors/common_data_selectors';
+import { reviewPreviousTasks } from '../../redux/actions/common_data_actions';
 
 
 export const ProgressScale = function() {
+    const dispatch = useDispatch()
     const tasksAmount = useSelector(state => commonDataSelectors.getScheduleTaskCard(state));
     const answerArray = useSelector(state => commonDataSelectors.getTrainingStatistics(state));
+
+    const onReviewPreviousTask = (taskNumber) => () => dispatch(reviewPreviousTasks(taskNumber)) //реалізувати в майбутньому
 
     return (
         <div className = {styles['schale']}>
