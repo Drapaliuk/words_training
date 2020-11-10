@@ -3,12 +3,14 @@ import { getUserPersonalData, postUserPersonalData } from '../../../DAL/userPers
 import { FETCHING_PERSONAL_DATA, CHANGE_USER_PERSONAL_DATA,
          SAVE_USER_PERSONAL_DATA, CLEAR_USER_PERSONAL_DATA,
          CANCEL_EDIT_PERSONAL_DATA  } from '../../../redux/action_types/index';
+         
+export const changePersonaUserData = (payload) => ({ type: CHANGE_USER_PERSONAL_DATA, payload });
+export const clearUserPersonalData = () => ({type: CLEAR_USER_PERSONAL_DATA});
+export const cancelEditPersonalData = () => ({type: CANCEL_EDIT_PERSONAL_DATA});
 
 export const selectingPageLanguage = selectedLanguage => {
     return { type: SELECTING_APPLICATION_LANGUAGE, payload: selectedLanguage }
 };
-
-
 
 export const fetchingUserPersonalData = (userId) => (dispatch) => {
     getUserPersonalData(userId).then(({data, err}) => {
@@ -17,9 +19,7 @@ export const fetchingUserPersonalData = (userId) => (dispatch) => {
             dispatch({type: FETCHING_PERSONAL_DATA, serverPayload: data.personalData})
         }
     });
-}
-
-export const changePersonaUserData = (payload) => ({ type: CHANGE_USER_PERSONAL_DATA, payload });
+};
 
 export const saveNewPersonalUserData = (userId, userData) => (dispatch) => {
     postUserPersonalData(userId, userData).then((response, err) => {
@@ -28,7 +28,4 @@ export const saveNewPersonalUserData = (userId, userData) => (dispatch) => {
             dispatch({type: SAVE_USER_PERSONAL_DATA})
         }
     })
-}
-
-export const clearUserPersonalData = () => ({type: CLEAR_USER_PERSONAL_DATA});
-export const cancelEditPersonalData = () => ({type: CANCEL_EDIT_PERSONAL_DATA})
+};

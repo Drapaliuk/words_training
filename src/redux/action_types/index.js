@@ -61,6 +61,7 @@ export const CLEAR_SPLITTED_ANSWER_WORD = 'CLEAR_SPLITTED_ANSWER_WORD';
 export const LOGIN = 'LOGIN';
 export const SIGN_IN = 'SIGN_IN';
 export const LOG_OUT = 'LOG_OUT';
+export const IS_AUTHORIZATION = 'IS_AUTHORIZATION';
 
 export const FETCHING_TASK_CARDS = 'FETCHING_TASK_CARDS';
 export const GET_TASKS = 'GET_TASKS';

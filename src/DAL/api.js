@@ -1,41 +1,44 @@
 import Axios from "axios";
+// Axios.interceptors.response.use(resp => resp, (err) => {
+//     // console.log('res.body', console.log(err))
+// })
 
 export const wordSetsAPI = {
-        getMixedTasks: (selectedWordsIds) => {
-            let url = 'http://localhost:8888/mixTasks';
-            return Axios.post(url, selectedWordsIds)
-        },
+    getMixedTasks: (selectedWordsIds) => {
+        let url = 'http://localhost:8888/mixTasks';
+        return Axios.post(url, selectedWordsIds)
+    },
 
-        getTaskLetter: (selectedWordsIds) => {
-            let url = 'http://localhost:8888/taskLatter';
-            return Axios.post(url, selectedWordsIds);
-        },
+    getTaskLetter: (selectedWordsIds) => {
+        let url = 'http://localhost:8888/taskLatter';
+        return Axios.post(url, selectedWordsIds);
+    },
 
-        getWordSets: (setname) => {
-            let url = `http://localhost:8888/words?setname=${setname}`;
-            return Axios.get(url);
-        },
+    getWordSets: (setname) => {
+        let url = `http://localhost:8888/words?setname=${setname}`;
+        return Axios.get(url);
+    },
 
-        getWordSetsName: () => {
-            let url = `http://localhost:8888/setsNames`;
-            return Axios.get(url);
-        },
-        
-        getWordsForMixing: (selectedWordsIds) => {
-            let url = 'http://localhost:8888/mixWords';
-            return Axios.post(url, selectedWordsIds)
-        },
+    getWordSetsName: () => {
+        let url = `http://localhost:8888/setsNames`;
+        return Axios.get(url);
+    },
+    
+    getWordsForMixing: (selectedWordsIds) => {
+        let url = 'http://localhost:8888/mixWords';
+        return Axios.post(url, selectedWordsIds)
+    },
 
-        createEducationPlan: (selectedWords, trainingId) => { //потрібно відправляти тільки ід але зараз бекенд до цього не готовий
-            let url = `http://localhost:8888/educationPlan`
-            return Axios.post(url, selectedWords, trainingId)
-        },
+    createEducationPlan: (selectedWords, trainingId) => { //потрібно відправляти тільки ід але зараз бекенд до цього не готовий
+        let url = `http://localhost:8888/educationPlan`
+        return Axios.post(url, selectedWords, trainingId)
+    },
 
-        getTaskCards: (selectedWordsIds) => { //це до тренування слів
-            let url = 'http://localhost:8888/taskCards';
-            return Axios.post(url, selectedWordsIds);
+    getTaskCards: (selectedWordsIds) => { //це до тренування слів
+        let url = 'http://localhost:8888/taskCards';
+        return Axios.post(url, selectedWordsIds);
 
-        }
+    }
 
         
 }
@@ -108,5 +111,13 @@ export const authAPI = {
         console.log('authApi')
         let url = 'http://localhost:8888/signin';
         return Axios.post(url, signInData)
+    },
+
+    isAuthorization: (authToken) => {
+        console.log(authToken)
+        let url = 'http://localhost:8888/isAuthorization';
+        return Axios.get(url, {headers: {Authorization: authToken}})
     }
+
+    // postRefreshToken: (refreshToken) => {}
 }

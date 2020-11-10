@@ -1,12 +1,18 @@
-import { LOGIN, SIGN_IN, LOG_OUT } from '../../action_types/index'; 
+import { LOGIN, SIGN_IN, LOG_OUT, IS_AUTHORIZATION } from '../../action_types/index'; 
 
 const initialState = {
-    isAuthorization: true,
-    userId: '5f9dd00414204d1940d770e1',
+    isAuthorization: false,
+    userId: '',
 }
 
 export const authorizationReducer = (state = initialState, action) => {
 switch(action.type) {
+    case IS_AUTHORIZATION:
+        return {
+            ...state,
+            isAuthorization: true,
+            userId: action.userId
+        }
     case LOGIN: 
         return {
             ...state,

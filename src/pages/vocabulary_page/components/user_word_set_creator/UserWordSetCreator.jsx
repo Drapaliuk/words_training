@@ -28,11 +28,7 @@ const Form = function(props) {
                         X
                     </button>
                 </div>
-                
-                
-                
-                
-                
+
                 {
                     isEmptyInput ? null : <button className = {styles['submit-button']} type = 'submit'>Створити</button>
                 }

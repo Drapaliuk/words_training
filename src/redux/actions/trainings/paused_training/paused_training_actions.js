@@ -6,10 +6,14 @@ import { PAUSE_TRAINING, OPEN_PAUSED_TRAINING_COMMENT_FIELD,
          CLOSE_PAUSED_TRAINING_COMMENT_FIELD,
          CONTINUE_TRAINING,
          DELETE_PAUSED_TRAINING} from '../../../action_types/index';
-import { loadingPausedTraining } from '../../common_data_actions';
 
+export const writeComment = text => ({type: WRITE_COMMENT, text});
+export const openCommentField = () => ({type: OPEN_PAUSED_TRAINING_COMMENT_FIELD});
+export const closeCommentField = () => ({type: CLOSE_PAUSED_TRAINING_COMMENT_FIELD});
+export const openExitWindow = () => ({type: OPEN_EXIT_TRAINING_WINDOW});
+export const closeExitWindow = () => ({type: CLOSE_EXIT_TRAINING_WINDOW});
 
-export const makePausedTraining = (userId, pausedTrainingData) => (dispatch) => {
+export const makePausedTraining = (userId, pausedTrainingData) => dispatch => {
     trainingPauseAPI.savePausedTraining(userId, pausedTrainingData)
                     .then(({data}) => {
                         const {responseCode} = data;
@@ -18,9 +22,9 @@ export const makePausedTraining = (userId, pausedTrainingData) => (dispatch) => 
                             // dispatch({type: PAUSE_TRAINING})
                         }
                     })
-}
+};
 
-export const fetchPausedTrainings = (userId) => (dispatch) => {
+export const fetchPausedTrainings = userId => dispatch => {
     trainingPauseAPI.getAllPausedTraining(userId)
                     .then(({data}) => {
                         const { responseCode, serverPayload } = data;
@@ -29,33 +33,24 @@ export const fetchPausedTrainings = (userId) => (dispatch) => {
                             dispatch({type: FETCHED_PAUSED_TRAININGS_LIST, serverPayload})
                         }
                     }) 
-}
+};
 
-// export const continuePausedTraining = pausedTrainingId => ({type: CONTINUE_TRAINING, pausedTrainingId})
-
-export const continuePausedTraining = (userId, pausedTrainingId) => (dispatch) => {
+export const continuePausedTraining = (userId, pausedTrainingId) => dispatch => {
     dispatch({type:LOADING_PAUSED_TRAINING, isLoadingPausedTraining: true})
     trainingPauseAPI.getPausedTraining(userId, pausedTrainingId)
                     .then(({data}) => {
                         dispatch({type: CONTINUE_TRAINING, serverPayload: data})
                         dispatch({type:LOADING_PAUSED_TRAINING, isLoadingPausedTraining: false})
                     })
-}
+};
 
-export const deletePausedTraining = (userId, pausedTrainingId) => (dispatch) => {
+export const deletePausedTraining = (userId, pausedTrainingId) => dispatch => {
     trainingPauseAPI.deletePausedTraining(userId, pausedTrainingId)
                     .then(({data}) => {
                         const { responseCode, deletedPausedTrainingId } = data;
-                        console.log(data)
 
                         if(responseCode === 1) {
                             dispatch({type: DELETE_PAUSED_TRAINING, deletedPausedTrainingId})
                         }
                     })
-}
-
-export const writeComment = text => ({type: WRITE_COMMENT, text});
-export const openCommentField = () => ({type: OPEN_PAUSED_TRAINING_COMMENT_FIELD});
-export const closeCommentField = () => ({type: CLOSE_PAUSED_TRAINING_COMMENT_FIELD})
-export const openExitWindow = () => ({type: OPEN_EXIT_TRAINING_WINDOW});
-export const closeExitWindow = () => ({type: CLOSE_EXIT_TRAINING_WINDOW})
+};
