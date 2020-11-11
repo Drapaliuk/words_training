@@ -4,6 +4,11 @@ import { Field, reduxForm } from 'redux-form';
 import styles from '../SignInPage.module.css';
 import { authorizationSelectors } from '../../../../redux/selectors/index';
 import { NavLink, Redirect } from 'react-router-dom';
+import { requiredField, maxLength, minLength } from '../../../../utils/validators/index';
+import { LoginField } from './components/'
+const maxLength10 = maxLength(10);
+const minLength4 = minLength(4)
+
 
 function Form(props) {
     const isAuthorization = useSelector(state => authorizationSelectors.isAuthorization(state))
@@ -19,7 +24,7 @@ function Form(props) {
     return (
         <div className = {styles['auth-form-wrapper']} >
             <form className = {styles['auth-form']} onSubmit = {props.handleSubmit}>
-                <Field className = {styles['auth-login-input']} component = 'input' name = 'login' />
+                <Field className = {styles['auth-login-input']} validate = {[requiredField, maxLength10, minLength4]} component = {LoginField} name = 'login' />
                 <Field className = {styles['auth-password-input']} component = 'input' name = 'password' />
                 <button className = {styles['auth-button']}>Зареєструватися</button>
             </form>

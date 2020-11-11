@@ -1,8 +1,4 @@
 import Axios from "axios";
-// Axios.interceptors.response.use(resp => resp, (err) => {
-//     // console.log('res.body', console.log(err))
-// })
-
 export const wordSetsAPI = {
     getMixedTasks: (selectedWordsIds) => {
         let url = 'http://localhost:8888/mixTasks';
@@ -37,9 +33,7 @@ export const wordSetsAPI = {
     getTaskCards: (selectedWordsIds) => { //це до тренування слів
         let url = 'http://localhost:8888/taskCards';
         return Axios.post(url, selectedWordsIds);
-
     }
-
         
 }
 
@@ -51,20 +45,20 @@ export const userVocabularyAPI = {
 
     savedWordToUserVocabulary: (wordId, userId) => {
         let url = 'http://localhost:8888/userVocabulary';
-        const requestObject = {
+        const requestBody = {
             wordId,
             userId
         }
-        return Axios.post(url, requestObject)
+        return Axios.post(url, requestBody)
     },
 
     deleteWordFromUserVocabular: (wordId, userId) => {
         let url = 'http://localhost:8888/userVocabulary';
-        let requestSendObject = {
+        let requestBody = {
             userId,
             wordId
         }
-        return Axios.delete(url, {data: requestSendObject})
+        return Axios.delete(url, {data: requestBody})
 
         
     },
@@ -101,23 +95,42 @@ export const trainingResultsAPI = {
     }
 }
 
+
+const authInstance = Axios.create({
+    baseURL: 'http://localhost:8888/auth',
+    validateStatus: function(status) {
+        return status >= 200 && status < 500
+    },
+    timeout: 10000
+})
+
 export const authAPI = {
-    logining: (loginData) => {
-        let url = 'http://localhost:8888/login'
-        return Axios.post(url, loginData)
+    logining: loginData => {
+        let endpoint = 'login'
+        return authInstance.post(endpoint, loginData)
     },
 
-    signIn: (signInData) => {
+    signIn: signInData => {
         console.log('authApi')
-        let url = 'http://localhost:8888/signin';
-        return Axios.post(url, signInData)
+        let endpoint = 'signin';
+        return authInstance.post(endpoint, signInData)
     },
 
-    isAuthorization: (authToken) => {
+    checkAuthorization: authToken => {
         console.log(authToken)
-        let url = 'http://localhost:8888/isAuthorization';
-        return Axios.get(url, {headers: {Authorization: authToken}})
-    }
+        let endpoint = 'isAuthorization';
+        return authInstance.get(endpoint, {headers: {Authorization: authToken}})
+    },
 
-    // postRefreshToken: (refreshToken) => {}
+    refreshAuthToken: refreshToken => {
+        let endpoint = 'refreshToken';
+        const requestBody = {refreshToken}
+        return authInstance.post(endpoint, requestBody)
+    },
+
+    logOut: refreshToken => {
+        let endpoint = 'logout';
+        const requestBody = {refreshToken}
+        return authInstance.post(endpoint, requestBody)
+    }
 }

@@ -1,3 +1,4 @@
+import { act } from 'react-dom/test-utils';
 import { LOGIN, SIGN_IN, LOG_OUT, IS_AUTHORIZATION } from '../../action_types/index'; 
 
 const initialState = {
@@ -10,7 +11,7 @@ switch(action.type) {
     case IS_AUTHORIZATION:
         return {
             ...state,
-            isAuthorization: true,
+            isAuthorization: action.isAuthorization,
             userId: action.userId
         }
     case LOGIN: 

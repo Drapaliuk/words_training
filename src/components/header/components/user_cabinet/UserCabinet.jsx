@@ -10,8 +10,9 @@ export function UserCabinet({onVisibleComponent}) {
     const personalData = useSelector(state => personalUserDataSelectors.getFullPersonalUserData(state));
 
     const onLogOut = function() {
+        console.log('log out!')
         dispatch(logOut())
-        dispatch(clearUserPersonalData())
+        // dispatch(clearUserPersonalData())
     }
 
     return (

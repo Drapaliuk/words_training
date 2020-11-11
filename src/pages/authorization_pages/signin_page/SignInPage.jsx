@@ -7,6 +7,8 @@ import { Header } from '../../../components';
 
 export function SignInPage() {
     const dispatch = useDispatch();
+    const [loginHasAlreadyUse, setLoginHasAlreadyUse] = React.useState(false);
+
     const signInData = useSelector(state => {
         if(state.form.signInForm) {
             return state.form.signInForm.values
@@ -14,15 +16,16 @@ export function SignInPage() {
     })
     console.log(signInData)
 
-    const onSignIn = (signInData) => {
-        console.log('onSignIn')
+    const onSignIn = (signInData) => (event, second) => {
+        console.log('event', event)
+        console.log('second', second)
         dispatch(signIn(signInData))
     }
     
     return (
         <div>
             <Header />
-            <SignInForm onSubmit = {() => onSignIn(signInData)} />
+            <SignInForm onSubmit = { onSignIn(signInData) } />
         </div>
     )
 }
