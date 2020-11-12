@@ -14,7 +14,6 @@ export function SignInPage() {
             return state.form.signInForm.values
         }
     })
-    console.log(signInData)
 
     const onSignIn = (signInData) => (event, second) => {
         console.log('event', event)

@@ -25,6 +25,7 @@ export const makePausedTraining = (userId, pausedTrainingData) => dispatch => {
 };
 
 export const fetchPausedTrainings = userId => dispatch => {
+    console.log('user_id', userId)
     trainingPauseAPI.getAllPausedTraining(userId)
                     .then(({data}) => {
                         const { responseCode, serverPayload } = data;

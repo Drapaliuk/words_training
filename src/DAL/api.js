@@ -1,12 +1,17 @@
 import Axios from "axios";
+
+const instance = Axios.create({
+    baseURL: 'http://localhost:8888/'
+})
+
 export const wordSetsAPI = {
     getMixedTasks: (selectedWordsIds) => {
-        let url = 'http://localhost:8888/mixTasks';
+        let url = 'http://localhost:8888/training/mixedmode';
         return Axios.post(url, selectedWordsIds)
     },
 
     getTaskLetter: (selectedWordsIds) => {
-        let url = 'http://localhost:8888/taskLatter';
+        let url = 'http://localhost:8888/training/spelling';
         return Axios.post(url, selectedWordsIds);
     },
 
@@ -31,11 +36,27 @@ export const wordSetsAPI = {
     },
 
     getTaskCards: (selectedWordsIds) => { //це до тренування слів
-        let url = 'http://localhost:8888/taskCards';
+        let url = 'http://localhost:8888/training/words';
         return Axios.post(url, selectedWordsIds);
     }
         
 }
+
+export const trainingResultsAPI = {
+    postTrainingStatistics: (traininingStatistics) => {
+        let url = 'http://localhost:8888/training/results';
+        return Axios.post(url, traininingStatistics)
+    }
+}
+
+
+
+
+
+
+
+
+
 
 export const userVocabularyAPI = {
     fetchUserVocabulary: (userid) => {
@@ -88,12 +109,7 @@ export const vocabularyTestAPI = {
     }
 }
 
-export const trainingResultsAPI = {
-    postTrainingStatistics: (traininingStatistics) => {
-        let url = 'http://localhost:8888/trainingResult';
-        return Axios.post(url, traininingStatistics)
-    }
-}
+
 
 
 const authInstance = Axios.create({
@@ -111,13 +127,11 @@ export const authAPI = {
     },
 
     signIn: signInData => {
-        console.log('authApi')
         let endpoint = 'signin';
         return authInstance.post(endpoint, signInData)
     },
 
     checkAuthorization: authToken => {
-        console.log(authToken)
         let endpoint = 'isAuthorization';
         return authInstance.get(endpoint, {headers: {Authorization: authToken}})
     },

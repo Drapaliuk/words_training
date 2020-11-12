@@ -18,7 +18,7 @@ export function PausedTrainingsPage() {
 
     React.useEffect(() => {
         dispatch(fetchPausedTrainings(userId))
-    }, [])
+    }, []);
 
     if(!pausedTrainingsList) {
         return <Header />

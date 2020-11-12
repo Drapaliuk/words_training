@@ -1,0 +1,16 @@
+.invalid-message {
+    background-color: rgb(224, 105, 105);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -25%;
+    padding: 1px 7px;
+    font-size: 12px;
+    color: azure;
+    font-family: sans-serif;
+}
+
+
+.container {
+    position: relative;
+}

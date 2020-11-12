@@ -1,27 +1,31 @@
 import Axios from "axios";
 
+const instance = Axios.create({
+    baseURL: 'http://localhost:8888/training/pause'
+})
+
 export const trainingPauseAPI = {
     savePausedTraining: (userId, pausedTrainingData) => {
-        let url = 'http://localhost:8888/trainingpause';
+        const endpoint = '/';
         const requestObject = {userId, pausedTrainingData}
 
-        return Axios.post(url, requestObject)
+        return instance.post(endpoint, requestObject)
     },
 
     getPausedTraining: (userId, pausedTrainingId) => {
-        let url = `http://localhost:8888/trainingpause?userId=${userId}&pausedTrainingId=${pausedTrainingId}`;
-        return Axios.get(url)
+        const endpoint = `?userId=${userId}&pausedTrainingId=${pausedTrainingId}`;
+        return instance.get(endpoint)
     },
 
     deletePausedTraining: (userId, pausedTrainingId) => {
-        let url = 'http://localhost:8888/trainingpause';
+        const endpoint = '/';
         const requestObject = {userId, pausedTrainingId};
         
-        return Axios.delete(url, {data: requestObject})
+        return instance.delete(endpoint, {data: requestObject})
     },
 
-    getAllPausedTraining: (userId) => {
-        let url = `http://localhost:8888/trainingpause/all?userid=${userId}`;
-        return Axios.get(url)
+    getAllPausedTraining: userId => {
+        const endpoint = `all?userid=${userId}`;
+        return instance.get(endpoint)
     }
 }

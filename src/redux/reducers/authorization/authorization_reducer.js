@@ -11,22 +11,26 @@ switch(action.type) {
     case IS_AUTHORIZATION:
         return {
             ...state,
-            isAuthorization: action.isAuthorization,
-            userId: action.userId
+            isAuthorization: action.serverPayload.isAuthorization,
+            userId: action.serverPayload.userId
         }
+
     case LOGIN: 
+    console.log('action', action)
         return {
             ...state,
             isAuthorization: action.serverPayload.isAuthorization,
             userId: action.serverPayload.userId
 
         }
+
     case SIGN_IN: 
         return {
             ...state,
             isAuthorization: action.serverPayload.isAuthorization,
             userId: action.serverPayload.userId
         }
+
     case LOG_OUT: 
         return {
             ...state,

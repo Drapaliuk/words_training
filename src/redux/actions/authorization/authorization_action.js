@@ -50,16 +50,16 @@ export const signIn = (signInData, hasAlreadyUseHandler) => dispatch => {
 
 export const checkAuthorization = () => (dispatch) => {
     const authToken = localStorageManipulator.getAuthToken();
-    console.log(authToken)
     if(!authToken) {
-        console.log('asdasdasadasdadsadasdasdas')
         return dispatch({type: IS_AUTHORIZATION, isAuthorization: false})
     }
+
     authAPI.checkAuthorization(authToken)
            .then(({data}) => {
-               console.log('data', data)
+               console.log('data from auth action', data)
                 if(data.responseCode === 1) {
-                    dispatch({type: IS_AUTHORIZATION, isAuthorization: true});
+                    const {userId} = data;
+                    dispatch({type: IS_AUTHORIZATION, serverPayload: {isAuthorization: true, userId}});
                 }
 
                 if(data.responseCode === 0) {
@@ -69,7 +69,7 @@ export const checkAuthorization = () => (dispatch) => {
                                const { userId, token, refreshToken } = resp.data;
                                 localStorageManipulator.saveAuthToken(token)
                                 localStorageManipulator.saveRefreshToken(refreshToken)
-                                return dispatch({type: LOGIN, serverPayload: {userId, token, refreshToken, isAuthorization: true}})
+                                return dispatch({type: LOGIN, serverPayload: {userId, isAuthorization: true}})
 
                            })
                 }
