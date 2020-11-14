@@ -1,4 +1,4 @@
-import { wordSetsAPI } from '../../DAL/api';
+import { spellingTrainingAPI } from '../../DAL/training/modes/index';
 import { SELECTING_TASK_VARIANT_TRAINING_ID_002, DELETE_LETTER, CLEAR_SPLITTED_ANSWER_WORD,
          HINT, GET_TASKS, INITIALIZATION_TRAINING_ID_002, FINISH_TRAINING_ID_002,
          NEXT_TASK_TRAINING_ID_002, CREATE_STATISTICS_OBJECT_TRAINING_ID_002,
@@ -19,9 +19,9 @@ export const selectingVariant = (selectedVariant) => {
 };
 
 export const getTasks = selectedWordsIds => dispatch => {
-    wordSetsAPI.getTaskLetter(selectedWordsIds)
-               .then(response => {
-                   console.log(response)
-                   dispatch ({type: GET_TASKS, serverPayload: response.data})
-               });
+    spellingTrainingAPI.getTasks(selectedWordsIds)
+                       .then(response => {
+                           console.log(response)
+                           dispatch ({type: GET_TASKS, serverPayload: response.data})
+                       });
 };

@@ -16,7 +16,6 @@ switch(action.type) {
         }
 
     case LOGIN: 
-    console.log('action', action)
         return {
             ...state,
             isAuthorization: action.serverPayload.isAuthorization,

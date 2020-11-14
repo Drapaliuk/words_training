@@ -27,5 +27,5 @@ export const trainingPauseAPI = {
     getAllPausedTraining: userId => {
         const endpoint = `all?userid=${userId}`;
         return instance.get(endpoint)
-    }
+    } 
 }

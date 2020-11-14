@@ -1,5 +1,5 @@
 import { SIGN_IN, LOGIN, LOG_OUT, IS_AUTHORIZATION } from '../../action_types/index';
-import { authAPI } from '../../../DAL/api';
+import { authAPI } from '../../../DAL/auth/auth_api';
 import { localStorageManipulator } from '../../../utils/index';
 
 export const logOut = () => dispatch => {
@@ -29,7 +29,6 @@ export const logining = authData => dispatch => {
         })
 };
 
-
 export const signIn = (signInData, hasAlreadyUseHandler) => dispatch => {
     authAPI.signIn(signInData)
            .then(({data}) => {
@@ -47,11 +46,10 @@ export const signIn = (signInData, hasAlreadyUseHandler) => dispatch => {
            })
 };
 
-
 export const checkAuthorization = () => (dispatch) => {
     const authToken = localStorageManipulator.getAuthToken();
     if(!authToken) {
-        return dispatch({type: IS_AUTHORIZATION, isAuthorization: false})
+        return dispatch({type: IS_AUTHORIZATION, serverPayload: {isAuthorization: false, userId: ''}})
     }
 
     authAPI.checkAuthorization(authToken)

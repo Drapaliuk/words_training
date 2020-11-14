@@ -1,4 +1,4 @@
-import { wordSetsAPI } from '../../DAL/api';
+import { wordKitsAPI } from '../../DAL/word_kits/index';
 import {  
           DELETE_SELECTED_WORD, CREATE_EDUCATION_PLANS, FETCHING_WORDS, CLEAR_SELECTED_WORDS, SELECTING_TRAINING_MODE,
           SELECTING_WORD,  FETCHING_WORD_SETS_NAMES, COLLECTING_COMMON_STATISTICS, CLEAR_SELECTED_WORDS_CURRENT_WORD_SET,
@@ -37,18 +37,10 @@ export const deleteSelectedWord = payload => {
     return {type: DELETE_SELECTED_WORD, payload}
 };
 
-export const createEducationPlan = selectedWords => {
-    return (dispatch) => {
-        wordSetsAPI.createEducationPlan(selectedWords)
-                   .then(({data}) => {
-                       dispatch({type: CREATE_EDUCATION_PLANS, serverPayload: data})
-                   })
-    }
-};
 
 export const fetchingWords = setName => { //! RENAME
     return (dispatch) => {
-        wordSetsAPI.getWordSets(setName)
+        wordKitsAPI.getWordSets(setName)
                    .then((resp) => {
                        dispatch({type: FETCHING_WORDS, initialisedWords: resp.data})  ////!
                    })
@@ -57,7 +49,7 @@ export const fetchingWords = setName => { //! RENAME
 
 export const fetchingWordSetsNames = () => { //fetchingSetsList
     return (dispatch) => {
-        wordSetsAPI.getWordSetsName()
+        wordKitsAPI.getWordSetsName()
                    .then((resp) => {
                        dispatch({type: FETCHING_WORD_SETS_NAMES, payload: resp.data})
                    })
