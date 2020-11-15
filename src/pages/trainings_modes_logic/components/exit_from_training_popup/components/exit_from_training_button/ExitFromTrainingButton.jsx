@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { openExitWindow } from '../../../../../../redux/actions/trainings/paused_training/paused_training_actions';
+import { openExitWindow } from '../../../../../../redux/actions/training/pause/paused_training_actions';
 import styles from './styles.module.css';
 
 export function ExitFromTrainingButton() {

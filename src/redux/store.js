@@ -1,15 +1,13 @@
 import { createStore, applyMiddleware, compose} from 'redux';
 import thunkMiddlewere from 'redux-thunk';
 import { combinedReducers } from './reducers/combined_reducers';
-import { variantListCreator, initializationSplittedAnswerWord,
-         mistakeCreator, collectingCommonStatistics, clearSelectedWordsCurrentWordset,
+import { collectingCommonStatistics, clearSelectedWordsCurrentWordset,
          selectingFullKit, unSelectingFullWordsKit, personalUserData, continueTrainingMiddleware } from './middlewares/index';
 
 
 const middlewares = [ 
-                      thunkMiddlewere,  variantListCreator, mistakeCreator,
-                      clearSelectedWordsCurrentWordset, unSelectingFullWordsKit,
-                      collectingCommonStatistics, initializationSplittedAnswerWord,
+                      thunkMiddlewere, clearSelectedWordsCurrentWordset, 
+                      collectingCommonStatistics, unSelectingFullWordsKit,
                       selectingFullKit, personalUserData, continueTrainingMiddleware
                     ]
 

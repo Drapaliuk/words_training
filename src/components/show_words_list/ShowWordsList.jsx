@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { selectingAllWords } from '../../redux/actions/common_data_actions';
+import { selectingAllWords } from '../../redux/actions/training/common/common_training_actions';
 import { commonDataSelectors } from '../../redux/selectors/index';
 import styles from './WordSetPage.module.css';
 import SelectedAllWords from './components/SelectedAllWords';
-import { addWordToVocabulary } from '../../redux/actions/user_vocabulary_actions';
+import { addWordToVocabulary } from '../../redux/actions/user_content_store/user_vocabulary/user_vocabulary_actions';
 import { useSelector, useDispatch } from 'react-redux';
 import bookmark from '../../assets/img/bookmark.png'
 import check from '../../assets/img/check.png'

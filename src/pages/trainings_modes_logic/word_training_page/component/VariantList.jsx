@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {wordTestSelectors, commonDataSelectors} from '../../../../redux/selectors/index';
-import {selectingVariant} from '../../../../redux/actions/spelling_test_actions';
+import {selectingVariant} from '../../../../redux/actions/training/modes/spelling_mode_actions';
 import {VariantListItem} from './VariantListItem';
 
 export const VariantList = function () {

@@ -1,11 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import { selectingWord } from '../../../../redux/actions/common_data_actions';
+import { selectingWord } from '../../../../redux/actions/training/common/common_training_actions';
 import { userContentStoreSelectors } from '../../../../redux/selectors/index';
 import styles from './VocabularyEditor.module.css';
-import { deleteWordFromVocabulary, selectingWordsFromUserVocabulary, unSelectingWordsFromUserVocabulary } from '../../../../redux/actions/user_content_store/user_vocabulary_actions';
+import { deleteWordFromVocabulary, selectingWordsFromUserVocabulary, unSelectingWordsFromUserVocabulary } from '../../../../redux/actions/user_content_store/user_vocabulary/user_vocabulary_actions';
 import { useSelector, useDispatch } from 'react-redux';
-import { authorizationSelectors } from '../../../../redux/selectors/authorization_selectors';
+import { authorizationSelectors } from '../../../../redux/selectors/authorization/authorization_selectors';
 import check from '../../../../assets/img/check.png'
 
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form';
 import styles from '../LoginPage.module.css';
-import { authorizationSelectors } from '../../../../redux/selectors/authorization_selectors';
+import { authorizationSelectors } from '../../../../redux/selectors/authorization/authorization_selectors';
 import { useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { FormField } from '../../components/index';

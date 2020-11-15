@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Header } from '../../components/header/Header';
-import { fetchingUserPersonalData } from '../../redux/actions/personal_user_data/personal_user_data_actions';
-import { personalUserDataSelectors } from '../../redux/selectors/personal_user_data/personal_user_data_selector';
+import { fetchingUserPersonalData } from '../../redux/actions/profile/personal_user_data/personal_user_data_actions';
+import { personalUserDataSelectors } from '../../redux/selectors/profile/personal_user_data/personal_user_data_selector';
 import { FormForChangePersonalData } from './componetnts/index';
-import { changePersonaUserData, saveNewPersonalUserData, cancelEditPersonalData } from '../../redux/actions/personal_user_data/personal_user_data_actions';
-import { authorizationSelectors } from '../../redux/selectors/authorization_selectors';
+import { changePersonaUserData, saveNewPersonalUserData, cancelEditPersonalData } from '../../redux/actions/profile/personal_user_data/personal_user_data_actions';
+import { authorizationSelectors } from '../../redux/selectors/authorization/authorization_selectors';
 import styles from './CabinetPage.module.css'; 
 import edit from '../../assets/img/edit_cabinet.png';
 import arrowDown from '../../assets/img/arrow-down.png';

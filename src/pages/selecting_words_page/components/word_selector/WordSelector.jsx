@@ -1,9 +1,9 @@
 import React from 'react';
-import { selectingAllWords, selectingWord, unSelectingWord, unSelectingFullWordsKit } from '../../../../redux/actions/common_data_actions';
+import { selectingAllWords, selectingWord, unSelectingWord, unSelectingFullWordsKit } from '../../../../redux/actions/training/common/common_training_actions';
 import { commonDataSelectors, wordKitSelectors, authorizationSelectors } from '../../../../redux/selectors/index';
 import styles from './styles.module.css';
 import { EditorSelectedWords } from '../index';
-import { addWordToVocabulary } from '../../../../redux/actions/user_content_store/user_vocabulary_actions';
+import { addWordToVocabulary } from '../../../../redux/actions/user_content_store/user_vocabulary/user_vocabulary_actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { ListItem } from './components/index';
 

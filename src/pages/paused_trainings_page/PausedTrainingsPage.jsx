@@ -2,9 +2,9 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom';
 import { Header } from '../../components';
-import { continuePausedTraining, deletePausedTraining, fetchPausedTrainings } from '../../redux/actions/trainings/paused_training/paused_training_actions';
+import { continuePausedTraining, deletePausedTraining, fetchPausedTrainings } from '../../redux/actions/training/pause/paused_training_actions';
 import { authorizationSelectors, commonDataSelectors } from '../../redux/selectors';
-import { getPausedTrainingsList, pausedTrainingSelectors } from '../../redux/selectors/trainings/training_pause_selectors';
+import { getPausedTrainingsList, pausedTrainingSelectors } from '../../redux/selectors/training/pause/training_pause_selectors';
 import { dataTransformer } from '../../utils/index';
 // import { PausedTrainingsList } from './components/index/'
 

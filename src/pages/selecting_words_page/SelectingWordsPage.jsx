@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
-import { fetchingWords } from '../../redux/actions/common_data_actions';
+import { fetchingWords } from '../../redux/actions/training/common/common_training_actions';
 import { commonDataSelectors } from '../../redux/selectors/index';
 import { Header } from '../../components/index';
 import styles from './WordSetPage.module.css';

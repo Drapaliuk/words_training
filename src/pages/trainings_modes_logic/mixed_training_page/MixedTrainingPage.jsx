@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SpellingPage, TestWordPage } from '../../index';
-import { commonDataSelectors } from '../../../redux/selectors/common_data_selectors';
-import { fetchingMixedTasks } from '../../../redux/actions/mixed_training_mode/mixed_training_mode_actions';
-import { selectingTrainingMode } from '../../../redux/actions/common_data_actions';
+import { commonDataSelectors } from '../../../redux/selectors/training/common/common_data_selectors';
+import { fetchingMixedTasks } from '../../../redux/actions/training/modes/mixed_mode_actions';
+import { selectingTrainingMode } from '../../../redux/actions/training/common/common_training_actions';
 
 
 export function MixedTestPage(props) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header } from '../../../components'
 import { LoginForm } from './components/LoginForm'
-import { logining } from '../../../redux/actions/authorization/authorization_action';
+import { logining } from '../../../redux/actions/authorization/authorization_actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function LoginPage() {

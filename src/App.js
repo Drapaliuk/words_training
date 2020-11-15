@@ -5,9 +5,7 @@ import  { authorizationSelectors } from './redux/selectors/index';
 import  { SpellingPage, TestWordPage, SelectingWordsPage, ResultPage,
           IntroductionPage, MixedTestPage, SelectingWordsKitPage,PausedTrainingsPage,
           KnowledgeTestPage, VocabularyPage, LoginPage, SignInPage, CabinetPage } from './pages/index'
-import { checkAuthorization } from './redux/actions/authorization/authorization_action';
-
-
+import { checkAuthorization } from './redux/actions/authorization/authorization_actions';
 
 function App() {
   const dispatch = useDispatch();

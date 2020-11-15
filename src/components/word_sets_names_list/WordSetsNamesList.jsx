@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styles from './SetsNamesList.module.css';
-import { commonDataSelectors } from '../../redux/selectors/common_data_selectors';
-import { fetchingWords } from '../../redux/actions/common_data_actions'; //! rename!! what did i say words about????
-import { fetchingWordSetsNames } from '../../redux/actions/common_data_actions'; //! все в одному редюсері
+import { commonDataSelectors } from '../../redux/selectors/training/common/common_data_selectors';
+import { fetchingWords } from '../../redux/actions/training/common/common_training_actions'; //! rename!! what did i say words about????
+import { fetchingWordSetsNames } from '../../redux/actions/training/common/common_training_actions'; //! все в одному редюсері
 
 export const WordSetsNamesList = function ({extraHandlers}) { //!зробити можливысть змыни стилыв
     const dispatch = useDispatch()

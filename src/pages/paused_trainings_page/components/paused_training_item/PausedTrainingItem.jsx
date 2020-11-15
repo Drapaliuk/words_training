@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Header } from '../../../../components';
-import { continuePausedTraining, fetchPausedTrainings } from '../../../../redux/actions/trainings/paused_training/paused_training_actions';
+import { continuePausedTraining, fetchPausedTrainings } from '../../../../redux/actions/training/pause/paused_training_actions';
 import { authorizationSelectors, commonDataSelectors } from '../../../../redux/selectors';
-import { getPausedTrainingsList } from '../../../../redux/selectors/trainings/training_pause_selectors';
+import { getPausedTrainingsList } from '../../../../redux/selectors/training/pause/training_pause_selectors';
 import styles from './styles.module.css'
 
 

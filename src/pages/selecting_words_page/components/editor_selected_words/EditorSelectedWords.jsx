@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteSelectedWord, clearSelectedWords } from '../../../../redux/actions/common_data_actions';
+import { deleteSelectedWord, clearSelectedWords } from '../../../../redux/actions/training/common/common_training_actions';
 import styles from './styles.module.css';
 import { ClearSelectedWords, SelectedWordsLabel, SelectedWordsList } from './components/index';
 

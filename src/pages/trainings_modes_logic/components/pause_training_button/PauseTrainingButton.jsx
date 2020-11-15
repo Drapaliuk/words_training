@@ -1,10 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { closeCommentField, makePausedTraining, openCommentField, writeComment } from '../../../../redux/actions/trainings/paused_training/paused_training_actions';
+import { closeCommentField, makePausedTraining, openCommentField, writeComment } from '../../../../redux/actions/training/pause/paused_training_actions';
 
 import { authorizationSelectors } from '../../../../redux/selectors';
-import { getInfoForPause, getPausedTrainingComment, pausedTrainingSelectors } from '../../../../redux/selectors/trainings/training_pause_selectors';
+import { getInfoForPause, getPausedTrainingComment, pausedTrainingSelectors } from '../../../../redux/selectors/training/pause/training_pause_selectors';
+
 import styles from './styles.module.css';
 import classNames from 'classnames';
 export  function PauseTrainingButton() {

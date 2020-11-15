@@ -1,7 +1,7 @@
 import React from 'react'
 import { SignInForm } from './components/SignInForm'
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from '../../../redux/actions/authorization/authorization_action';
+import { signIn } from '../../../redux/actions/authorization/authorization_actions';
 
 import { Header } from '../../../components';
 

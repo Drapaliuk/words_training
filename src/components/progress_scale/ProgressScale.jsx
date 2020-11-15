@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './ProgressScale.module.css';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
-import { commonDataSelectors } from '../../redux/selectors/common_data_selectors';
-import { reviewPreviousTasks } from '../../redux/actions/common_data_actions';
+import { commonDataSelectors } from '../../redux/selectors/training/common/common_data_selectors';
+import { reviewPreviousTasks } from '../../redux/actions/training/common/common_training_actions';
 
 
 export const ProgressScale = function() {

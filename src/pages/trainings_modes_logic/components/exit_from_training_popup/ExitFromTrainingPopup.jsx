@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { exitFromTraining } from '../../../../redux/actions/common_data_actions';
+import { exitFromTraining } from '../../../../redux/actions/training/common/common_training_actions';
 import styles from './styles.module.css';
 import { NavLink } from 'react-router-dom';
 
 
 
 import { commonDataSelectors } from '../../../../redux/selectors';
-import { closeExitWindow } from '../../../../redux/actions/trainings/paused_training/paused_training_actions';
+import { closeExitWindow } from '../../../../redux/actions/training/pause/paused_training_actions';
 
 export function ExitFromTrainingPopup(props) {
     const dispatch = useDispatch()

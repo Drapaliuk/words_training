@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import styles from './UserWordSetCreator.module.css';
-import { createWordSet } from '../../../../redux/actions/user_content_store/user_word_sets_actions';
+import { createWordSet } from '../../../../redux/actions/user_content_store/user_words_kits/user_words_kits_actions';
 
 const Form = function(props) {
     const { setStatusShowSetCreatorButton, setShowStatusWordSetCreator } = props

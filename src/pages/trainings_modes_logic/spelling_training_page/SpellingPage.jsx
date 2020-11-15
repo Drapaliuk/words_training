@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { selectingVariant, deleteLetter, nextTaskTrainingId002, hint,
          finishTraining,
          initializationTrainingID002, createTaskStatisticsObject_TrainingId002,
-         skipTask_TrainingId002, getTasks, clearSplittedAnswerWord  } from '../../../redux/actions/spelling_test_actions';
+         skipTask_TrainingId002, getTasks, clearSplittedAnswerWord  } from '../../../redux/actions/training/modes/spelling_mode_actions';
 
 import { collectingCommonStatistics, nextTaskCommon, skipTaskCommon,
-         initializationCurrentTrainingModeId, selectingTrainingMode } from '../../../redux/actions/common_data_actions';
+         initializationCurrentTrainingModeId, selectingTrainingMode } from '../../../redux/actions/training/common/common_training_actions';
 
 
 import { spellingSelectors, commonDataSelectors, authorizationSelectors } from '../../../redux/selectors/index'         
@@ -22,7 +22,7 @@ import styles from './TrainingPage.module.css';
 import { Header } from '../../../components/header/Header';
 import helpIcon from '../../../assets/img/help-icon.png';
 import { ExitFromTrainingPopup } from '../components';
-import { pausedTrainingSelectors } from '../../../redux/selectors/trainings/training_pause_selectors';
+import { pausedTrainingSelectors } from '../../../redux/selectors/training/pause/training_pause_selectors';
 import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
 const TrainingPageComponent = function(props) {

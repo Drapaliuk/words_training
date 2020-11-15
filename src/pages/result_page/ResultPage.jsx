@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { commonDataSelectors, trainingResultsSelectors } from '../../redux/selectors/index';
-import {fetchingTrainingResults} from '../../redux/actions/training_results_actions';
+import {fetchingTrainingResults} from '../../redux/actions/training/results/training_results_actions';
 import {ResultItem} from './components/result_item/ResultItem';
 import {Header} from '../../components/index';
 

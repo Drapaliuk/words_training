@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { fetchingKnowledgeTest } from '../../redux/actions/knowledge_test_actions';
+import { fetchingKnowledgeTest } from '../../redux/actions/knowledge_tests/knowledge_tests_actions';
 import {Header} from '../../components/index'
 
 import styles from './IntroductionPage.module.css';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './styles.module.css';
-import { selectingTrainingMode } from '../../../../redux/actions/common_data_actions';
+import { selectingTrainingMode } from '../../../../redux/actions/training/common/common_training_actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { commonDataSelectors } from '../../../../redux/selectors';
 

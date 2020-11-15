@@ -5,18 +5,18 @@ import styles from './TrainingByWordPage.module.css';
 import { wordTestSelectors, commonDataSelectors } from '../../../redux/selectors/index'; //! ?
 import { selectingVariant, nextTaskTrainingId001,
         hinting, skipTaskTrainingId001,
-        initializationTaskStaticsObject_TrainingId001, fetchingTaskCards } from '../../../redux/actions/word_test_actions';
+        initializationTaskStaticsObject_TrainingId001, fetchingTaskCards } from '../../../redux/actions/training/modes/word_mode_actions';
 
 import { collectingCommonStatistics, skipTaskCommon, nextTaskCommon,
-         initializationCurrentTrainingModeId,  selectingTrainingMode, loadingPausedTraining } from '../../../redux/actions/common_data_actions'; //!
+         initializationCurrentTrainingModeId,  selectingTrainingMode, loadingPausedTraining } from '../../../redux/actions/training/common/common_training_actions'; //!
 import {VariantListItem} from './component/VariantListItem'
 import {ProgressScale} from '../../../components/index';
 import {Header} from '../../../components/index';
 import helpIcon from '../../../assets/img/help-icon.png';
 // import { VariantList } from './component/VariantList'; //! чомуьсь не працює
-import { pausedTrainingSelectors,  } from '../../../redux/selectors/trainings/training_pause_selectors';
+import { pausedTrainingSelectors,  } from '../../../redux/selectors/training/pause/training_pause_selectors';
 import { ExitFromTrainingPopup, PauseTrainingButton } from '../components';
-// import { openExitWindow } from '../../../redux/actions/trainings/paused_training/paused_training_actions';
+// import { openExitWindow } from '../../../redux/actions/training/pause/paused_training_actions';
 import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
 
