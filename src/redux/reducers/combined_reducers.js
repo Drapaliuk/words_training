@@ -7,9 +7,10 @@ import { reducer as formReducer } from 'redux-form';
 import { authorizationReducer } from './authorization/authorization_reducer';
 import { personalUserDataReducer } from './personal_user_data/personal_user_data';
 import { pauseTrainingReducer } from './training/pause/pause_training_reducer';
-
+import { commonReducer } from './common/common_reducer'
 
 export const combinedReducers = combineReducers({
+    common: commonReducer,
     trainingCommonData: trainingCommonDataReducer,
     educationPlans: educationPlansReducer,
     userContentStore: userContentStoreReducer,
@@ -18,5 +19,4 @@ export const combinedReducers = combineReducers({
     personalUserData: personalUserDataReducer,
     pausedTrainings: pauseTrainingReducer,
     form: formReducer,
-
 })

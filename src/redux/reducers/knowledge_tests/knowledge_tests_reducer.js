@@ -1,17 +1,41 @@
-import { CREATE_EDUCATION_PLANS, FETCHING_KNOWLEDGE_TEST,
-             NEXT_VOCABULARY_TEST_TASK, ADD_ANSWER_VOCABULARY_TEST } from '../../action_types/index'; 
-
+import { FETCHING_KNOWLEDGE_TEST, TEST_RESULT, KNOWLEDGE_TESTS_LOADING, 
+         NEXT_VOCABULARY_TEST_TASK, ADD_ANSWER_VOCABULARY_TEST,
+         KNOWLEDGE_TESTS_LOADED } from '../../action_types/index'; 
+         
 const initialState = {
     educationPlan: [],
     languageLevel: [{language: 'eng', level: 'A1', dateTest: '', vocabulary: 3000}],
     wordCounter: 0,
     vocabularyTestWords: [''], //! if this array is empty application throw error
     answers: [],
-    isLastTask: false
+    testResult: {},
+    isLastTask: false,
+    loading: false,
+    loaded: false
 }
 
 export const educationPlansReducer = (state = initialState, action) => {
     switch(action.type) {
+        case KNOWLEDGE_TESTS_LOADING:
+            return {
+                ...state,
+                loading: true,
+                loaded: false
+            }
+        
+        case KNOWLEDGE_TESTS_LOADED:
+            return {
+                ...state,
+                loading: false,
+                loaded: true
+        }
+            
+        case TEST_RESULT: 
+            return {
+                ...state,
+                testResult: {...action.serverPayload}
+            }
+
         case FETCHING_KNOWLEDGE_TEST: 
             return {
                 ...state,
@@ -22,7 +46,6 @@ export const educationPlansReducer = (state = initialState, action) => {
             return {
                 ...state,
                 wordCounter: !state.isLastTask ? state.wordCounter + 1 : state.wordCounter,
-                // wordCounter: state.wordCounter + 1,
                 isLastTask: state.wordCounter === (state.vocabularyTestWords.length - 1)
             }
 

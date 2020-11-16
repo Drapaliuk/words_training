@@ -1,37 +1,35 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { vocabularyTestSelectors } from '../../redux/selectors/index';
-import { addAnswer, nextTask, fetchingKnowledgeTest } from '../../redux/actions/knowledge_tests/knowledge_tests_actions';
+import { addAnswer, nextTask, fetchVocabularyTest } from '../../redux/actions/knowledge_tests/knowledge_tests_actions';
 import styles from './KnowledgeTest.module.css';
 import {Header} from '../../components/index';
 import ProgressSchale from './components/progress_schale/ProgressScale';
 import yes from '../../assets/img/yes.png';
 import no from '../../assets/img/no.png';
 import { NavLink, Redirect } from 'react-router-dom';
- 
+import { fetchVocabularyLevel } from '../../redux/actions/index';
+
 export function KnowledgeTestPage() {
     const dispatch = useDispatch()
-
+    const knowledgeTestResult = useSelector(state => vocabularyTestSelectors.getModifiedTestAnswers(state));
     React.useEffect(() => {
-        dispatch(fetchingKnowledgeTest())
+        dispatch(fetchVocabularyTest());
     }, [])
 
     const onUserAnswer = (answer) => {
-        dispatch(addAnswer(answer))
-        dispatch(nextTask())
+        dispatch(addAnswer(answer));
+        dispatch(nextTask());
     }
 
-
-    const onFinish = function() {
-       
-    }
+    const onTestResults = knowledgeTestResult => dispatch(fetchVocabularyLevel(knowledgeTestResult))
     
     const currentTaskWord = useSelector((state) => vocabularyTestSelectors.getCurrentTaskWord(state));
     const vocabularyTestWords = useSelector((state) => vocabularyTestSelectors.getKnowledgeTest(state));
     const answers = useSelector(state => state.educationPlans.answers);
     const isLastTask = useSelector(state => vocabularyTestSelectors.isLastTask(state))
 
-
+    
 
 
     return (
@@ -48,7 +46,7 @@ export function KnowledgeTestPage() {
                 {
                     isLastTask 
                                 ?
-                                onFinish()
+                                onTestResults(knowledgeTestResult)
                                 :
                                 <div className = {styles['answer-button-container']}>
                                     <button className = {styles['answer-button']} onClick = {() => onUserAnswer(true)}>

@@ -1,3 +1,5 @@
+import { getIds } from '../../../utils/index';
+
 export const vocabularyTestSelectors = {
     getKnowledgeTest: state => state.educationPlans.vocabularyTestWords,
     getCurrentTaskWord: state => {
@@ -8,5 +10,13 @@ export const vocabularyTestSelectors = {
         return currentTaskWord.eng
     },
     getWordCounter: state => state.educationPlans.wordCounter,
-    isLastTask: state => state.educationPlans.isLastTask
+    isLastTask: state => state.educationPlans.isLastTask,
+    getTestAnswers: state => state.educationPlans.answers,
+    getModifiedTestAnswers: state => {
+        return state.educationPlans.answers.map(el => {
+            // console.log({answer: el.answer, word: el.word._id})
+            return {answer: el.answer, word: el.word._id}
+        })
+    }
+
 }
