@@ -17,6 +17,7 @@ export const vocabularyTestSelectors = {
             // console.log({answer: el.answer, word: el.word._id})
             return {answer: el.answer, word: el.word._id}
         })
-    }
+    },
+    getResults: state => state.educationPlans.testResult,
 
 }

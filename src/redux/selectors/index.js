@@ -6,3 +6,4 @@ export { trainingResultsSelectors } from './training/results/training_results_se
 export { userContentStoreSelectors } from './user_content_store/user_content_store_selectors';
 export { authorizationSelectors } from './authorization/authorization_selectors';
 export { wordKitSelectors } from './words_kits/word_kits_selectors';
+export { commonSelectors } from './common/common_selectors';

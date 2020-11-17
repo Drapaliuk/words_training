@@ -6,6 +6,7 @@ export { SelectingWordsPage } from './selecting_words_page/SelectingWordsPage';
 export { ResultPage } from './result_page/ResultPage';
 export { IntroductionPage } from './introduction_page/IntroductionPage';
 export { KnowledgeTestPage } from './knowledge_test_page/KnowledgeTestPage';
+export { KnowledgeTestResultsPage } from './knowledge_test_page/knowledge_tests_results/KnowledgeTestResultsPage';
 export { VocabularyPage} from './vocabulary_page/VocabularyPage';
 export { SelectingWordsKitPage } from './selecting_words_kit_page/SelectingWordsKitPage';
 

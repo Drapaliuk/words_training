@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import  { authorizationSelectors } from './redux/selectors/index';
-import  { SpellingPage, TestWordPage, SelectingWordsPage, ResultPage,
+import  { SpellingPage, TestWordPage, SelectingWordsPage, ResultPage, KnowledgeTestResultsPage,
           IntroductionPage, MixedTestPage, SelectingWordsKitPage,PausedTrainingsPage,
           KnowledgeTestPage, VocabularyPage, LoginPage, SignInPage, CabinetPage } from './pages/index'
 import { checkAuthorization } from './redux/actions/authorization/authorization_actions';
@@ -23,6 +23,7 @@ function App() {
   return (
         <AuthContext.Provider value = {false}>
           <BrowserRouter>
+            <Route path = {'/knowledgetests/results'} component = {KnowledgeTestResultsPage} />
             <Route path = {'/pausedTrainings'} component = {PausedTrainingsPage} />
             <Route path = {'/selectWordSet'} component = {SelectingWordsKitPage} />
             <Route path = {'/vocabularyTest'} component = {KnowledgeTestPage} />

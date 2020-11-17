@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { vocabularyTestSelectors } from '../../redux/selectors/index';
+import { commonSelectors, vocabularyTestSelectors } from '../../redux/selectors/index';
 import { addAnswer, nextTask, fetchVocabularyTest } from '../../redux/actions/knowledge_tests/knowledge_tests_actions';
 import styles from './KnowledgeTest.module.css';
 import {Header} from '../../components/index';
@@ -12,28 +12,26 @@ import { fetchVocabularyLevel } from '../../redux/actions/index';
 
 export function KnowledgeTestPage() {
     const dispatch = useDispatch()
-    const knowledgeTestResult = useSelector(state => vocabularyTestSelectors.getModifiedTestAnswers(state));
+    const isLoading = useSelector(state => commonSelectors.getLoadingStatus(state));
+    const isLoaded = useSelector(state => commonSelectors.getLoadedStatus(state));
     React.useEffect(() => {
         dispatch(fetchVocabularyTest());
     }, [])
-
+    
     const onUserAnswer = (answer) => {
         dispatch(addAnswer(answer));
         dispatch(nextTask());
     }
 
-    const onTestResults = knowledgeTestResult => dispatch(fetchVocabularyLevel(knowledgeTestResult))
+
     
     const currentTaskWord = useSelector((state) => vocabularyTestSelectors.getCurrentTaskWord(state));
     const vocabularyTestWords = useSelector((state) => vocabularyTestSelectors.getKnowledgeTest(state));
     const answers = useSelector(state => state.educationPlans.answers);
     const isLastTask = useSelector(state => vocabularyTestSelectors.isLastTask(state))
 
-    
-
-
+    if(isLoading) return <h1>DOWNLOADING</h1>
     return (
-        
         <div>
             <Header />
             <div className = {styles['task-container']}>
@@ -46,7 +44,8 @@ export function KnowledgeTestPage() {
                 {
                     isLastTask 
                                 ?
-                                onTestResults(knowledgeTestResult)
+                                // <button onClick = {onTestResults(knowledgeTestResult)}>Result</button>
+                                <Redirect to = {'knowledgetests/results'} />
                                 :
                                 <div className = {styles['answer-button-container']}>
                                     <button className = {styles['answer-button']} onClick = {() => onUserAnswer(true)}>
@@ -57,7 +56,7 @@ export function KnowledgeTestPage() {
                                     </button>
                                 </div>
                 }
-                
+
                 <div>
                     <ProgressSchale  tasksAmount = {vocabularyTestWords} answerArray = {answers}/>
                 </div>

@@ -23,7 +23,6 @@ export const selectingVariant = (selectedVariant) => {
 export const getTasks = selectedWordsIds => dispatch => {
     spellingTrainingAPI.getTasks(selectedWordsIds)
                        .then(response => {
-                           console.log(response)
                            dispatch ({type: GET_TASKS, serverPayload: response.data})
                        });
 };

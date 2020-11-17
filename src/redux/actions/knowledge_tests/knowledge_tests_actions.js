@@ -1,6 +1,7 @@
 import {knowledgeTestsAPI} from '../../../API/knowledge_tests/knowledge_tests_api';
 import { localStorageManipulator } from '../../../utils';
-import { FETCHING_KNOWLEDGE_TEST, ADD_ANSWER_VOCABULARY_TEST, NEXT_VOCABULARY_TEST_TASK, TEST_RESULT } from '../../action_types/index';
+import { FETCHING_KNOWLEDGE_TEST, ADD_ANSWER_VOCABULARY_TEST,
+         NEXT_VOCABULARY_TEST_TASK, TEST_RESULT, LOADED, LOADING, CLEAR_KNOWLEDGE_TESTS_DATA } from '../../action_types/index';
 import { loaded, loading } from '../index';
 
 export const nextTask = () => ({type: NEXT_VOCABULARY_TEST_TASK});
@@ -24,3 +25,5 @@ export const fetchVocabularyLevel = results => dispatch => {
                         dispatch(loaded())
                     })
 }
+
+export const clearKnowledgeTestsData = () => ({type: CLEAR_KNOWLEDGE_TESTS_DATA})

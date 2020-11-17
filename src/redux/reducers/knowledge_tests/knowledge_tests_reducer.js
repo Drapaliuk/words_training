@@ -1,10 +1,8 @@
 import { FETCHING_KNOWLEDGE_TEST, TEST_RESULT, KNOWLEDGE_TESTS_LOADING, 
          NEXT_VOCABULARY_TEST_TASK, ADD_ANSWER_VOCABULARY_TEST,
-         KNOWLEDGE_TESTS_LOADED } from '../../action_types/index'; 
+         KNOWLEDGE_TESTS_LOADED, CLEAR_KNOWLEDGE_TESTS_DATA } from '../../action_types/index'; 
          
 const initialState = {
-    educationPlan: [],
-    languageLevel: [{language: 'eng', level: 'A1', dateTest: '', vocabulary: 3000}],
     wordCounter: 0,
     vocabularyTestWords: [''], //! if this array is empty application throw error
     answers: [],
@@ -16,6 +14,16 @@ const initialState = {
 
 export const educationPlansReducer = (state = initialState, action) => {
     switch(action.type) {
+        case CLEAR_KNOWLEDGE_TESTS_DATA:
+            return {
+                wordCounter: 0,
+                vocabularyTestWords: [''],
+                answers: [],
+                testResult: {},
+                isLastTask: false,
+                loading: false,
+                loaded: false
+            }
         case KNOWLEDGE_TESTS_LOADING:
             return {
                 ...state,
