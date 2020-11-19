@@ -6,6 +6,8 @@ import { authorizationSelectors } from '../../../../redux/selectors/index';
 import { NavLink, Redirect } from 'react-router-dom';
 import { requiredField, maxLength, minLength } from '../../../../utils/validators/index';
 import { FormField } from '../../components/form_field/FormField';
+import { translatableText } from '../../translatable_text';
+
 const maxLength10 = maxLength(10);
 const minLength4 = minLength(4)
 
@@ -16,8 +18,8 @@ function Form(props) {
     if(isAuthorization) {
         return (
         <div className = {styles['auth-form-wrapper']} >
-            <p className = {styles['success-registration']}>Зареєстровано</p>
-            <NavLink className = {styles['link-to-main-page']} to = '/intro'> &#8678; На головну сторінку</NavLink>
+            <p className = {styles['success-registration']}> {translatableText('signed')} </p>
+        <NavLink className = {styles['link-to-main-page']} to = '/intro'> &#8678; {translatableText('toMainPage')}</NavLink>
         </div>
         )
     }
@@ -35,7 +37,7 @@ function Form(props) {
                        component = {FormField} 
                        name = 'password' />
 
-                <button className = {styles['auth-button']}>Зареєструватися</button>
+                <button className = {styles['auth-button']}>{translatableText('signin')}</button>
             </form>
         </div>
     )

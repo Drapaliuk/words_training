@@ -7,3 +7,4 @@ export { userContentStoreSelectors } from './user_content_store/user_content_sto
 export { authorizationSelectors } from './authorization/authorization_selectors';
 export { wordKitSelectors } from './words_kits/word_kits_selectors';
 export { commonSelectors } from './common/common_selectors';
+export { profileSelectors } from './profile/profile_selectors';

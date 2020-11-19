@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
+import { translatableText } from '../../translatableText';
 
 export function FormForChangePersonalData(props) {
   const {temporaryPersonalData, onChange, onSave, onCancelEdit} = props;
@@ -17,11 +18,11 @@ export function FormForChangePersonalData(props) {
 
                 className = {styles['form']}
             >
-                <input name = 'firstName' value = {firstName} placeholder = "ім'я"/>
-                <input name = 'lastName' value = {lastName} placeholder = 'прізвище'/>
-                <input name = 'birthDay' value = {birthDay} placeholder = 'дата народження'/>
-                <button type = 'submit' className = {styles['save-button']}>Зберегти</button>
-                <button type = 'button' className = {styles['cancel-button']} onClick = {onCancelEdit}> Відмінити </button>
+                <input name = 'firstName' value = {firstName} placeholder = { translatableText('name') } />
+                <input name = 'lastName' value = {lastName} placeholder = { translatableText('surename') } />
+                <input name = 'birthDay' value = {birthDay} placeholder = { translatableText('birthday') } />
+                <button type = 'submit' className = {styles['save-button']}> {translatableText('save')} </button>
+                <button type = 'button' className = {styles['cancel-button']} onClick = {onCancelEdit}> {translatableText('cancel')} </button>
             </form>
     )
 }

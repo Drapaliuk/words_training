@@ -6,8 +6,9 @@ import languageIcon from '../../assets/img/translation.png';
 import vocabularyIcon from '../../assets/img/vocabulary.png';
 import { authorizationSelectors } from '../../redux/selectors/index';
 import { useSelector } from 'react-redux';
-
 import { TrainingModesList, LanguagesList, UserCabinet, WordKitsList } from './components/index';
+import { translatableText } from './translatable_text';
+import { AUTH_PART } from '../../languages/translations_parts/translations_parts';
 
 
 export const Header = function() {
@@ -52,7 +53,7 @@ export const Header = function() {
                     <div className = {styles['training-block']}>
                         <button  className = { styles['education-block-button']}
                                  onClick = {onVisibleComponent('TrainingModesList')}
-                            > Режими тренувань </button>
+                            > {translatableText('trainingsModes')} </button>
                         {
                             isVisibleTrainingsList
                                                     ?
@@ -68,7 +69,7 @@ export const Header = function() {
                         <button onClick = {onVisibleComponent('WordKitsList')}
                                 className = {styles['education-block-button']}
                         >
-                             Набори слів 
+                             {translatableText('wordsKits')}
                         </button>
                         
                         {
@@ -83,8 +84,8 @@ export const Header = function() {
                     </div>
                 </div>
 
-
-                <NavLink to = '/pausedTrainings'>Призупинені тренування</NavLink>
+                
+                <NavLink to = '/pausedTrainings'>{translatableText('pausedTraining')}</NavLink>
                 
                 <div className = {styles['header-service-block']}>
                     {
@@ -119,7 +120,7 @@ export const Header = function() {
                                         ?
                                         null
                                         :
-                                        <NavLink className = {styles['login-button']} to = {'/signin'}> Зареєструватись </NavLink>
+                                        <NavLink className = {styles['login-button']} to = {'/signin'}> {translatableText(null, [AUTH_PART, 'signin'])} </NavLink>
 
                     }
                     
@@ -131,7 +132,8 @@ export const Header = function() {
                                             <button onClick = {onVisibleComponent('UserCabinet')}
                                                     className = {styles['cabinet-icon-button']}
                                                 >
-                                                    Кабінет</button>
+                                                   {translatableText('cabinet')}
+                                                </button>
                                             {
                                                 isVisibleUserCabinet
                                                                     ?
@@ -141,7 +143,7 @@ export const Header = function() {
                                             }
                                         </div>
                                         :
-                                    <NavLink className = {styles['login-button']} to = {'/login'}> Увійти </NavLink>
+                                    <NavLink className = {styles['login-button']} to = {'/login'}> {translatableText(null, [AUTH_PART, 'login'])} </NavLink>
                     }
                     
 

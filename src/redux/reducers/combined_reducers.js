@@ -7,7 +7,8 @@ import { reducer as formReducer } from 'redux-form';
 import { authorizationReducer } from './authorization/authorization_reducer';
 import { personalUserDataReducer } from './personal_user_data/personal_user_data';
 import { pauseTrainingReducer } from './training/pause/pause_training_reducer';
-import { commonReducer } from './common/common_reducer'
+import { commonReducer } from './common/common_reducer';
+import { profileReducer } from './profile/profile_settings';
 
 export const combinedReducers = combineReducers({
     common: commonReducer,
@@ -18,5 +19,6 @@ export const combinedReducers = combineReducers({
     authorization: authorizationReducer,
     personalUserData: personalUserDataReducer,
     pausedTrainings: pauseTrainingReducer,
+    profile: profileReducer,
     form: formReducer,
 })

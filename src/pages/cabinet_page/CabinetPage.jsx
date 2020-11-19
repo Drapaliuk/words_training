@@ -10,6 +10,9 @@ import styles from './CabinetPage.module.css';
 import edit from '../../assets/img/edit_cabinet.png';
 import arrowDown from '../../assets/img/arrow-down.png';
 import arrowUp from '../../assets/img/arrow_up.png';
+import { translatableText } from './translatableText';
+
+
 
 export const CabinetPage = function() {
     const dispatch = useDispatch()
@@ -53,7 +56,7 @@ export const CabinetPage = function() {
             <div className = {styles['common-wrapper']}>
                 <div className = {styles['section-wrapper']}>
                     <div className = {styles['section-title']} onClick = { onVisiblePersonalData }>
-                        <span>Особисті дані</span> 
+                    <span>{translatableText('personalData')}</span> 
                         <img src={isVisiblePersonalData ? arrowUp : arrowDown} alt=""/>
                     </div>
                     {
@@ -69,8 +72,8 @@ export const CabinetPage = function() {
                                                 >
                                             <img src={edit} alt=""/>
                                         </button>
-                                        <p className = {styles['items']}>Ім'я: {personalData.lastName}</p>
-                                        <p className = {styles['items']}>Прізвище: {personalData.firstName}</p>
+                                        <p className = {styles['items']}> {translatableText('name')}:{personalData.lastName} </p>
+                                        <p className = {styles['items']}> {translatableText('surename')}: {personalData.firstName} </p>
                                     </div>
                                 :
                                 null

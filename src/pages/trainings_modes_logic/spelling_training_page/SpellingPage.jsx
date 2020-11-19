@@ -25,6 +25,10 @@ import { ExitFromTrainingPopup } from '../components';
 import { pausedTrainingSelectors } from '../../../redux/selectors/training/pause/training_pause_selectors';
 import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
+
+import { translatableText } from '../translatable_text'
+import { trainingKeys } from '../../../languages/translations/training/training_translates';
+
 const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
             collectingCommonStatistics, createTaskStatisticsObject_TrainingId002,
@@ -173,7 +177,7 @@ const TrainingPageComponent = function(props) {
                                                to = '/result'
                                                className = {styles['next-task-button']}
                                       > 
-                                               Результати
+                                               {translatableText(trainingKeys.results)}
                                       </NavLink>
                                     : null
                 }
@@ -183,14 +187,16 @@ const TrainingPageComponent = function(props) {
                                     ? <button className = {styles['next-task-button']} 
                                               onClick = {onNextTask}
                                             >
-                                                next word
+                                                {translatableText(trainingKeys.nextTask)}
                                             </button>
                                     : null
                 }
                
                 {
                 !isLastLetter && !isFinishedTraining
-                    ? <button className = {styles['skip-button']} onClick = {onSkipTask}>Пропустити</button>
+                    ? <button className = {styles['skip-button']} onClick = {onSkipTask}>
+                        {translatableText(trainingKeys.skipTask)}
+                      </button>
                     : null 
                 }
 
