@@ -6,7 +6,7 @@ import { EditorSelectedWords } from '../index';
 import { addWordToVocabulary } from '../../../../redux/actions/user_content_store/user_vocabulary/user_vocabulary_actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { ListItem } from './components/index';
-
+import { translatableText } from '../../../../languages/instances/word_kit';
 
 const ternFunc = function(condition = true, conditionTrue = null, conditionFalse = null) {
         if(condition) {
@@ -62,11 +62,15 @@ export const WordSelector = function() {
             <div className = {styles['selecting-buttons']}>
                 {ternFunc( isCheckedFullCurrentWordsKit,
                            null,
-                           <button onClick = { onSelectingFullWordsKit} className = {styles['selected-all-button']}> Обрати всі </button>)}
+                           <button onClick = { onSelectingFullWordsKit} className = {styles['selected-all-button']}>
+                               {translatableText('selectedAll')}
+                            </button>)}
                 {ternFunc( isCheckedWordFromCurrentKit,
-                           <button className = {styles['unselecting-all-button']} onClick = { onUnSelectingFullWordsKit }> Очистити виділені </button>)}
+                           <button className = {styles['unselecting-all-button']} onClick = { onUnSelectingFullWordsKit }>
+                                {translatableText('clearSelected')}
+                            </button>)}
             </div>
-           
+            
             <div className = {styles['all-selected-words-wrapper']}>
                     <EditorSelectedWords />
             </div>  

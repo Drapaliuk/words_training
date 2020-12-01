@@ -7,8 +7,8 @@ import {Header} from '../../components/index';
 import ProgressSchale from './components/progress_schale/ProgressScale';
 import yes from '../../assets/img/yes.png';
 import no from '../../assets/img/no.png';
-import { NavLink, Redirect } from 'react-router-dom';
-import { fetchVocabularyLevel } from '../../redux/actions/index';
+import { Redirect } from 'react-router-dom';
+import { translatableText } from '../../languages/instances/knowledge_test';
 
 export function KnowledgeTestPage() {
     const dispatch = useDispatch()
@@ -36,7 +36,7 @@ export function KnowledgeTestPage() {
             <Header />
             <div className = {styles['task-container']}>
                 <div className = {styles['question-container']}>
-                    {!isLastTask && <p className = {styles['question']}>Ви знаєте це слово?</p>}
+                    {!isLastTask && <p className = {styles['question']}>{translatableText('doYouKnowThisWord')}</p>}
                     <p className = {styles['question-word']}>
                         {currentTaskWord}
                     </p>
@@ -44,7 +44,6 @@ export function KnowledgeTestPage() {
                 {
                     isLastTask 
                                 ?
-                                // <button onClick = {onTestResults(knowledgeTestResult)}>Result</button>
                                 <Redirect to = {'knowledgetests/results'} />
                                 :
                                 <div className = {styles['answer-button-container']}>

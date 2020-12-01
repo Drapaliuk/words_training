@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import { translatableText } from '../../translatableText';
+import { translatableText } from '../../../../languages/instances/profile';
 
 export function FormForChangePersonalData(props) {
   const {temporaryPersonalData, onChange, onSave, onCancelEdit} = props;

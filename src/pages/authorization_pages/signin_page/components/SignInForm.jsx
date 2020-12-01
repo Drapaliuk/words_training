@@ -6,7 +6,7 @@ import { authorizationSelectors } from '../../../../redux/selectors/index';
 import { NavLink, Redirect } from 'react-router-dom';
 import { requiredField, maxLength, minLength } from '../../../../utils/validators/index';
 import { FormField } from '../../components/form_field/FormField';
-import { translatableText } from '../../translatable_text';
+import { translatableText } from '../../../../languages/instances/auth';
 
 const maxLength10 = maxLength(10);
 const minLength4 = minLength(4)

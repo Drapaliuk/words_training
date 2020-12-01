@@ -85,6 +85,8 @@ export const spelling = function(state, action) {
     const selfState = state.spellingState;
     const currentWord = state.scheduleTaskCard[state.currentWordCounter];
     const mainParametersForCreatorStatisticObject = {selfState, action, currentWord};
+    
+
 
     switch(action.type) {
         case PAUSE_TRAINING: 

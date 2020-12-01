@@ -1,5 +1,4 @@
 import { wordTrainingAPI } from '../../../../API/training/modes/index';
-import { batch } from 'react-redux';
 import { SELECTING_TASK_VARIANT_TRAINING_ID_001,  NEXT_TASK_TRAINING_ID_001,  CREATE_VARIANT_LIST,
          FIFTY_FIFTY,  FETCH_WORDS_FOR_MIXING, SKIP_TASK_TRAINING_ID_001,
          CREATE_STATISTICS_OBJECT_TRAINING_ID_001, FETCHING_TASK_CARDS } from '../../../action_types/index';
@@ -12,8 +11,8 @@ export const createVariantList = (firstTaskTrueWord) => ({type: CREATE_VARIANT_L
 export const hinting = () => ({type: FIFTY_FIFTY});
 export const mixingWords = () => ({type: CREATE_VARIANT_LIST});
 
-export const fetchingTaskCards = selectedWordsIds => dispatch => {
-    wordTrainingAPI.getTasks(selectedWordsIds)
+export const fetchingTaskCards = (selectedWordsIds, applicationLanguage) => dispatch => {
+    wordTrainingAPI.fetchTasks(selectedWordsIds, applicationLanguage)
                    .then(resp => {
                         dispatch({type: FETCHING_TASK_CARDS, serverPayload: resp.data})
                     })

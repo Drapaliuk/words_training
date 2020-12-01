@@ -2,11 +2,12 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchingWords } from '../../redux/actions/training/common/common_training_actions';
-import { commonDataSelectors } from '../../redux/selectors/index';
+import { commonDataSelectors, profileSelectors } from '../../redux/selectors/index';
 import { Header } from '../../components/index';
 import styles from './WordSetPage.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { LinkToTraining, WordSelector } from './components/index';
+import { translatableText } from '../../languages/instances/word_kit';
 
 export const SelectingWordsPage = function(props) {
     const dispatch = useDispatch()
@@ -16,6 +17,7 @@ export const SelectingWordsPage = function(props) {
     
     const selectedTrainingMode = useSelector(state => commonDataSelectors.getSelectedTrainingModeId(state));
     const trainingModesInfo = useSelector(state => commonDataSelectors.getTrainingModesInfo(state));
+    const selectedLanguage = useSelector(state => profileSelectors.getSelectedLanguage(state));
 
     if(!props.match.params.setName) {
         return (
@@ -36,11 +38,11 @@ export const SelectingWordsPage = function(props) {
                     {
                         trainingModesInfo.map(el => {
                             if(selectedTrainingMode && el.id === selectedTrainingMode) {
-                                return <LinkToTraining key = {el.id} url = {el.url} text = 'Почати' />
+                                return <LinkToTraining key = {el.id} url = {el.url} text = {translatableText('start')} />
                             }
 
                             if(!selectedTrainingMode) {
-                                return <LinkToTraining key = {el.id} url = {el.url} text = {el.names.ua} />
+                                return <LinkToTraining key = {el.id} url = {el.url} text = {el.names[selectedLanguage]} />
                             }
 
                             return null

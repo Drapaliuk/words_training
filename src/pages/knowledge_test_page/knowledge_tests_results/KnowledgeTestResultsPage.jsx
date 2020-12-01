@@ -5,6 +5,7 @@ import { Header } from '../../../components'
 import { fetchVocabularyLevel, clearKnowledgeTestsData } from '../../../redux/actions';
 import { vocabularyTestSelectors } from '../../../redux/selectors';
 import styles from './styles.module.css';
+import { translatableText } from '../../knowledge_tests/translatableText';
 export function KnowledgeTestResultsPage() {
     const dispatch = useDispatch();
     const knowledgeTestResult = useSelector(state => vocabularyTestSelectors.getModifiedTestAnswers(state));
@@ -24,7 +25,7 @@ export function KnowledgeTestResultsPage() {
             <Header />
             <div className = {styles['content-container']}>
                 <div className = {styles['result']}>
-                    Ваш словниковий запас складає приблизно {vocabulary} - рівень {level}
+                    {translatableText('resultsVocabularyTest', null, [vocabulary])} - рівень {level}
                 </div>
                 <div className = {styles['level-describe-container']}>
                     <button onClick = {() => setVisibleLevelDescribe(!isVisibleLevelDescribe)} className = {styles['level-describe-button']}>детальніше про рівень</button>

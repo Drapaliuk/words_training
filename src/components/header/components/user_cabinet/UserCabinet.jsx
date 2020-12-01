@@ -5,7 +5,7 @@ import styles from '../../Header.module.css';
 import { logOut } from '../../../../redux/actions/authorization/authorization_actions';
 import { personalUserDataSelectors } from '../../../../redux/selectors/profile/personal_user_data/personal_user_data_selector';
 import { clearUserPersonalData } from '../../../../redux/actions/profile/personal_user_data/personal_user_data_actions';
-import { translatableText } from '../../translatable_text';
+import { translatableText } from '../../../../languages/instances/header';
 import { PROFILE_PART } from '../../../../languages/translations_parts/translations_parts';
 
 

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './styles.module.css';
 import { commonDataSelectors } from '../../../../redux/selectors/training/common/common_data_selectors';
 import { fetchingWordSetsNames, fetchingWords } from '../../../../redux/actions/training/common/common_training_actions'; //! все в одному редюсері
+import { profileSelectors } from '../../../../redux/selectors';
 
 //! ВИБІР НАБОРУ СЛІВ МАЄ ВІДБУВАТИСЯ НЕ ПО ЙОГО БЕЗПОСРЕДНІЙ НАЗВІ, А ПО ID ШНИКУ
 
@@ -14,6 +15,9 @@ export const WordKitsList = function ({extraHandlers}) {
     }, []);
 
     const wordKits = useSelector((state) => commonDataSelectors.getAllSetsNames(state));
+    const selectedLanguage = useSelector(state => profileSelectors.getSelectedLanguage(state));
+
+
     const onSelectingSetsName = (setName) => {
         dispatch(fetchingWords(setName))
     }
@@ -26,10 +30,10 @@ export const WordKitsList = function ({extraHandlers}) {
                 return (
                     <li className = {styles['wordsets-list-item']}>
                         <NavLink className = {styles['wordsets-list-link']} 
-                                to = {`/wordset/${wordKit.serviceInfo.name}`}
-                                onClick = {() => onSelectingSetsName(wordKit.serviceInfo.name)}
+                                to = {`/wordset/${wordKit._id}`}                          
+                                onClick = {() => onSelectingSetsName(wordKit._id)}         
                         >
-                                    {wordKit.serviceInfo.name}
+                                    {wordKit.serviceInfo.name[selectedLanguage]}
                         </NavLink>
                     </li>
                 )

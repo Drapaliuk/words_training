@@ -1,8 +1,13 @@
 import Axios from "axios";
 
 export const spellingTrainingAPI = {
-    getTasks: (selectedWordsIds) => {
+    fetchTasks: (selectedWordsIds, applicationLanguage, selectedLanguagePair) => {
+        const requestObject = {
+            selectedWordsIds,
+            applicationLanguage,
+            selectedLanguagePair
+        }
         let url = 'http://localhost:8888/training/spelling';
-        return Axios.post(url, selectedWordsIds);
+        return Axios.post(url, requestObject);
     }
 }

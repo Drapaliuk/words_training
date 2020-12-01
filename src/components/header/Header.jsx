@@ -7,7 +7,7 @@ import vocabularyIcon from '../../assets/img/vocabulary.png';
 import { authorizationSelectors } from '../../redux/selectors/index';
 import { useSelector } from 'react-redux';
 import { TrainingModesList, LanguagesList, UserCabinet, WordKitsList } from './components/index';
-import { translatableText } from './translatable_text';
+import { translatableText } from '../../languages/instances/header';
 import { AUTH_PART } from '../../languages/translations_parts/translations_parts';
 
 

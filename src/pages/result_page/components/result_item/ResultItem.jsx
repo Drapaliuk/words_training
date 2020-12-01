@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import moreIcon from '../../../../assets/img/more.png';
 import {MistakesDetails} from '../mistake_details/MistakesDetails';
 import ReviewTask from '../review_task/ReviewTask';
+import { translatableText } from '../../../../languages/instances/training';
 
 
 
@@ -25,7 +26,7 @@ export function ResultItem(props) {
             {
                 isOpenFullInfo 
                     ? <div className = {styles['full-info']}>
-                        <p>Час на виконання: {props.timestamps.amount / 1000} сек.</p>
+                        <p>{translatableText('time')}: {props.timestamps.amount / 1000} сек.</p>
                         {
                                     props.isMistakeInTheTask && props.amountMistakes !== (-1) && !props.isSkipped 
                                         ? <div>
@@ -33,7 +34,7 @@ export function ResultItem(props) {
                                                 <button className = {styles['mistake-details-button']} 
                                                         onClick = {() => setOpenStatusTargetsMistakes(!isOpenTargetsMistakes)}
                                                         >
-                                                            детальніше
+                                                            {translatableText('details')}
                                                 </button>
                                             {
                                                 isOpenTargetsMistakes ? 
@@ -49,7 +50,7 @@ export function ResultItem(props) {
                             <button className = {styles['task-review-button']}
                                     onClick = {() => setOpenStatusReviewTask(!isOpenReviewTask)}        
                             >
-                                Завдання
+                                {translatableText('task')}
                             </button>
                             {isOpenReviewTask 
                                 ? 
@@ -59,9 +60,9 @@ export function ResultItem(props) {
                                 :
                                 null}
                         
-                        {!props.isMistakeInTheTask && !props.isSkipped ? <p>Завдання виконано без помилок</p> : null}
-                        {props.isSkipped ? <p>Завдання пропущено</p> : null}
-                        {props.needHint && !props.isSkipped  ? <p>Була використана підказка</p> : null}
+                            {!props.isMistakeInTheTask && !props.isSkipped ? <p>{translatableText('perfect')}</p> : null}
+                            {props.isSkipped ? <p>{translatableText('taskWasSkipped')}</p> : null}
+                            {props.needHint && !props.isSkipped  ? <p>{translatableText('taskWithHint')}</p> : null}
                         
                       </div>
                     : null

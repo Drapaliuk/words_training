@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 import styles from './styles.module.css';
 import { selectingTrainingMode } from '../../../../redux/actions/training/common/common_training_actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { commonDataSelectors } from '../../../../redux/selectors';
+import { commonDataSelectors, profileSelectors } from '../../../../redux/selectors';
 
 export const TrainingModesList = function ({ onVisibleComponent }) {
     const dispatch = useDispatch();
     const trainingIds = useSelector(state => commonDataSelectors.getTrainingModesInfo(state));
-
+    const selectedLanguage = useSelector(state => profileSelectors.getSelectedLanguage(state));
     const onSelectingTrainingMode = function(selectedTrainingModeId) {
         dispatch(selectingTrainingMode(selectedTrainingModeId))
     };
@@ -25,7 +25,7 @@ export const TrainingModesList = function ({ onVisibleComponent }) {
                                         onClick = {() => onSelectingTrainingMode(mode.id)} 
                                         to = {'/selectWordSet'}
                                 > 
-                                    {mode.names.ua} 
+                                    {mode.names[selectedLanguage]} 
                                 </NavLink>
                             </li>
                         )

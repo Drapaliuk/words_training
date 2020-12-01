@@ -10,7 +10,7 @@ import styles from './CabinetPage.module.css';
 import edit from '../../assets/img/edit_cabinet.png';
 import arrowDown from '../../assets/img/arrow-down.png';
 import arrowUp from '../../assets/img/arrow_up.png';
-import { translatableText } from './translatableText';
+import { translatableText } from '../../languages/instances/profile';
 
 
 

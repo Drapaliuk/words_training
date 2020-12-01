@@ -8,6 +8,12 @@ import { getInfoForPause, getPausedTrainingComment, pausedTrainingSelectors } fr
 
 import styles from './styles.module.css';
 import classNames from 'classnames';
+
+import { translatableText } from '../../../../languages/instances/training';
+
+
+
+
 export  function PauseTrainingButton() {
     const dispatch = useDispatch();
     
@@ -34,7 +40,9 @@ export  function PauseTrainingButton() {
             <button onClick = {onOpenStatusCommentField} 
                     className = {classNames(styles['open-button'], {[styles['open-button-active']]: isOpenCommentField})}
             >
-                Завершити пізніше
+                {
+                    translatableText('finishLater')
+                }
             </button>
             {
                 isOpenCommentField
@@ -43,7 +51,7 @@ export  function PauseTrainingButton() {
                     <input type="text" 
                            onChange = {onWriteComment} 
                            value = {comment} 
-                           placeholder = 'коментар'
+                           placeholder = {translatableText('comment')}
                            className = {styles['comment-field']}
                     />
                     <NavLink to = '/intro' 

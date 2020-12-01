@@ -20,8 +20,9 @@ export const selectingVariant = (selectedVariant) => {
     return {type: SELECTING_TASK_VARIANT_TRAINING_ID_002, selectedVariant}
 };
 
-export const getTasks = selectedWordsIds => dispatch => {
-    spellingTrainingAPI.getTasks(selectedWordsIds)
+export const fetchTasks = (selectedWordsIds, applicationLanguage) => dispatch => {
+    console.log('get task')
+    spellingTrainingAPI.fetchTasks(selectedWordsIds, applicationLanguage)
                        .then(response => {
                            dispatch ({type: GET_TASKS, serverPayload: response.data})
                        });

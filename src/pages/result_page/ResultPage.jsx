@@ -5,7 +5,7 @@ import { commonDataSelectors, trainingResultsSelectors } from '../../redux/selec
 import {fetchingTrainingResults} from '../../redux/actions/training/results/training_results_actions';
 import {ResultItem} from './components/result_item/ResultItem';
 import {Header} from '../../components/index';
-
+import { translatableText } from '../../languages/instances/training';
 
 import styles from './ResultPage.module.css'
 

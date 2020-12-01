@@ -25,7 +25,6 @@ function App() {
   }, [])
 
 
-
   return (
     <LanguageProvider value = {selectedLanguage}>
       <BrowserRouter> 

@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { selectingVariant, deleteLetter, nextTaskTrainingId002, hint,
          finishTraining,
          initializationTrainingID002, createTaskStatisticsObject_TrainingId002,
-         skipTask_TrainingId002, getTasks, clearSplittedAnswerWord  } from '../../../redux/actions/training/modes/spelling_mode_actions';
+         skipTask_TrainingId002, fetchTasks, clearSplittedAnswerWord  } from '../../../redux/actions/training/modes/spelling_mode_actions';
 
 import { collectingCommonStatistics, nextTaskCommon, skipTaskCommon,
          initializationCurrentTrainingModeId, selectingTrainingMode } from '../../../redux/actions/training/common/common_training_actions';
 
 
-import { spellingSelectors, commonDataSelectors, authorizationSelectors } from '../../../redux/selectors/index'         
+import { spellingSelectors, commonDataSelectors, authorizationSelectors, profileSelectors } from '../../../redux/selectors/index'         
 import SquareForLetter from './components/square_for_letter/SquareForLetter';
 import ButtonForLetter from './components/buttonForLetter/ButtonForLetter';
 
@@ -26,34 +26,35 @@ import { pausedTrainingSelectors } from '../../../redux/selectors/training/pause
 import { ExitFromTrainingButton } from '../components/exit_from_training_popup/components';
 
 
-import { translatableText } from '../translatable_text'
+import { translatableText } from '../../../languages/instances/training';
 import { trainingKeys } from '../../../languages/translations/training/training_translates';
 
 const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
-            collectingCommonStatistics, createTaskStatisticsObject_TrainingId002,
+            collectingCommonStatistics, createTaskStatisticsObject_TrainingId002, selectedLanguage,
             finishTraining, nextTaskCommon, skipTaskCommon,selectedTrainingModeId, clearSplittedAnswerWord,
             initializationCurrentTrainingModeId, isOpenCommentField, isOpenExitWindow, isLoadingPausedTraining  } = props;
             
     const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoadedScheduleTaskCards, isLoadedTasks,
             serviceWord, pressedKey, isMistake, needHint, currentWordCounter,
             questionLanguage, isLastLetter, isFinishTask, trainingId, selectedWordsIds,
-            selectingTrainingMode, getTasks } = props;
+            selectingTrainingMode, fetchTasks } = props;
     
     const [isAttemptExitFromTraining, setAttemptExitFromTraining] = React.useState(false);
     let onceLetter = false; // костиль
-
-
+    
     React.useEffect(() => {
         if(!selectedTrainingModeId) {
             selectingTrainingMode('002') //! rename this actiion!!!!!!!!!!!!!
         }
     }, [])
 
+    console.log('selectedLanguage', selectedLanguage)
+
     React.useEffect(() => {
         if(isLoadingPausedTraining) return
         if(!isLoadedScheduleTaskCards || !isLoadedTasks) {
-            getTasks(selectedWordsIds)
+            fetchTasks(selectedWordsIds, selectedLanguage)
         }
     }, [])
 
@@ -241,13 +242,14 @@ const mapStateToProps = function(state) {
         isLoadedScheduleTaskCards: state.trainingCommonData.isLoaded,
         isLoadedTasks: state.trainingCommonData.spellingState.isLoadedTasks,
         // userId: authorizationSelectors.getUserId(state),
+        selectedLanguage: profileSelectors.getSelectedLanguage(state)
     }
 }
 
 const mapDispatchToProps = { selectingVariant, deleteLetter, nextTaskTrainingId002, skipTask_TrainingId002,
                              skipTaskCommon, nextTaskCommon, hint, initializationTrainingID002, collectingCommonStatistics,
                              createTaskStatisticsObject_TrainingId002, finishTraining,selectingTrainingMode,
-                             initializationCurrentTrainingModeId, getTasks, clearSplittedAnswerWord }
+                             initializationCurrentTrainingModeId, fetchTasks, clearSplittedAnswerWord }
 
 const WithRouterTrainingPage = withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingPageComponent));
 

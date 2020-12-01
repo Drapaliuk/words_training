@@ -1,8 +1,8 @@
 import Axios from 'axios';
 
 export const wordKitsAPI = {
-    getWordSets: (setname) => {
-        let url = `http://localhost:8888/wordkits/wordsfortraining?setname=${setname}`;
+    getWordSets: (kitId) => {
+        let url = `http://localhost:8888/wordkits/wordsfortraining?kitId=${kitId}`;
         return Axios.get(url);
     },
 

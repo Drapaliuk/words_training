@@ -7,7 +7,7 @@ import {Header} from '../../components/index'
 
 import styles from './IntroductionPage.module.css';
 import owl from '../../assets/img/owl.jpg';
-import { translatableText } from './translatable_text';
+import { translatableText } from '../../languages/instances/introduction';
 
 
 export const IntroductionPage = function(props) {
@@ -17,7 +17,7 @@ export const IntroductionPage = function(props) {
             <div className = {styles['introduction-page__inner-container']}>
                 <div className = {styles['introduction-block']}>
                     <img className = {styles['introduction-image']} src = {owl} alt="logo img"/>
-    <NavLink className = {styles['default-button']} to = '/vocabularyTest'> {translatableText('checkKnowladge')} </NavLink>
+                    <NavLink className = {styles['default-button']} to = '/vocabularyTest'> {translatableText('checkKnowladge')} </NavLink>
                     <button className = {styles['default-button']}> {translatableText('tryTraining')} </button>
                 </div>
             </div>

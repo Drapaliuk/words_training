@@ -3,11 +3,13 @@ import styles from '../styles.module.css';
 import classNames from 'classnames';
 import check from '../../../../../assets/img/check.png';
 import bookmark from '../../../../../assets/img/bookmark.png';
+import { useSelector } from 'react-redux';
+import { profileSelectors } from '../../../../../redux/selectors/index';
 
 
 export function ListItem(props) {
-
     const {wordObject, isSelected, onSelectingWord, onUnSelectingWord, onAddWordToUserVocabulary, userId} = props;
+    const selectedLanguage = useSelector(state => profileSelectors.getSelectedLanguage(state));
 
     return (
         <div className = {styles['word-block']}>
@@ -23,7 +25,7 @@ export function ListItem(props) {
                             [styles.selected]: isSelected,
                         })}
                         onClick = {isSelected ? onUnSelectingWord(wordObject._id) : onSelectingWord(wordObject)} //!
-                        >{wordObject.ukr}
+                        >{wordObject[selectedLanguage]}
                 </button>
             </div>
             <button

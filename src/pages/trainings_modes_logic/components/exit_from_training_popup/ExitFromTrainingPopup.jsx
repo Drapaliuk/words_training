@@ -8,6 +8,8 @@ import { NavLink } from 'react-router-dom';
 
 import { commonDataSelectors } from '../../../../redux/selectors';
 import { closeExitWindow } from '../../../../redux/actions/training/pause/paused_training_actions';
+import { translatableText } from '../../../../languages/instances/training';
+
 
 export function ExitFromTrainingPopup(props) {
     const dispatch = useDispatch()
@@ -22,17 +24,27 @@ export function ExitFromTrainingPopup(props) {
     const onContinueTraining = () => {
         dispatch(closeExitWindow())
     }
-
+    
     return (
         <div className = {styles['wrapper']}>
             <div className = {styles['asks-block']}>
-                <div>Ви дійсно бажаєте закінчити тренування</div>
+                <div>
+                    {translatableText('seriouslyWantFinish')}
+                </div>
                 {
                     restTask > 1
                     ?
-                    <div>Залишилось {restTask} завдань</div>
+                    <div>
+                        {
+                            translatableText('tasksLeft', null, [restTask])
+                        }
+                    </div>
+                    
+                    // <>Залишилось {restTask} завдань</>
                     :
-                    <div>Це останнє завдання</div>
+                    <div>
+                        {translatableText('itIsLastTask')}
+                    </div>
 
                 }
 
@@ -42,9 +54,11 @@ export function ExitFromTrainingPopup(props) {
                 <NavLink to = 'intro' onClick = {onExitFromTraining}
                     className = {styles['exit-button']}
                 >
-                    Вийти з тренування
+                    {translatableText('exit')}
                 </NavLink>
-                <button onClick = {onContinueTraining} className = {styles['continue-training']}>Продовжити тренування</button>
+                <button onClick = {onContinueTraining} className = {styles['continue-training']}>
+                    {translatableText('continue')}
+                </button>
             </div>
             
         </div>

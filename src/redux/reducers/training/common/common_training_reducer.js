@@ -6,9 +6,9 @@ import { FETCHING_WORDS, SELECTING_WORD, FETCHING_WORD_SETS_NAMES, NEXT_TASK_COM
          PAUSE_TRAINING, CONTINUE_TRAINING, LOADING_PAUSED_TRAINING, REVIEW_PREVIOUS_TASKS } from '../../../action_types/index';
 
 export let commonDataState = {
-        allTrainingsIds: [{id: '001', url: '/byword', names: {ua: "Тренування запам'ятовування слів", eng: 'Words training'}}, //! it must fetch from server, but i should use 'Actuality language'
-                          {id: '002', url: '/training', names: {ua: "Тренування правопису", eng: 'Spelling training'}},
-                          {id: '003', url: '/mixed', names: {ua: "Змішаний режим", eng: 'Mixed mode'}} //renamme to trainingModes
+        allTrainingsIds: [{id: '001', url: '/byword', names: {ukr: "Тренування слів", eng: 'Words training', rus: 'Тренировка слова'}}, //! it must fetch from server, but i should use 'Actuality language'
+                          {id: '002', url: '/training', names: {ukr: "Тренування правопису", eng: 'Spelling training', rus: 'Тренировка правописания'}},
+                          {id: '003', url: '/mixed', names: {ukr: "Змішаний режим", eng: 'Mixed mode', rus: 'Смешанный режим'}} //renamme to trainingModes
                         ],
         allSetsNames: [],
         currentWordCounter: 0, //currentTaskCounter

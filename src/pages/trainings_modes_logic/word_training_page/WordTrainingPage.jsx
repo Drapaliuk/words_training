@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styles from './TrainingByWordPage.module.css';
-import { wordTestSelectors, commonDataSelectors } from '../../../redux/selectors/index'; //! ?
+import { wordTestSelectors, commonDataSelectors, profileSelectors } from '../../../redux/selectors/index'; //! ?
 import { selectingVariant, nextTaskTrainingId001,
         hinting, skipTaskTrainingId001,
         initializationTaskStaticsObject_TrainingId001, fetchingTaskCards } from '../../../redux/actions/training/modes/word_mode_actions';
@@ -25,7 +25,7 @@ const TrainingByWordPage = function(props) {
     const { currentWord, isTrueAnswer, needHint,
             selectedWordsIds, trainingStatistcs, questionLang, answerWord, isLoadedScheduleTaskCards, isLoadedTasks,
             answerLang, trainingId, scheduleTaskCard, isFinishedTraining, currentTask,
-            selectedTrainingModeId, isLoadingPausedTraining } = props;
+            selectedTrainingModeId, isLoadingPausedTraining, selectedLanguage } = props;
 
     const { skipTaskCommon, nextTaskCommon,  fetchingTaskCards,
             skipTaskTrainingId001, selectingVariant, nextTaskTrainingId001, initializationCurrentTrainingModeId,
@@ -44,7 +44,7 @@ const TrainingByWordPage = function(props) {
     React.useEffect(() => {
         if(isLoadingPausedTraining) return
         if(!isLoadedScheduleTaskCards || !isLoadedTasks) {
-            fetchingTaskCards(selectedWordsIds)
+            fetchingTaskCards(selectedWordsIds, selectedLanguage)
         }
     }, [])
 
@@ -208,6 +208,7 @@ let mapStateToProps = function(state) {
         selectedTrainingModeId: commonDataSelectors.getSelectedTrainingModeId(state),
         isLoadingPausedTraining: commonDataSelectors.isLoadingPausedTraining(state),
 
+        selectedLanguage: profileSelectors.getSelectedLanguage(state),
 
         isOpenExitWindow: pausedTrainingSelectors.isOpenExitWindow(state),
 
