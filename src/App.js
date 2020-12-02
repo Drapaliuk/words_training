@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import  { authorizationSelectors } from './redux/selectors/index';
-import  { SpellingPage, TestWordPage, SelectingWordsPage, ResultPage, KnowledgeTestResultsPage,
-          IntroductionPage, MixedTestPage, SelectingWordsKitPage,PausedTrainingsPage,
-          KnowledgeTestPage, VocabularyPage, LoginPage, SignInPage, CabinetPage } from './pages/index'
+import  { SpellingTraining, WordTraining, SelectingWords, TrainingResults, KnowledgeTestResults,
+          Introduction, MixedTraining, SelectingWordsKit,PausedTrainings,
+          VocabularyTest, UserVocabulary, Login, SignIn, Cabinet } from './pages/index'
 import { checkAuthorization } from './redux/actions/authorization/authorization_actions';
 import { LanguageProvider } from './languages/context';
 
@@ -28,38 +28,38 @@ function App() {
   return (
     <LanguageProvider value = {selectedLanguage}>
       <BrowserRouter> 
-        <Route path = {'/knowledgetests/results'} component = {KnowledgeTestResultsPage} />
-        <Route path = {'/pausedTrainings'} component = {PausedTrainingsPage} />
-        <Route path = {'/selectWordSet'} component = {SelectingWordsKitPage} />
-        <Route path = {'/vocabularyTest'} component = {KnowledgeTestPage} />
-        <Route path = {'/userVocabulary'} component = {VocabularyPage} />
-        <Route path = {'/intro'} component = { IntroductionPage } />
-        <Route path = {'/login'} component = { LoginPage } />
-        <Route path = {'/signin'} component = { SignInPage } />
-        <Route path = {'/mixed'} component = { MixedTestPage } />
-        <Route path = {'/cabinet'} component = { CabinetPage } />
+        <Route path = {'/knowledgetests/results'} component = {KnowledgeTestResults} />
+        <Route path = {'/pausedTrainings'} component = {PausedTrainings} />
+        <Route path = {'/selectWordSet'} component = {SelectingWordsKit} />
+        <Route path = {'/vocabularyTest'} component = {VocabularyTest} />
+        <Route path = {'/userVocabulary'} component = {UserVocabulary} />
+        <Route path = {'/intro'} component = { Introduction } />
+        <Route path = {'/login'} component = { Login } />
+        <Route path = {'/signin'} component = { SignIn } />
+        <Route path = {'/mixed'} component = { MixedTraining } />
+        <Route path = {'/cabinet'} component = { Cabinet } />
 
         <Route path = {'/training'} render = {(history) => {
           return(
-            <SpellingPage {...history} />
+            <SpellingTraining {...history} />
           )
         }} />
 
         <Route path = {'/byword'} render = {(history) => {
           return (
-            <TestWordPage {...history} />
+            <WordTraining {...history} />
           )
         }} />
 
         <Route path = {'/result'} render = {(history) => {
           return (
-            <ResultPage {...history} />
+            <TrainingResults {...history} />
           )
         }} />
 
         <Route path = {'/wordset/:setName'} render = {(history) => {
           return (
-            <SelectingWordsPage {...history} />
+            <SelectingWords {...history} />
           )
         }} />
       </BrowserRouter>

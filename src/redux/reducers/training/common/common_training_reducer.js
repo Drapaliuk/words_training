@@ -3,13 +3,19 @@ import { FETCHING_WORDS, SELECTING_WORD, FETCHING_WORD_SETS_NAMES, NEXT_TASK_COM
          CLEAR_SELECTED_WORDS_CURRENT_WORD_SET, FETCHING_KNOWLEDGE_TEST, SELECTING_TRAINING_MODE,
          DELETE_SELECTED_WORD, CLEAR_SELECTED_WORDS, INITIALIZATION_CURRENT_TRAINING_MODE,
          UNSELECTING_FULL_KIT, EXIT_FROM_TRAINING, FETCHING_TASK_CARDS, GET_TASKS, FETCHING_MIXED_TASKS,
-         PAUSE_TRAINING, CONTINUE_TRAINING, LOADING_PAUSED_TRAINING, REVIEW_PREVIOUS_TASKS } from '../../../action_types/index';
+         PAUSE_TRAINING, CONTINUE_TRAINING, LOADING_PAUSED_TRAINING, REVIEW_PREVIOUS_TASKS,
+         SELECT_LANGUAGE_PAIR } from '../../../action_types/index';
 
 export let commonDataState = {
         allTrainingsIds: [{id: '001', url: '/byword', names: {ukr: "Тренування слів", eng: 'Words training', rus: 'Тренировка слова'}}, //! it must fetch from server, but i should use 'Actuality language'
                           {id: '002', url: '/training', names: {ukr: "Тренування правопису", eng: 'Spelling training', rus: 'Тренировка правописания'}},
                           {id: '003', url: '/mixed', names: {ukr: "Змішаний режим", eng: 'Mixed mode', rus: 'Смешанный режим'}} //renamme to trainingModes
                         ],
+        availableLanguagesForTraining: [ // має приходити з сервера
+            {code: 'ukr', fullName: 'Українська'},
+            {code: 'rus', fullName: 'Руский'},
+            {code: 'eng', fullName: 'English'}
+        ],
         allSetsNames: [],
         currentWordCounter: 0, //currentTaskCounter
         currentTrainingModeId: '', // реалізувати до кінця
@@ -21,7 +27,8 @@ export let commonDataState = {
         selectedWords: [],
         isLoaded: false, //! what????
         selectedTrainingModeId: null,
-        isLoadingPausedTraining: false
+        isLoadingPausedTraining: false,
+        languagePair: []
 
 
 }
@@ -31,6 +38,13 @@ export let commonDataState = {
 
 export const commonData = function(state, action) {
     switch(action.type) {
+
+        case SELECT_LANGUAGE_PAIR:
+            return {
+                ...state,
+                // languagePai
+            }
+
         case REVIEW_PREVIOUS_TASKS:
             return {
                 ...state,

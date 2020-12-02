@@ -9,7 +9,7 @@ export const addAnswer = answer => ({type: ADD_ANSWER_VOCABULARY_TEST, answer});
 
 export const fetchVocabularyTest = () => dispatch => {
     dispatch(loading())
-    knowledgeTestsAPI.getVocabularyTest()
+    knowledgeTestsAPI.fetchKnowledgeTest()
                      .then(resp => {
                          dispatch({type: FETCHING_KNOWLEDGE_TEST, payload: resp.data});
                          dispatch(loaded())

@@ -40,7 +40,7 @@ export const deleteSelectedWord = payload => {
 
 export const fetchingWords = setName => { //! RENAME
     return (dispatch) => {
-        wordKitsAPI.getWordSets(setName)
+        wordKitsAPI.fetchWordsKit(setName)
                    .then((resp) => {
                        dispatch({type: FETCHING_WORDS, initialisedWords: resp.data})  ////!
                    })
@@ -49,7 +49,7 @@ export const fetchingWords = setName => { //! RENAME
 
 export const fetchingWordSetsNames = () => { //fetchingSetsList
     return (dispatch) => {
-        wordKitsAPI.getWordSetsName()
+        wordKitsAPI.fetchWordsKitsNames()
                    .then((resp) => {
                        dispatch({type: FETCHING_WORD_SETS_NAMES, payload: resp.data})
                    })

@@ -26,7 +26,7 @@ export const makePausedTraining = (userId, pausedTrainingData) => dispatch => {
 
 export const fetchPausedTrainings = userId => dispatch => {
     console.log('user_id', userId)
-    trainingPauseAPI.getAllPausedTraining(userId)
+    trainingPauseAPI.fetchAllPausedTrainings(userId)
                     .then(({data}) => {
                         const { responseCode, serverPayload } = data;
                         console.log(data)
@@ -38,7 +38,7 @@ export const fetchPausedTrainings = userId => dispatch => {
 
 export const continuePausedTraining = (userId, pausedTrainingId) => dispatch => {
     dispatch({type:LOADING_PAUSED_TRAINING, isLoadingPausedTraining: true})
-    trainingPauseAPI.getPausedTraining(userId, pausedTrainingId)
+    trainingPauseAPI.fetchPausedTrainingById(userId, pausedTrainingId)
                     .then(({data}) => {
                         dispatch({type: CONTINUE_TRAINING, serverPayload: data})
                         dispatch({type:LOADING_PAUSED_TRAINING, isLoadingPausedTraining: false})

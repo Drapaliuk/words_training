@@ -2,7 +2,7 @@ import { instanceCreator } from '../configs';
 const instance = instanceCreator('profile')
 
 export const userPersonalDataAPI = {
-    getPersonalData: (userId) => {
+    fetchPersonalData: (userId) => {
         let url = `personaldata?userid=${userId}`
         return instance.get(url)
     },

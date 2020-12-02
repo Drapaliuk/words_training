@@ -5,7 +5,7 @@ const instance = instanceCreator('knowledgetests')
 
 
 export const knowledgeTestsAPI = {
-    getVocabularyTest: () => instance.get('vocabularytest'),
+    fetchKnowledgeTest: () => instance.get('vocabularytest'),
     fetchVocabularyLevel: (testResult, authToken) => {
         const headers = {
             headers: {'Authorization': authToken}
@@ -13,13 +13,3 @@ export const knowledgeTestsAPI = {
         return instance.post('vocabularytest', testResult, headers )
     }
 }
-
-
-
-// axios.post(Helper.getUserAPI(), {
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'JWT fefege...'
-//     },
-//     data
-// })

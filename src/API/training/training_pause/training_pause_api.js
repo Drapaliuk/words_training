@@ -12,7 +12,7 @@ export const trainingPauseAPI = {
         return instance.post(endpoint, requestObject)
     },
 
-    getPausedTraining: (userId, pausedTrainingId) => {
+    fetchPausedTrainingById: (userId, pausedTrainingId) => {
         const endpoint = `?userId=${userId}&pausedTrainingId=${pausedTrainingId}`;
         return instance.get(endpoint)
     },
@@ -24,7 +24,7 @@ export const trainingPauseAPI = {
         return instance.delete(endpoint, {data: requestObject})
     },
 
-    getAllPausedTraining: userId => {
+    fetchAllPausedTrainings: userId => {
         const endpoint = `all?userid=${userId}`;
         return instance.get(endpoint)
     } 

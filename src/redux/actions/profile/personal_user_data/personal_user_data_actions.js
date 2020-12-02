@@ -14,7 +14,7 @@ export const selectingPageLanguage = selectedLanguage => {
 };
 
 export const fetchingUserPersonalData = (userId) => (dispatch) => {
-    userPersonalDataAPI.getPersonalData(userId).then(({data, err}) => {
+    userPersonalDataAPI.fetchPersonalData(userId).then(({data, err}) => {
         if(err) throw err;
         if(data.responseCode === 1) {
             dispatch({type: FETCHING_PERSONAL_DATA, serverPayload: data.personalData})
