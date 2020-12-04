@@ -4,7 +4,7 @@ import { SpellingTraining, WordTraining } from '../../../index';
 import { commonDataSelectors } from '../../../../redux/selectors/training/common/common_data_selectors';
 import { fetchingMixedTasks } from '../../../../redux/actions/training/modes/mixed_mode_actions';
 import { selectingTrainingMode } from '../../../../redux/actions/training/common/common_training_actions';
-import { profileSelectors } from '../../../../redux/selectors';
+import { getLanguagePair, getLanguagePairCodes, profileSelectors } from '../../../../redux/selectors';
 
 
 export function MixedTraining(props) {
@@ -13,6 +13,7 @@ export function MixedTraining(props) {
     const isLoaded = useSelector(state => commonDataSelectors.isLoaded(state));
     const isLoadingPausedTraining = useSelector(state => commonDataSelectors.isLoadingPausedTraining(state));
     const selectedLanguage = useSelector(state => profileSelectors.getSelectedLanguage(state));
+    const languagePairCodes = useSelector(state => getLanguagePairCodes(state));
 
     React.useEffect(() => {
         dispatch(selectingTrainingMode('003'))
@@ -21,7 +22,7 @@ export function MixedTraining(props) {
     React.useEffect(() => {
         if(isLoadingPausedTraining) return
         if(!isLoaded) {
-            dispatch(fetchingMixedTasks(selectedWordsIds, selectedLanguage))
+            dispatch(fetchingMixedTasks(selectedWordsIds, selectedLanguage, languagePairCodes))
         }
     })
     

@@ -1,4 +1,3 @@
-// import { spellingTrainingAPI } from '../../../../../API/training/modes/index';
 import { spellingTrainingAPI } from '../../../../API/training/modes/index';
 
 import { SELECTING_TASK_VARIANT_TRAINING_ID_002, DELETE_LETTER, CLEAR_SPLITTED_ANSWER_WORD,
@@ -20,9 +19,9 @@ export const selectingVariant = (selectedVariant) => {
     return {type: SELECTING_TASK_VARIANT_TRAINING_ID_002, selectedVariant}
 };
 
-export const fetchTasks = (selectedWordsIds, applicationLanguage) => dispatch => {
+export const fetchTasks = (selectedWordsIds, applicationLanguage, selectedLanguagePair) => dispatch => {
     console.log('get task')
-    spellingTrainingAPI.fetchTasks(selectedWordsIds, applicationLanguage)
+    spellingTrainingAPI.fetchTasks(selectedWordsIds, applicationLanguage, selectedLanguagePair)
                        .then(response => {
                            dispatch ({type: GET_TASKS, serverPayload: response.data})
                        });

@@ -11,7 +11,7 @@ import { collectingCommonStatistics, nextTaskCommon, skipTaskCommon,
          initializationCurrentTrainingModeId, selectingTrainingMode } from '../../../../redux/actions/training/common/common_training_actions';
 
 
-import { spellingSelectors, commonDataSelectors, authorizationSelectors, profileSelectors } from '../../../../redux/selectors/index'         
+import { spellingSelectors, commonDataSelectors, authorizationSelectors, profileSelectors, getLanguagePairCodes } from '../../../../redux/selectors/index'         
 import SquareForLetter from './components/square_for_letter/SquareForLetter';
 import ButtonForLetter from './components/buttonForLetter/ButtonForLetter';
 
@@ -38,7 +38,8 @@ const TrainingPageComponent = function(props) {
     const { selectingVariant, deleteLetter, nextTaskTrainingId002, hint, initializationTrainingID002, skipTask_TrainingId002,
             collectingCommonStatistics, createTaskStatisticsObject_TrainingId002, selectedLanguage,
             finishTraining, nextTaskCommon, skipTaskCommon,selectedTrainingModeId, clearSplittedAnswerWord,
-            initializationCurrentTrainingModeId, isOpenCommentField, isOpenExitWindow, isLoadingPausedTraining  } = props;
+            initializationCurrentTrainingModeId, isOpenCommentField, isOpenExitWindow, isLoadingPausedTraining,
+            languagePairCodes } = props;
             
     const { currentWord, isLastTask, hintLetter, isFinishedTraining, isLoadedScheduleTaskCards, isLoadedTasks,
             serviceWord, pressedKey, isMistake, needHint, currentWordCounter,
@@ -59,7 +60,7 @@ const TrainingPageComponent = function(props) {
     React.useEffect(() => {
         if(isLoadingPausedTraining) return
         if(!isLoadedScheduleTaskCards || !isLoadedTasks) {
-            fetchTasks(selectedWordsIds, selectedLanguage)
+            fetchTasks(selectedWordsIds, selectedLanguage, languagePairCodes)
         }
     }, [])
 
@@ -234,6 +235,8 @@ const mapStateToProps = function(state) {
 
         isOpenCommentField: pausedTrainingSelectors.isOpenCommentField(state),
         isOpenExitWindow: pausedTrainingSelectors.isOpenExitWindow(state),
+
+        languagePairCodes: getLanguagePairCodes(state),
 
         serviceWord:  spellingSelectors.getSplittedAnswerWord(state),
         pressedKey:  spellingSelectors.getPressedKey(state),

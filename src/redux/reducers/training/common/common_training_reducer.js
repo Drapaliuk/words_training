@@ -16,6 +16,7 @@ export let commonDataState = {
             {code: 'rus', fullName: 'Руский'},
             {code: 'eng', fullName: 'English'}
         ],
+        
         allSetsNames: [],
         currentWordCounter: 0, //currentTaskCounter
         currentTrainingModeId: '', // реалізувати до кінця
@@ -28,7 +29,11 @@ export let commonDataState = {
         isLoaded: false, //! what????
         selectedTrainingModeId: null,
         isLoadingPausedTraining: false,
-        languagePair: []
+        languagePair: {
+                        firstLanguage: {code: 'eng', fullName: 'English'},
+                        secondLanguage: {code: 'ukr', fullName: 'Українська'}
+                      }
+
 
 
 }
@@ -40,9 +45,10 @@ export const commonData = function(state, action) {
     switch(action.type) {
 
         case SELECT_LANGUAGE_PAIR:
+            const { languageNumber, languageObject } = action.selectedLanguage;
             return {
                 ...state,
-                // languagePai
+                languagePair: {...state.languagePair, [languageNumber]: languageObject}
             }
 
         case REVIEW_PREVIOUS_TASKS:

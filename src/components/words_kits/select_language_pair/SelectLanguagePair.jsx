@@ -1,9 +1,16 @@
 import React from 'react';
 import styles from './styles.module.css';
 import classNames from 'classnames';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getAvailableLanguagesForTraining, getLanguagePair } from '../../../redux/selectors';
+import { selectLanguagePair } from '../../../redux/actions/training/select_language_pair/select_language_pair_action';
 
 export const SelectLanguagePair = function () {
+    const dispatch = useDispatch();
+    const availableLanguagesForTraining = useSelector(state => getAvailableLanguagesForTraining(state));
+    const {firstLanguage, secondLanguage} = useSelector(state => getLanguagePair(state));
+
+
 
     const [isVisibleLanguagePair, setVisibleLanguagePair] = React.useState(false)
     const [isVisibleFirstLanguageVariants, setVisibleFirstLanguageVariants] = React.useState(false);
@@ -17,8 +24,11 @@ export const SelectLanguagePair = function () {
         setVisibleFirstLanguageVariants(!isVisibleFirstLanguageVariants)
     }
 
-    const onSelectSecondLanguage = () =>{
-        setVisibleSecondLanguageVariants(!isVisibleSecondLanguageVariants)
+    const onSelectLanguage = (languageNumber, languageObject) => () =>{
+        setVisibleSecondLanguageVariants(false);
+        setVisibleFirstLanguageVariants(false);
+        dispatch(selectLanguagePair({languageNumber, languageObject}));
+        
     }
 
     return (
@@ -30,28 +40,49 @@ export const SelectLanguagePair = function () {
                     &&
                 <div className={styles["select-language-pair__variants-wrapper"]}>
                     <div className={styles["select-language-pair__language"]}>
-                        <button onClick = {onVisibleFirstLanguageVariants} className = {styles['select-language-pair__selected-language']}>English</button>
+                        <button onClick = {onVisibleFirstLanguageVariants} className = {styles['select-language-pair__selected-language']}>
+                            {firstLanguage.fullName}
+                        </button>
                         
                         {
                             isVisibleFirstLanguageVariants
                               &&
                             <div className={styles["select-language-pair__variants-list"]}>
-                              <button className = {styles['select-language-pair__variant']}>Ukrainian</button>
-                              <button className = {styles['select-language-pair__variant']}>Russian</button>
+                            {
+                                availableLanguagesForTraining.map(language => {
+                                    if(language.code === firstLanguage.code || language.code === secondLanguage.code) return 
+                                    return <button className = {styles['select-language-pair__variant']}
+                                                   onClick = {onSelectLanguage('firstLanguage', language)}
+                                                >
+                                                {language.fullName}
+                                           </button>
+                                })
+                            }
+                              
                             </div>
                         }
                         
                         
                     </div>
                     <div className={styles["select-language-pair__language"]}>
-                        <button onClick = {onVisibleSecondLanguageVariants} className = {styles['select-language-pair__selected-language']}>Ukrainian</button>
+                        <button onClick = {onVisibleSecondLanguageVariants} className = {styles['select-language-pair__selected-language']}>
+                            {secondLanguage.fullName}
+                        </button>
                         
                         {
                             isVisibleSecondLanguageVariants
                                 &&
                             <div className={styles["select-language-pair__variants-list "]}>
-                                <button className = {styles['select-language-pair__variant']}>English</button>
-                                <button className = {styles['select-language-pair__variant']}>Russian</button>
+                               {
+                                    availableLanguagesForTraining.map(language => {
+                                        if(language.code === firstLanguage.code || language.code === secondLanguage.code) return 
+                                        return <button className = {styles['select-language-pair__variant']}
+                                                       onClick = {onSelectLanguage('secondLanguage', language)}
+                                                    >
+                                                    {language.fullName}
+                                                </button>
+                                    })
+                                }
                             </div>
                         }
                         

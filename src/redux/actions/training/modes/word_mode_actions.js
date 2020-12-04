@@ -11,8 +11,8 @@ export const createVariantList = (firstTaskTrueWord) => ({type: CREATE_VARIANT_L
 export const hinting = () => ({type: FIFTY_FIFTY});
 export const mixingWords = () => ({type: CREATE_VARIANT_LIST});
 
-export const fetchingTaskCards = (selectedWordsIds, applicationLanguage) => dispatch => {
-    wordTrainingAPI.fetchTasks(selectedWordsIds, applicationLanguage)
+export const fetchingTaskCards = (selectedWordsIds, applicationLanguage, selectedLanguagePair) => dispatch => {
+    wordTrainingAPI.fetchTasks(selectedWordsIds, applicationLanguage, selectedLanguagePair)
                    .then(resp => {
                         dispatch({type: FETCHING_TASK_CARDS, serverPayload: resp.data})
                     })
