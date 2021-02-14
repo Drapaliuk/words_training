@@ -11,9 +11,10 @@ export const fetchingUserWordSets = () => {
     }
 };
 
-export const createWordSet = (words) => {
+export const createWordSet = (wordsKit) => {
     return dispatch => {
-        userWordsKitsAPI.createUserWordsKit(words)
+        console.log('wordsKit', wordsKit)
+        userWordsKitsAPI.createUserWordsKit(wordsKit)
                         .then(({data}) => {
                             if(data.responseCode === 1) {
                                 dispatch({type: CREATE_WORD_SET, serverPayload:data.payload})

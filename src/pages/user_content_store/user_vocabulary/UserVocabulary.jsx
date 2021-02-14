@@ -35,24 +35,24 @@ export function UserVocabulary() {
               /> }
 
             {
-                showCreatorButton   ?
-                                        <button className = {styles['show-set-creator-button']} 
-                                                onClick = {() => {
-                                                    setShowStatusWordSetCreator(true);
-                                                    setStatusShowSetCreatorButton(false)
-                                                }}
-                                        >
-                                            Створити власний набір слів
-                                        </button> 
-                                    : null
+                showCreatorButton   
+                                &&
+                <button className = {styles['show-set-creator-button']} 
+                        onClick = {() => {
+                            setShowStatusWordSetCreator(true);
+                            setStatusShowSetCreatorButton(false)
+                        }}
+                >
+                    Створити власний набір слів
+                </button> 
             }
 
             {
-                showWordSetCreator ? 
-                                     <UserWordSetCreator setStatusShowSetCreatorButton = {setStatusShowSetCreatorButton}
-                                                         setShowStatusWordSetCreator = {setShowStatusWordSetCreator}
-                                                          /> 
-                                   : null
+                showWordSetCreator 
+                        && 
+                <UserWordSetCreator setStatusShowSetCreatorButton = {setStatusShowSetCreatorButton}
+                                    setShowStatusWordSetCreator = {setShowStatusWordSetCreator}
+                                    /> 
             }
             
         </div>

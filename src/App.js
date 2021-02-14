@@ -6,7 +6,7 @@ import  { SpellingTraining, WordTraining, SelectingWords, TrainingResults, Knowl
           Introduction, MixedTraining, SelectingWordsKit,PausedTrainings,
           VocabularyTest, UserVocabulary, Login, SignIn, Cabinet } from './pages/index'
 import { checkAuthorization } from './redux/actions/authorization/authorization_actions';
-import { LanguageProvider } from './languages/context';
+import { LanguageContext } from './languages/context';
 
 
 
@@ -26,7 +26,7 @@ function App() {
 
 
   return (
-    <LanguageProvider value = {selectedLanguage}>
+    <LanguageContext.Provider value = {selectedLanguage}>
       <BrowserRouter> 
         <Route path = {'/knowledgetests/results'} component = {KnowledgeTestResults} />
         <Route path = {'/pausedTrainings'} component = {PausedTrainings} />
@@ -63,7 +63,7 @@ function App() {
           )
         }} />
       </BrowserRouter>
-    </LanguageProvider>
+    </LanguageContext.Provider>
           
   );
 }

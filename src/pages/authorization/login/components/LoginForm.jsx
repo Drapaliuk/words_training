@@ -28,7 +28,6 @@ function Form(props) {
                        validate = {[requiredField, maxLength10, minLength4]} 
                        component = {FormField} 
                        name = 'password' />
-
                 <button className = {styles['auth-button']}>Увійти</button>
             </form>
         </div>

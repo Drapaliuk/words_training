@@ -1,13 +1,14 @@
 import React from 'react';
-import { LanguageConsumer } from '../context';
+// import { LanguageConsumer } from '../context';
 import { insertingWords } from './service_function/inserting_words';
-
+import { LanguageContext } from '../context';
 
 
 
 
 export const translatableTextsCreator = translations => dictionaryPart => (key, accessOutsideKey, insertedWords) => {
-    const selectedLanguage = React.useContext(LanguageConsumer);
+    const selectedLanguage = React.useContext(LanguageContext);
+    console.log(selectedLanguage)
     
     if(insertedWords) {
         return insertingWords(translations[dictionaryPart][key][selectedLanguage], insertedWords)

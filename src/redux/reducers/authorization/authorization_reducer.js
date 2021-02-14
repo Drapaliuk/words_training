@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils';
 import { LOGIN, SIGN_IN, LOG_OUT, IS_AUTHORIZATION } from '../../action_types/index'; 
 
 const initialState = {

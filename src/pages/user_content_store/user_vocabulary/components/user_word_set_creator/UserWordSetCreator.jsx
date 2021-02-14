@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import styles from './UserWordSetCreator.module.css';
 import { createWordSet } from '../../../../../redux/actions/user_content_store/user_words_kits/user_words_kits_actions';
+import { getIds } from '../../../../../utils';
 
 const Form = function(props) {
     const { setStatusShowSetCreatorButton, setShowStatusWordSetCreator } = props
@@ -43,10 +44,12 @@ const WithReduxForm = reduxForm({form: 'userWordSet'})(Form);
 
 function UserWordSetCreator(props) {
     const dispatch = useDispatch()
-    const selectedWords = useSelector(state => state.userContentStore.selectedWords)
-    const { setStatusShowSetCreatorButton, setShowStatusWordSetCreator } = props
+    const selectedWords = useSelector(state => state.userContentStore.selectedWords);
+    const { setStatusShowSetCreatorButton, setShowStatusWordSetCreator } = props;
+
+
     const onSubmit = function(value) {
-        dispatch(createWordSet({...value, words: selectedWords}))
+        dispatch(createWordSet({serviceInfo: {name: {eng: value.wordSetName}}, words: getIds(selectedWords)}));
     }
         return (
             <WithReduxForm onSubmit = {onSubmit}
